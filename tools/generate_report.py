@@ -47,7 +47,7 @@ if XMAP_PATH.exists():
                 if "::" in name:
                     ns = name.split("::")[0]
                 else:
-                    ns = "<global>"
+                    ns = "_global"
                 XMAP_NS.append(ns)
     except Exception as e:
         print(f"[WARN] Failed to load xmap: {e}")
@@ -168,7 +168,7 @@ def _func_label(path: str) -> str:
 def _name_to_ns(name: str) -> str:
     if "::" in name:
         return name.split("::")[0]
-    return "<global>"
+    return "_global"
 
 
 def _unit_name_for_path(path: str, addr: int | None = None) -> str | None:
@@ -182,7 +182,8 @@ def _unit_name_for_path(path: str, addr: int | None = None) -> str | None:
     rest = path[len(f"asm/{mod}/"):]
     parts = Path(rest).parts
     if len(parts) > 1:
-        return f"{mod}/{parts[0]}"
+        unit = f"{mod}/{parts[0]}"
+        return unit.replace("<", "_").replace(">", "_")
 
     stem = Path(rest).stem
 
@@ -201,7 +202,8 @@ def _unit_name_for_path(path: str, addr: int | None = None) -> str | None:
             d_prev = addr - XMAP_ADDRS[idx - 1]
             d_next = XMAP_ADDRS[idx] - addr
             ns = XMAP_NS[idx - 1] if d_prev <= d_next else XMAP_NS[idx]
-        return f"{mod}/{ns}"
+        unit = f"{mod}/{ns}"
+        return unit.replace("<", "_").replace(">", "_")
 
     return None
 
