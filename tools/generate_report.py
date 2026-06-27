@@ -14,6 +14,7 @@ Usage:
 import argparse
 import json
 import re
+import bisect
 from pathlib import Path
 from collections import defaultdict
 
@@ -28,6 +29,28 @@ MATCHING_MARKER = "MATCHING"
 NONMATCHING_MARKER = "NONMATCHING"
 
 RETAIL_HASHES = BUILD_DIR / "retail_hashes.csv"
+XMAP_PATH = BUILD_DIR / "dlp_symbols/USA/CTRDash.xmap"
+
+# Load xmap for nearest-namespace resolution
+XMAP_ADDRS: list[int] = []
+XMAP_NS: list[str] = []
+if XMAP_PATH.exists():
+    try:
+        with open(XMAP_PATH) as f:
+            for line in f:
+                line = line.strip()
+                if not line or "\t" not in line:
+                    continue
+                addr_s, name = line.split("\t", 1)
+                addr = int(addr_s, 16)
+                XMAP_ADDRS.append(addr)
+                if "::" in name:
+                    ns = name.split("::")[0]
+                else:
+                    ns = "<global>"
+                XMAP_NS.append(ns)
+    except Exception as e:
+        print(f"[WARN] Failed to load xmap: {e}")
 
 SYMBOL_SIZES = {}
 ADDR_TO_SIZE: dict[int, int] = {}
@@ -64,6 +87,13 @@ def _get_size(path: str, addr: int | None = None) -> int:
         if addr2 in ADDR_TO_SIZE:
             return ADDR_TO_SIZE[addr2]
     return 4
+
+
+def _addr_from_path(path: str) -> int | None:
+    m = re.search(r"sub_([0-9A-Fa-f]{8})", path)
+    if m:
+        return int(m.group(1), 16)
+    return None
 
 
 def _addr_from_file(s_file: Path) -> int | None:
@@ -138,10 +168,17 @@ def _func_label(path: str) -> str:
     return Path(path).stem
 
 
-def _unit_name_for_path(path: str) -> str | None:
+def _name_to_ns(name: str) -> str:
+    if "::" in name:
+        return name.split("::")[0]
+    return "<global>"
+
+
+def _unit_name_for_path(path: str, addr: int | None = None) -> str | None:
     """Derive the unit name from a .s file path.
-    Named functions use first-level namespace as the unit.
-    Root sub_ functions return None → will be chunked into part_NN.
+    Named functions use first-level directory as the unit.
+    Root sub_ functions use nearest xmap namespace.
+    Named root-level files use their own stem as unit name.
     """
     m = re.match(r"^asm/([^/]+)/", path)
     mod = m.group(1) if m else "_"
@@ -149,6 +186,26 @@ def _unit_name_for_path(path: str) -> str | None:
     parts = Path(rest).parts
     if len(parts) > 1:
         return f"{mod}/{parts[0]}"
+
+    stem = Path(rest).stem
+
+    # Named function at module root — use its name as unit
+    if not stem.startswith("sub_"):
+        return f"{mod}/{stem}"
+
+    # Root-level sub_* — find nearest xmap namespace by address
+    if addr is not None and XMAP_ADDRS:
+        idx = bisect.bisect_left(XMAP_ADDRS, addr)
+        if idx == 0:
+            ns = XMAP_NS[0]
+        elif idx >= len(XMAP_ADDRS):
+            ns = XMAP_NS[-1]
+        else:
+            d_prev = addr - XMAP_ADDRS[idx - 1]
+            d_next = XMAP_ADDRS[idx] - addr
+            ns = XMAP_NS[idx - 1] if d_prev <= d_next else XMAP_NS[idx]
+        return f"{mod}/{ns}"
+
     return None
 
 
@@ -206,7 +263,8 @@ def group_funcs_into_units(
     root_funcs: dict[str, list[dict]] = defaultdict(list)
 
     for stem, info in statuses.items():
-        unit = _unit_name_for_path(info["path"])
+        addr = _addr_from_path(info["path"])
+        unit = _unit_name_for_path(info["path"], addr)
         if unit:
             named_groups[unit].append(info)
         else:
