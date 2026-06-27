@@ -28,10 +28,29 @@ MATCHING_MARKER = "MATCHING"
 NONMATCHING_MARKER = "NONMATCHING"
 
 FUNCTIONS_JSON = ASM_DIR / "functions.json"
+RETAIL_HASHES = BUILD_DIR / "retail_hashes.csv"
 
 SYMBOL_SIZES = {}
 STUB_SIZES = {}
+ADDR_TO_SIZE: dict[int, int] = {}
 
+# Load Ghidra retail function sizes (has 15110 entries with real sizes)
+if RETAIL_HASHES.exists():
+    try:
+        with open(RETAIL_HASHES) as f:
+            for line in f:
+                line = line.strip()
+                if not line or line.startswith("address"):
+                    continue
+                parts = line.split(",")
+                if len(parts) >= 3:
+                    addr = int(parts[0], 16)
+                    size = int(parts[2])
+                    ADDR_TO_SIZE[addr] = size
+    except Exception as e:
+        print(f"[WARN] Failed to load retail_hashes.csv: {e}")
+
+# Load functions.json as fallback
 if FUNCTIONS_JSON.exists():
     try:
         manifest = json.loads(FUNCTIONS_JSON.read_text())
@@ -43,13 +62,50 @@ if FUNCTIONS_JSON.exists():
         print(f"[WARN] Failed to load functions manifest: {e}")
 
 
+def _get_size(path: str) -> int:
+    """Look up function size: first by address from retail_hashes,
+    then by path from functions.json, default 4."""
+    # Try path from functions.json
+    if path in STUB_SIZES:
+        return STUB_SIZES[path]
+    # Try extracting address from path/filename and look up in retail_hashes
+    m = re.search(r"([0-9A-Fa-f]{8})", path)
+    if m:
+        addr = int(m.group(1), 16)
+        if addr in ADDR_TO_SIZE:
+            return ADDR_TO_SIZE[addr]
+    return 4
+
+
+def _addr_from_file(s_file: Path) -> int | None:
+    """Extract virtual address from a .s file's metadata comment."""
+    m = re.search(r"sub_([0-9A-Fa-f]{8})", s_file.name)
+    if m:
+        return int(m.group(1), 16)
+    try:
+        with open(s_file, "rb") as fh:
+            head = fh.read(200)
+        m = re.search(rb"Virtual Address:\s*0x([0-9A-Fa-f]{8})", head)
+        if m:
+            return int(m.group(1), 16)
+        m = re.search(rb"0x([0-9A-Fa-f]{8})", s_file.name.encode())
+        if m:
+            return int(m.group(1), 16)
+    except Exception:
+        pass
+    return None
+
+
 def get_func_statuses() -> dict[str, dict]:
     statuses = {}
 
     for s_file in sorted(ASM_DIR.rglob("*.s")):
         rel = s_file.relative_to(ROOT)
         rel_str = str(rel)
-        size = STUB_SIZES.get(rel_str, 4)
+        addr = _addr_from_file(s_file)
+        size = _get_size(rel_str)
+        if size == 4 and addr and addr in ADDR_TO_SIZE:
+            size = ADDR_TO_SIZE[addr]
         statuses[rel_str] = {
             "path": rel_str,
             "status": "NODECOMPILED",
