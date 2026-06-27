@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::InetAddress::InetAddress(const nn::nex::InetAddress&) [sub_00172C38]
- * Virtual Address: 0x00172C38
- * File Offset:     0x00072C38
+ * Function: nn::nex::InetAddress::InetAddress(const wchar_t*, unsigned short) [sub_001991BC]
+ * Virtual Address: 0x001991BC
+ * File Offset:     0x000991BC
  * Size (bytes):    64
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global InetAddress
-.type   InetAddress, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-InetAddress:  @ was sub_00172C38
+quazal_crc32:  @ was sub_001991BC
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 64 bytes at VA 0x00172C38 in build/code.dec.bin
+    @ Size: 64 bytes at VA 0x001991BC in build/code.dec.bin
     bx lr

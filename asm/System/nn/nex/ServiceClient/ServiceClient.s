@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::ServiceClient::~ServiceClient() [sub_00189AEC]
- * Virtual Address: 0x00189AEC
- * File Offset:     0x00089AEC
+ * Function: nn::nex::ServiceClient::ServiceClient(unsigned) [sub_001B05C0]
+ * Virtual Address: 0x001B05C0
+ * File Offset:     0x000B05C0
  * Size (bytes):    152
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global ServiceClient
-.type   ServiceClient, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-ServiceClient:  @ was sub_00189AEC
+quazal_crc32:  @ was sub_001B05C0
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 152 bytes at VA 0x00189AEC in build/code.dec.bin
+    @ Size: 152 bytes at VA 0x001B05C0 in build/code.dec.bin
     bx lr

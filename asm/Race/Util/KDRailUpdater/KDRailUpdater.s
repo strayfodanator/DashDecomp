@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Util::KDRailUpdater::KDRailUpdater(Util::KDRailBase*) [sub_002D43A0]
- * Virtual Address: 0x002D43A0
- * File Offset:     0x001D43A0
+ * Function: Util::KDRailUpdater::KDRailUpdater(Util::KDRailBase*) [sub_003034A8]
+ * Virtual Address: 0x003034A8
+ * File Offset:     0x002034A8
  * Size (bytes):    68
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global KDRailUpdater
-.type   KDRailUpdater, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-KDRailUpdater:  @ was sub_002D43A0
+quazal_crc32:  @ was sub_003034A8
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 68 bytes at VA 0x002D43A0 in build/code.dec.bin
+    @ Size: 68 bytes at VA 0x003034A8 in build/code.dec.bin
     bx lr

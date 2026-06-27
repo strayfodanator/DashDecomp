@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Render::DrawMdlMgr::createMaterialID() [sub_003EA6F4]
- * Virtual Address: 0x003EA6F4
- * File Offset:     0x002EA6F4
+ * Function: Render::DrawMdlMgr::createMaterialID() [sub_0041F5A4]
+ * Virtual Address: 0x0041F5A4
+ * File Offset:     0x0031F5A4
  * Size (bytes):    172
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global createMaterialID
-.type   createMaterialID, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-createMaterialID:  @ was sub_003EA6F4
+quazal_crc32:  @ was sub_0041F5A4
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 172 bytes at VA 0x003EA6F4 in build/code.dec.bin
+    @ Size: 172 bytes at VA 0x0041F5A4 in build/code.dec.bin
     bx lr

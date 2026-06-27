@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Jugem::Move::setTransCenter(const sead::Vector3<float>&, bool, int) [sub_00391D80]
- * Virtual Address: 0x00391D80
- * File Offset:     0x00291D80
+ * Function: Effect::CamEnvParticleRain::InitPrimitive() [sub_003C122C]
+ * Virtual Address: 0x003C122C
+ * File Offset:     0x002C122C
  * Size (bytes):    84
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global setTransCenter
-.type   setTransCenter, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-setTransCenter:  @ was sub_00391D80
+InitPrimitive:  @ was sub_003C122C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 84 bytes at VA 0x00391D80 in build/code.dec.bin
+    @ Size: 84 bytes at VA 0x003C122C in build/code.dec.bin
     bx lr

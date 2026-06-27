@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Enemy::AIRank::update() [sub_0030CD20]
- * Virtual Address: 0x0030CD20
- * File Offset:     0x0020CD20
+ * Function: Field::ObjectDirector::calcAfterStructure() [sub_0033C1C0]
+ * Virtual Address: 0x0033C1C0
+ * File Offset:     0x0023C1C0
  * Size (bytes):    224
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global update
-.type   update, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-update:  @ was sub_0030CD20
+calcAfterStructure:  @ was sub_0033C1C0
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 224 bytes at VA 0x0030CD20 in build/code.dec.bin
+    @ Size: 224 bytes at VA 0x0033C1C0 in build/code.dec.bin
     bx lr

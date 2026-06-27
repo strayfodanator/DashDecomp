@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::http::Connection::GetSslError(int*) const [sub_00498090]
- * Virtual Address: 0x00498090
- * File Offset:     0x00398090
+ * Function: nn::http::Connection::GetSslError(int*) const [sub_004F14FC]
+ * Virtual Address: 0x004F14FC
+ * File Offset:     0x003F14FC
  * Size (bytes):    156
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global GetSslError
-.type   GetSslError, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-GetSslError:  @ was sub_00498090
+quazal_crc32:  @ was sub_004F14FC
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 156 bytes at VA 0x00498090 in build/code.dec.bin
+    @ Size: 156 bytes at VA 0x004F14FC in build/code.dec.bin
     bx lr

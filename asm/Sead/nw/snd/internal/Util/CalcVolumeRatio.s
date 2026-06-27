@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nw::snd::internal::Util::CalcVolumeRatio(float) [sub_0024AD7C]
- * Virtual Address: 0x0024AD7C
- * File Offset:     0x0014AD7C
+ * Function: nw::snd::internal::Util::CalcVolumeRatio(float) [sub_0027591C]
+ * Virtual Address: 0x0027591C
+ * File Offset:     0x0017591C
  * Size (bytes):    72
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global CalcVolumeRatio
-.type   CalcVolumeRatio, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-CalcVolumeRatio:  @ was sub_0024AD7C
+quazal_crc32:  @ was sub_0027591C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 72 bytes at VA 0x0024AD7C in build/code.dec.bin
+    @ Size: 72 bytes at VA 0x0027591C in build/code.dec.bin
     bx lr

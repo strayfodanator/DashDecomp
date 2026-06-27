@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::ConnectionManager::ConnectionRequest(nn::nex::ConnectionOrientedStream*, const nn::nex::StationURL*, nn::nex::Buffer*, nn::nex::EndPoint*) [sub_001B0298]
- * Virtual Address: 0x001B0298
- * File Offset:     0x000B0298
+ * Function: nn::nex::ConnectionManager::ConnectionRequest(nn::nex::ConnectionOrientedStream*, const nn::nex::StationURL*, nn::nex::Buffer*, nn::nex::EndPoint*) [sub_001D6E14]
+ * Virtual Address: 0x001D6E14
+ * File Offset:     0x000D6E14
  * Size (bytes):    124
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global ConnectionRequest
-.type   ConnectionRequest, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-ConnectionRequest:  @ was sub_001B0298
+quazal_crc32:  @ was sub_001D6E14
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 124 bytes at VA 0x001B0298 in build/code.dec.bin
+    @ Size: 124 bytes at VA 0x001D6E14 in build/code.dec.bin
     bx lr

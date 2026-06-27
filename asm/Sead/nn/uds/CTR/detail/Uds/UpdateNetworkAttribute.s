@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::uds::CTR::detail::Uds::UpdateNetworkAttribute(unsigned short, bool) [sub_00203C24]
- * Virtual Address: 0x00203C24
- * File Offset:     0x00103C24
+ * Function: nn::uds::CTR::detail::Uds::UpdateNetworkAttribute(unsigned short, bool) [sub_0022AA38]
+ * Virtual Address: 0x0022AA38
+ * File Offset:     0x0012AA38
  * Size (bytes):    60
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global UpdateNetworkAttribute
-.type   UpdateNetworkAttribute, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-UpdateNetworkAttribute:  @ was sub_00203C24
+quazal_crc32:  @ was sub_0022AA38
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 60 bytes at VA 0x00203C24 in build/code.dec.bin
+    @ Size: 60 bytes at VA 0x0022AA38 in build/code.dec.bin
     bx lr

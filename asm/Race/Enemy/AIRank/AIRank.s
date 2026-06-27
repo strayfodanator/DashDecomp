@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Enemy::AIRank::AIRank(Enemy::AIInfo*) [sub_0030CE18]
- * Virtual Address: 0x0030CE18
- * File Offset:     0x0020CE18
+ * Function: Enemy::AIRank::AIRank(Enemy::AIInfo*) [sub_0033C2A0]
+ * Virtual Address: 0x0033C2A0
+ * File Offset:     0x0023C2A0
  * Size (bytes):    80
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global AIRank
-.type   AIRank, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-AIRank:  @ was sub_0030CE18
+quazal_crc32:  @ was sub_0033C2A0
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 80 bytes at VA 0x0030CE18 in build/code.dec.bin
+    @ Size: 80 bytes at VA 0x0033C2A0 in build/code.dec.bin
     bx lr

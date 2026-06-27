@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::snd::CTR::DspFxDelay::DspFxDelay() [sub_001FC120]
- * Virtual Address: 0x001FC120
- * File Offset:     0x000FC120
+ * Function: nn::snd::CTR::DspFxDelay::DspFxDelay() [sub_00222EEC]
+ * Virtual Address: 0x00222EEC
+ * File Offset:     0x00122EEC
  * Size (bytes):    36
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global DspFxDelay
-.type   DspFxDelay, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-DspFxDelay:  @ was sub_001FC120
+quazal_crc32:  @ was sub_00222EEC
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 36 bytes at VA 0x001FC120 in build/code.dec.bin
+    @ Size: 36 bytes at VA 0x00222EEC in build/code.dec.bin
     bx lr

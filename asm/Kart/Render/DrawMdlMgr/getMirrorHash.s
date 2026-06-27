@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Render::DrawMdlMgr::getMirrorHash(nw::gfx::res::ResRasterization) [sub_003EA42C]
- * Virtual Address: 0x003EA42C
- * File Offset:     0x002EA42C
+ * Function: Render::DrawMdlMgr::getMirrorHash(nw::gfx::res::ResRasterization) [sub_0041F34C]
+ * Virtual Address: 0x0041F34C
+ * File Offset:     0x0031F34C
  * Size (bytes):    192
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global getMirrorHash
-.type   getMirrorHash, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-getMirrorHash:  @ was sub_003EA42C
+quazal_crc32:  @ was sub_0041F34C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 192 bytes at VA 0x003EA42C in build/code.dec.bin
+    @ Size: 192 bytes at VA 0x0041F34C in build/code.dec.bin
     bx lr

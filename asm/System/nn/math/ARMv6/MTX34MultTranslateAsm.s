@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::math::ARMv6::MTX34MultTranslateAsm(nn::math::MTX34*, const nn::math::MTX34*, const nn::math::VEC3*) [sub_001134B0]
- * Virtual Address: 0x001134B0
- * File Offset:     0x000134B0
+ * Function: nw::gfx::internal::NWCopyMtx44Reverse(float*, const float*) [sub_00113760]
+ * Virtual Address: 0x00113760
+ * File Offset:     0x00013760
  * Size (bytes):    52
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global MTX34MultTranslateAsm
-.type   MTX34MultTranslateAsm, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-MTX34MultTranslateAsm:  @ was sub_001134B0
+NWCopyMtx44Reverse:  @ was sub_00113760
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 52 bytes at VA 0x001134B0 in build/code.dec.bin
+    @ Size: 52 bytes at VA 0x00113760 in build/code.dec.bin
     bx lr

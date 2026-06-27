@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Item::ItemReactProxy::updateColShape() [sub_0029DF2C]
- * Virtual Address: 0x0029DF2C
- * File Offset:     0x0019DF2C
+ * Function: Item::ItemReactProxy::updateColShape() [sub_002CD064]
+ * Virtual Address: 0x002CD064
+ * File Offset:     0x001CD064
  * Size (bytes):    76
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global updateColShape
-.type   updateColShape, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-updateColShape:  @ was sub_0029DF2C
+quazal_crc32:  @ was sub_002CD064
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 76 bytes at VA 0x0029DF2C in build/code.dec.bin
+    @ Size: 76 bytes at VA 0x002CD064 in build/code.dec.bin
     bx lr

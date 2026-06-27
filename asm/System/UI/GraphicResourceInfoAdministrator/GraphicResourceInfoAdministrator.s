@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: UI::GraphicResourceInfoAdministrator::GraphicResourceInfoAdministrator() [sub_0015B7AC]
- * Virtual Address: 0x0015B7AC
- * File Offset:     0x0005B7AC
+ * Function: UI::GraphicResourceInfoAdministrator::GraphicResourceInfoAdministrator() [sub_00176460]
+ * Virtual Address: 0x00176460
+ * File Offset:     0x00076460
  * Size (bytes):    40
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global GraphicResourceInfoAdministrator
-.type   GraphicResourceInfoAdministrator, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-GraphicResourceInfoAdministrator:  @ was sub_0015B7AC
+quazal_crc32:  @ was sub_00176460
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 40 bytes at VA 0x0015B7AC in build/code.dec.bin
+    @ Size: 40 bytes at VA 0x00176460 in build/code.dec.bin
     bx lr

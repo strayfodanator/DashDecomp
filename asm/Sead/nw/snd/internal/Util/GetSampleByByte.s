@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nw::snd::internal::Util::GetSampleByByte(unsigned long, nw::snd::SampleFormat) [sub_0024AE20]
- * Virtual Address: 0x0024AE20
- * File Offset:     0x0014AE20
+ * Function: nw::snd::internal::Util::GetSampleByByte(unsigned long, nw::snd::SampleFormat) [sub_002759E4]
+ * Virtual Address: 0x002759E4
+ * File Offset:     0x001759E4
  * Size (bytes):    72
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global GetSampleByByte
-.type   GetSampleByByte, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-GetSampleByByte:  @ was sub_0024AE20
+quazal_crc32:  @ was sub_002759E4
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 72 bytes at VA 0x0024AE20 in build/code.dec.bin
+    @ Size: 72 bytes at VA 0x002759E4 in build/code.dec.bin
     bx lr

@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: _printf_truncate_signed [sub_00115768]
- * Virtual Address: 0x00115768
- * File Offset:     0x00015768
+ * Function: _printf_truncate_signed [sub_00115A4C]
+ * Virtual Address: 0x00115A4C
+ * File Offset:     0x00015A4C
  * Size (bytes):    36
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global printf_truncate_signed
-.type   printf_truncate_signed, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-printf_truncate_signed:  @ was sub_00115768
+quazal_crc32:  @ was sub_00115A4C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 36 bytes at VA 0x00115768 in build/code.dec.bin
+    @ Size: 36 bytes at VA 0x00115A4C in build/code.dec.bin
     bx lr

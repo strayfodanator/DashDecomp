@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sound::SndUtil::getIdxLessThan(unsigned, unsigned*, unsigned char) [sub_003A6ED0]
- * Virtual Address: 0x003A6ED0
- * File Offset:     0x002A6ED0
+ * Function: Sound::SndUtil::getIdxLessThan(unsigned, unsigned*, unsigned char) [sub_003D6B2C]
+ * Virtual Address: 0x003D6B2C
+ * File Offset:     0x002D6B2C
  * Size (bytes):    172
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global getIdxLessThan
-.type   getIdxLessThan, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-getIdxLessThan:  @ was sub_003A6ED0
+quazal_crc32:  @ was sub_003D6B2C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 172 bytes at VA 0x003A6ED0 in build/code.dec.bin
+    @ Size: 172 bytes at VA 0x003D6B2C in build/code.dec.bin
     bx lr

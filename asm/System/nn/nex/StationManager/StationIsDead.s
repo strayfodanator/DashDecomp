@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::StationManager::StationIsDead(nn::nex::DOHandle) [sub_001937E4]
- * Virtual Address: 0x001937E4
- * File Offset:     0x000937E4
+ * Function: nn::nex::StationManager::StationIsDead(nn::nex::DOHandle) [sub_001BA32C]
+ * Virtual Address: 0x001BA32C
+ * File Offset:     0x000BA32C
  * Size (bytes):    60
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global StationIsDead
-.type   StationIsDead, %function
+.global quazal_crc32
+.type   quazal_crc32, %function
 
-StationIsDead:  @ was sub_001937E4
+quazal_crc32:  @ was sub_001BA32C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 60 bytes at VA 0x001937E4 in build/code.dec.bin
+    @ Size: 60 bytes at VA 0x001BA32C in build/code.dec.bin
     bx lr
