@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Util::Math::rotate<(int)0>(sead::Matrix34<float>*, float) [sub_0059F8F8]
- * Virtual Address: 0x0059F8F8
- * File Offset:     0x0049F8F8
+ * Function: Util::Math::rotate<(int)2>(sead::Matrix34<float>*, float) [sub_0059FA08]
+ * Virtual Address: 0x0059FA08
+ * File Offset:     0x0049FA08
  * Size (bytes):    164
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-txv_validateTextureValidator:  @ was sub_0059F8F8
+vldtr_validateAllState:  @ was sub_0059FA08
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 164 bytes at VA 0x0059F8F8 in build/code.dec.bin
+    @ Size: 164 bytes at VA 0x0059FA08 in build/code.dec.bin
     bx lr

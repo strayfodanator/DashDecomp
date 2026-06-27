@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::DOClassTemplate<nn::nex::_DO_DefaultCell, nn::nex::_DOC_RootDO>::SpecificExtractADataset(nn::nex::DuplicatedObject*, nn::nex::Message*, unsigned char) [sub_00593670]
- * Virtual Address: 0x00593670
- * File Offset:     0x00493670
+ * Function: nn::nex::DOClassTemplate<nn::nex::_DO_IDGenerator, nn::nex::_DOC_RootDO>::SpecificExtractADataset(nn::nex::DuplicatedObject*, nn::nex::Message*, unsigned char) [sub_0059382C]
+ * Virtual Address: 0x0059382C
+ * File Offset:     0x0049382C
  * Size (bytes):    164
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-txv_validateTextureValidator:  @ was sub_00593670
+vldtr_validateAllState:  @ was sub_0059382C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 164 bytes at VA 0x00593670 in build/code.dec.bin
+    @ Size: 164 bytes at VA 0x0059382C in build/code.dec.bin
     bx lr

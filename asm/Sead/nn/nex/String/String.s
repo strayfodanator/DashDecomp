@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::String::String(const char*) [sub_00210AA4]
- * Virtual Address: 0x00210AA4
- * File Offset:     0x00110AA4
+ * Function: nn::nex::String::String(const wchar_t*) [sub_00210B00]
+ * Virtual Address: 0x00210B00
+ * File Offset:     0x00110B00
  * Size (bytes):    88
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-txv_validateTextureValidator:  @ was sub_00210AA4
+vldtr_validateAllState:  @ was sub_00210B00
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 88 bytes at VA 0x00210AA4 in build/code.dec.bin
+    @ Size: 88 bytes at VA 0x00210B00 in build/code.dec.bin
     bx lr

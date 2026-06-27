@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sequence::DummySectionClassInfo<Sequence::DummyDataHolder>::constructSection(Sequence::SectionDirector*) [sub_005C9B20]
- * Virtual Address: 0x005C9B20
- * File Offset:     0x004C9B20
+ * Function: Sequence::DummySectionClassInfo<Sequence::DummyPage>::constructSection(Sequence::SectionDirector*) [sub_005C9BE0]
+ * Virtual Address: 0x005C9BE0
+ * File Offset:     0x004C9BE0
  * Size (bytes):    92
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-txv_validateTextureValidator:  @ was sub_005C9B20
+vldtr_validateAllState:  @ was sub_005C9BE0
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 92 bytes at VA 0x005C9B20 in build/code.dec.bin
+    @ Size: 92 bytes at VA 0x005C9BE0 in build/code.dec.bin
     bx lr

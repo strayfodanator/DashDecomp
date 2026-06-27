@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sequence::PlaySe(Sound::SndSeEvent::EEvent) [sub_004CE8C8]
- * Virtual Address: 0x004CE8C8
- * File Offset:     0x003CE8C8
+ * Function: Sequence::PlaySe(Sound::SndSeEvent::EEvent, int) [sub_004CE914]
+ * Virtual Address: 0x004CE914
+ * File Offset:     0x003CE914
  * Size (bytes):    68
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-txv_validateTextureValidator:  @ was sub_004CE8C8
+vldtr_validateAllState:  @ was sub_004CE914
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 68 bytes at VA 0x004CE8C8 in build/code.dec.bin
+    @ Size: 68 bytes at VA 0x004CE914 in build/code.dec.bin
     bx lr

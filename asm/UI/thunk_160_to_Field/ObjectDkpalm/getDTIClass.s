@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: thunk{-160} to Field::ObjectDkpalm::getDTIClass() const [sub_00520E80]
- * Virtual Address: 0x00520E80
- * File Offset:     0x00420E80
+ * Function: thunk{-160} to Field::ObjectDkpalm::getDTIClass() const [sub_00522704]
+ * Virtual Address: 0x00522704
+ * File Offset:     0x00422704
  * Size (bytes):    12
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-txv_validateTextureValidator:  @ was sub_00520E80
+vldtr_validateAllState:  @ was sub_00522704
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 12 bytes at VA 0x00520E80 in build/code.dec.bin
+    @ Size: 12 bytes at VA 0x00522704 in build/code.dec.bin
     bx lr

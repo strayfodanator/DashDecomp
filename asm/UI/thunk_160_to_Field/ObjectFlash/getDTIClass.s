@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: thunk{-160} to Field::ObjectFlash::getDTIClass() const [nnosStackMemoryBlockAllocate] [sub_005222FC]
- * Virtual Address: 0x005222FC
- * File Offset:     0x004222FC
+ * Function: thunk{-160} to Field::ObjectFlash::getDTIClass() const [sub_00520B8C]
+ * Virtual Address: 0x00520B8C
+ * File Offset:     0x00420B8C
  * Size (bytes):    12
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-nnosStackMemoryBlockAllocate:  @ was sub_005222FC
+vldtr_validateAllState:  @ was sub_00520B8C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 12 bytes at VA 0x005222FC in build/code.dec.bin
+    @ Size: 12 bytes at VA 0x00520B8C in build/code.dec.bin
     bx lr

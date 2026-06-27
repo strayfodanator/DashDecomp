@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: sead::DirectResourceFactory<sead::DirectResource>::~DirectResourceFactory__deallocating() [sub_005BD0B4]
- * Virtual Address: 0x005BD0B4
- * File Offset:     0x004BD0B4
+ * Function: sead::DirectResourceFactory<sead::GraphicsFileResNw4c>::~DirectResourceFactory__deallocating() [sub_005BD0E8]
+ * Virtual Address: 0x005BD0E8
+ * File Offset:     0x004BD0E8
  * Size (bytes):    16
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-txv_validateTextureValidator:  @ was sub_005BD0B4
+vldtr_validateAllState:  @ was sub_005BD0E8
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 16 bytes at VA 0x005BD0B4 in build/code.dec.bin
+    @ Size: 16 bytes at VA 0x005BD0E8 in build/code.dec.bin
     bx lr

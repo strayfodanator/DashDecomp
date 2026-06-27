@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sequence::MenuMulti_SyncBase<Sequence::MenuSingle_Class>::canFinishFadeout() [sub_005C917C]
- * Virtual Address: 0x005C917C
- * File Offset:     0x004C917C
+ * Function: Sequence::MenuMulti_SyncBase<Sequence::MenuSingle_CupGP>::canFinishFadeout() [sub_005C9608]
+ * Virtual Address: 0x005C9608
+ * File Offset:     0x004C9608
  * Size (bytes):    68
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-txv_validateTextureValidator:  @ was sub_005C917C
+vldtr_validateAllState:  @ was sub_005C9608
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 68 bytes at VA 0x005C917C in build/code.dec.bin
+    @ Size: 68 bytes at VA 0x005C9608 in build/code.dec.bin
     bx lr

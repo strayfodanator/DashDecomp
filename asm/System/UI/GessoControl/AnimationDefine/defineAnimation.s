@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: UI::CommunityIconLoader::replaceIconTexture(const UI::CommunityIcon::Info&) [sub_0014EC10]
- * Virtual Address: 0x0014EC10
- * File Offset:     0x0004EC10
+ * Function: UI::GessoControl::AnimationDefine::defineAnimation() [sub_00183214]
+ * Virtual Address: 0x00183214
+ * File Offset:     0x00083214
  * Size (bytes):    332
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-replaceIconTexture:  @ was sub_0014EC10
+vldtr_validateAllState:  @ was sub_00183214
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 332 bytes at VA 0x0014EC10 in build/code.dec.bin
+    @ Size: 332 bytes at VA 0x00183214 in build/code.dec.bin
     bx lr

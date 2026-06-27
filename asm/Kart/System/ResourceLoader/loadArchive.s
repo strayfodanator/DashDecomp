@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: System::ResourceLoader::loadArchive(const System::KDArchiveSource*, const System::KDArchiveFile::CreateArg&) [sub_004466A4]
- * Virtual Address: 0x004466A4
- * File Offset:     0x003466A4
+ * Function: System::ResourceLoader::loadArchive(const sead::SafeStringBase<char>&, const System::KDArchiveFile::CreateArg&) [sub_004466E8]
+ * Virtual Address: 0x004466E8
+ * File Offset:     0x003466E8
  * Size (bytes):    68
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-txv_validateTextureValidator:  @ was sub_004466A4
+vldtr_validateAllState:  @ was sub_004466E8
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 68 bytes at VA 0x004466A4 in build/code.dec.bin
+    @ Size: 68 bytes at VA 0x004466E8 in build/code.dec.bin
     bx lr

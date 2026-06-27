@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Net::NetworkSelectMenuProcess::createNetwork(const nn::dlp::CTR::RebootInfo&) [sub_00277AD0]
- * Virtual Address: 0x00277AD0
- * File Offset:     0x00177AD0
+ * Function: Net::NetworkSelectMenuProcess::loginNetwork() [sub_00277A6C]
+ * Virtual Address: 0x00277A6C
+ * File Offset:     0x00177A6C
  * Size (bytes):    376
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-createNetwork:  @ was sub_00277AD0
+loginNetwork:  @ was sub_00277A6C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 376 bytes at VA 0x00277AD0 in build/code.dec.bin
+    @ Size: 376 bytes at VA 0x00277A6C in build/code.dec.bin
     bx lr

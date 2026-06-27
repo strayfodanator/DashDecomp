@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: operator delete[] (void*) [sub_00526D9C]
- * Virtual Address: 0x00526D9C
- * File Offset:     0x00426D9C
+ * Function: operator delete (void*) [sub_00526DE4]
+ * Virtual Address: 0x00526DE4
+ * File Offset:     0x00426DE4
  * Size (bytes):    64
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-txv_validateTextureValidator:  @ was sub_00526D9C
+vldtr_validateAllState:  @ was sub_00526DE4
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 64 bytes at VA 0x00526D9C in build/code.dec.bin
+    @ Size: 64 bytes at VA 0x00526DE4 in build/code.dec.bin
     bx lr

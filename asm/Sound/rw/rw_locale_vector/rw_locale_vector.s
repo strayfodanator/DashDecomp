@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: __rw::__rw_locale_vector<__rw::__rw_facet_base*>::~__rw_locale_vector() [sub_0059FFF4]
- * Virtual Address: 0x0059FFF4
- * File Offset:     0x0049FFF4
+ * Function: __rw::__rw_locale_vector<__rw::__rw_cat*>::~__rw_locale_vector() [sub_005A000C]
+ * Virtual Address: 0x005A000C
+ * File Offset:     0x004A000C
  * Size (bytes):    24
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-txv_validateTextureValidator:  @ was sub_0059FFF4
+vldtr_validateAllState:  @ was sub_005A000C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 24 bytes at VA 0x0059FFF4 in build/code.dec.bin
+    @ Size: 24 bytes at VA 0x005A000C in build/code.dec.bin
     bx lr

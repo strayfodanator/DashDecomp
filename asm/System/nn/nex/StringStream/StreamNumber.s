@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::StringStream::StreamNumber(int) [sub_001A5ED4]
- * Virtual Address: 0x001A5ED4
- * File Offset:     0x000A5ED4
+ * Function: nn::nex::StringStream::StreamNumber(unsigned) [sub_001A5F64]
+ * Virtual Address: 0x001A5F64
+ * File Offset:     0x000A5F64
  * Size (bytes):    128
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-txv_validateTextureValidator:  @ was sub_001A5ED4
+vldtr_validateAllState:  @ was sub_001A5F64
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 128 bytes at VA 0x001A5ED4 in build/code.dec.bin
+    @ Size: 128 bytes at VA 0x001A5F64 in build/code.dec.bin
     bx lr

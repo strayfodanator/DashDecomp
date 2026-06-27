@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::JobBackEndServicesLogin::ProcessSecConnConnectionResult() [sub_001D78DC]
- * Virtual Address: 0x001D78DC
- * File Offset:     0x000D78DC
+ * Function: nn::nex::IsAKindOfDOFilter::Filter(nn::nex::DOHandle) [sub_001D78A4]
+ * Virtual Address: 0x001D78A4
+ * File Offset:     0x000D78A4
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-ProcessSecConnConnectionResult:  @ was sub_001D78DC
+vldtr_validateAllState:  @ was sub_001D78A4
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x001D78DC in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x001D78A4 in build/code.dec.bin
     bx lr

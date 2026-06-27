@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: thunk{-160} to Field::ObjectKinoko::getDTIClassInfo() const [sub_00520EEC]
- * Virtual Address: 0x00520EEC
- * File Offset:     0x00420EEC
+ * Function: thunk{-160} to Field::ObjectKinoko::getDTIClassInfo() const [sub_0052289C]
+ * Virtual Address: 0x0052289C
+ * File Offset:     0x0042289C
  * Size (bytes):    12
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-txv_validateTextureValidator:  @ was sub_00520EEC
+vldtr_validateAllState:  @ was sub_0052289C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 12 bytes at VA 0x00520EEC in build/code.dec.bin
+    @ Size: 12 bytes at VA 0x0052289C in build/code.dec.bin
     bx lr

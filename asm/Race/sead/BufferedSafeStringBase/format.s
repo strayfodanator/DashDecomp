@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: sead::BufferedSafeStringBase<char>::format(const char*, ...) [sub_003127FC]
- * Virtual Address: 0x003127FC
- * File Offset:     0x002127FC
+ * Function: sead::BufferedSafeStringBase<wchar_t>::format(const wchar_t*, ...) [sub_0031288C]
+ * Virtual Address: 0x0031288C
+ * File Offset:     0x0021288C
  * Size (bytes):    76
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-txv_validateTextureValidator:  @ was sub_003127FC
+vldtr_validateAllState:  @ was sub_0031288C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 76 bytes at VA 0x003127FC in build/code.dec.bin
+    @ Size: 76 bytes at VA 0x0031288C in build/code.dec.bin
     bx lr

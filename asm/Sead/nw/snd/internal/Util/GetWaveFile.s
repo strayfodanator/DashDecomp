@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Net::NetworkFriendsManager::updateFriendApproachBuffer() [sub_002755A8]
- * Virtual Address: 0x002755A8
- * File Offset:     0x001755A8
+ * Function: nw::snd::internal::Util::GetWaveFile(unsigned, unsigned, const nw::snd::SoundArchive&, const nw::snd::SoundArchivePlayer&) [sub_00275620]
+ * Virtual Address: 0x00275620
+ * File Offset:     0x00175620
  * Size (bytes):    120
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-updateFriendApproachBuffer:  @ was sub_002755A8
+vldtr_validateAllState:  @ was sub_00275620
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 120 bytes at VA 0x002755A8 in build/code.dec.bin
+    @ Size: 120 bytes at VA 0x00275620 in build/code.dec.bin
     bx lr

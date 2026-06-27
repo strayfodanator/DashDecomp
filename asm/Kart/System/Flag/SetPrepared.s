@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sequence::CrossFadeSequence::reenter() [sub_00450704]
- * Virtual Address: 0x00450704
- * File Offset:     0x00350704
+ * Function: System::Flag::SetPrepared(RaceSys::ETireID) [sub_00450748]
+ * Virtual Address: 0x00450748
+ * File Offset:     0x00350748
  * Size (bytes):    64
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-reenter:  @ was sub_00450704
+vldtr_validateAllState:  @ was sub_00450748
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 64 bytes at VA 0x00450704 in build/code.dec.bin
+    @ Size: 64 bytes at VA 0x00450748 in build/code.dec.bin
     bx lr

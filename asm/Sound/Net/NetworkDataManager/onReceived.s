@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Net::NetworkDataManager<Net::NetworkSystemSendFormat>::onReceived(const Net::NetworkReceivedInfo&) [sub_0059B380]
- * Virtual Address: 0x0059B380
- * File Offset:     0x0049B380
+ * Function: Net::NetworkDataManager<Net::NetworkSelectMenuSendFormat>::onReceived(const Net::NetworkReceivedInfo&) [sub_0059B504]
+ * Virtual Address: 0x0059B504
+ * File Offset:     0x0049B504
  * Size (bytes):    80
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-txv_validateTextureValidator:  @ was sub_0059B380
+vldtr_validateAllState:  @ was sub_0059B504
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 80 bytes at VA 0x0059B380 in build/code.dec.bin
+    @ Size: 80 bytes at VA 0x0059B504 in build/code.dec.bin
     bx lr

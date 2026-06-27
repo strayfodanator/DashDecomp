@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::MethodCallJob<nn::nex::CallRegister, int, nn::nex::PeriodicJob>::~MethodCallJob__deallocating() [sub_00591968]
- * Virtual Address: 0x00591968
- * File Offset:     0x00491968
+ * Function: nn::nex::MethodCallJob<nn::nex::MatchOperation, int, nn::nex::Job>::~MethodCallJob__deallocating() [sub_005919A4]
+ * Virtual Address: 0x005919A4
+ * File Offset:     0x004919A4
  * Size (bytes):    16
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global txv_validateTextureValidator
-.type   txv_validateTextureValidator, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-txv_validateTextureValidator:  @ was sub_00591968
+vldtr_validateAllState:  @ was sub_005919A4
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 16 bytes at VA 0x00591968 in build/code.dec.bin
+    @ Size: 16 bytes at VA 0x005919A4 in build/code.dec.bin
     bx lr
