@@ -18,40 +18,59 @@ The goal is to move every function from 🔴 → 🟡 → 🟢.
 
 ---
 
-## How to Contribute
+## Branch & PR Guidelines
 
-### Option A: Use decomp.me (Easiest — No Setup Required)
+To keep the git history clean and make reviews efficient, we follow a strict **class-scoped** workflow:
 
-1. Go to [decomp.me/projects/dashdecomp](https://decomp.me/projects/dashdecomp)
-2. Pick any function from the list
-3. Paste the assembly from `asm/` into a new "scratch"
-4. Write C++ in the editor until the diff turns fully green (100% match)
-5. Copy your C++ and open a PR against this repo
+1. **One Class per Branch/PR:** 
+   - Every Pull Request and branch must focus on **only one class** (e.g., branch `class/KartMove` for working on `KartMove`).
+   - Do **NOT** mix modifications to different classes in a single PR.
+   
+2. **Partial Decompilation is Welcome:**
+   - You do **not** need to decompile 100% of a class to submit a PR.
+   - Contributions of any size (even just 5% or 10% of a class, or a single function) are welcome, as long as they are contained within that class's branch.
 
-### Option B: Contribute Locally (Full Setup)
+3. **Branch Naming Convention:**
+   - Use the prefix `class/` followed by the class name.
+     - Example: `class/KartMove`
+     - Example: `class/RaceDirector`
+
+4. **Pull Request Title Format:**
+   - Use the format: `[matching] Module::Class (Progress Update)`
+     - Example: `[matching] Kart::KartMove (added 3 functions)`
+     - Example: `[matching] Race::RaceDirector (100% matched)`
+
+---
+
+## How to Contribute (Local Workflow)
 
 1. **Fork & clone the repo:**
    ```bash
-   git clone --recursive https://github.com/YOUR_ORG/dashdecomp.git
+   git clone --recursive https://github.com/strayfodanator/dashdecomp.git
    cd dashdecomp
    ```
 
-2. **Install dependencies and extract the ROM:**
+2. **Create your class-specific branch:**
+   ```bash
+   git checkout -b class/KartMove
+   ```
+
+3. **Install dependencies and extract the ROM:**
    ```bash
    ./setup.sh
    cp /path/to/MarioKart7.3ds baserom/game.3ds
    make extract
    ```
 
-3. **Pick a function to decompile:**
-   Browse `asm/` for a function that looks approachable. Functions are organized by module (`Kart/`, `Race/`, `Item/`, etc.).
+4. **Pick a function to decompile:**
+   Browse `asm/` for a function belonging to your target class.
 
-4. **Write C++ for the function:**
-   - Create the corresponding file in `src/` (e.g., `src/Kart/KartMove.cpp`)
-   - Add the header declaration in `include/` (e.g., `include/Kart/KartMove.h`)
-   - Mark it as `NONMATCHING` in the source (see below)
+5. **Write C++ for the function:**
+   - Create/edit the corresponding file in `src/` (e.g., `src/Kart/KartMove.cpp`)
+   - Add/edit the header declaration in `include/` (e.g., `include/Kart/KartMove.h`)
+   - Mark it as `NONMATCHING` in the source if it is work-in-progress, or let it match.
 
-5. **Compare your output with asm-differ:**
+6. **Compare your output with asm-differ:**
    ```bash
    # Activate the venv first
    source .venv/bin/activate
@@ -60,12 +79,13 @@ The goal is to move every function from 🔴 → 🟡 → 🟢.
    python tools/asm-differ/diff.py -u3 FunctionName
    ```
 
-6. **Once it matches, update the state to MATCHING:**
+7. **Verify & Check:**
    ```bash
-   make check  # Should print PASS ✅
+   make check  # Should print PASS ✅ if all matched functions are byte-identical
    ```
 
-7. **Open a Pull Request** with a clear title like `[matching] Kart::KartMove::calcPhysics`
+8. **Commit & Push:**
+   Keep all commits in this branch restricted to this class, then open your PR.
 
 ---
 
