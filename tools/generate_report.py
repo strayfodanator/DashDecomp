@@ -105,6 +105,12 @@ def _func_label(path: str) -> str:
     return stem
 
 
+def _extract_sub_addr(path: str) -> int | None:
+    """Extract address from a sub_XXXXXXXX path like asm/Item/sub_00470030.s → 0x00470030"""
+    m = re.search(r"sub_([0-9A-Fa-f]{8})", path)
+    return int(m.group(1), 16) if m else None
+
+
 def _is_root_func(path: str) -> bool:
     """True if the .s file sits directly in the module root."""
     return bool(re.match(r"^asm/[^/]+/sub_", path))
@@ -186,7 +192,13 @@ def group_funcs_into_units(
         # Sort by the sub_ address so chunks are contiguous
         funcs.sort(key=lambda f: f["path"])
         for idx, chunk in enumerate(_chunk_list(funcs, CHUNK_SIZE)):
-            chunk_name = f"{mod}/_unk_{idx:03d}"
+            # Use address range for chunk name
+            first_addr = _extract_sub_addr(chunk[0]["path"])
+            last_addr = _extract_sub_addr(chunk[-1]["path"]) + chunk[-1]["size"] - 1
+            if first_addr and last_addr:
+                chunk_name = f"{mod}/{first_addr:08X}_{last_addr:08X}"
+            else:
+                chunk_name = f"{mod}/_unk_{idx:03d}"
             total_code = sum(f["size"] for f in chunk)
             matched_code = sum(f["size"] for f in chunk if f["status"] == "MATCHING")
             total_fns = len(chunk)
