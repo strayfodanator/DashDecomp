@@ -3,10 +3,9 @@
 DashDecomp — Progress Report Generator
 Generates a report.json compatible with decomp.dev's expected format.
 
-This script scans the asm/ and src/ directories to determine:
-  - NODECOMPILED: functions that only have .s stubs (not yet decompiled)
-  - NONMATCHING:  functions with C++ written but not yet byte-identical
-  - MATCHING:     functions that compile byte-identically to the original
+Groups functions into Units by their directory in asm/,
+so each Unit corresponds to a logical grouping of related functions
+(e.g. Item/Enemy/AIRankGroupMiddle contains multiple functions).
 
 Usage:
   python tools/generate_report.py [--output build/report.json]
@@ -14,33 +13,28 @@ Usage:
 
 import argparse
 import json
-import os
 import re
 from pathlib import Path
+from collections import defaultdict
 
-# ── Paths ────────────────────────────────────────────────────────────────────
-ROOT       = Path(__file__).parent.parent
-ASM_DIR    = ROOT / "asm"
-SRC_DIR    = ROOT / "src"
-BUILD_DIR  = ROOT / "build"
+ROOT = Path(__file__).parent.parent
+ASM_DIR = ROOT / "asm"
+SRC_DIR = ROOT / "src"
+BUILD_DIR = ROOT / "build"
 
-# ── Known total code size (decompressed code.bin) ────────────────────────────
-# MD5 confirmed: 4b8320677e3311b14a75d2abb97772e8
-TOTAL_CODE_SIZE = 5488 * 1024  # 5,488 KB in bytes
+TOTAL_CODE_SIZE = 5488 * 1024
 
-# ── Annotation markers used in .cpp files ────────────────────────────────────
-MATCHING_MARKER    = "MATCHING"
+MATCHING_MARKER = "MATCHING"
 NONMATCHING_MARKER = "NONMATCHING"
 
-# ── Load functions size manifest ─────────────────────────────────────────────
 FUNCTIONS_JSON = ASM_DIR / "functions.json"
+
 SYMBOL_SIZES = {}
 STUB_SIZES = {}
 
 if FUNCTIONS_JSON.exists():
     try:
-        import json as j
-        manifest = j.loads(FUNCTIONS_JSON.read_text())
+        manifest = json.loads(FUNCTIONS_JSON.read_text())
         for rel_path, size in manifest.items():
             STUB_SIZES[rel_path] = size
             symbol_name = Path(rel_path).stem
@@ -48,123 +42,211 @@ if FUNCTIONS_JSON.exists():
     except Exception as e:
         print(f"[WARN] Failed to load functions manifest: {e}")
 
-def count_asm_stubs() -> list[dict]:
-    """Scan asm/ for .s files — each represents a NODECOMPILED function."""
-    stubs = []
+
+def get_func_statuses() -> dict[str, dict]:
+    """
+    Scan asm/ and src/ and return a dict mapping function path stem → status info.
+      status: "MATCHING" | "NONMATCHING" | "NODECOMPILED"
+    """
+    statuses = {}
+
     for s_file in sorted(ASM_DIR.rglob("*.s")):
-        if s_file.name == "functions.json":
-            continue
         rel = s_file.relative_to(ROOT)
         rel_str = str(rel)
-        size = STUB_SIZES.get(rel_str, 4)  # fallback to 4 bytes if not in manifest
-        stubs.append({
-            "path":   rel_str,
+        size = STUB_SIZES.get(rel_str, 4)
+        stem = s_file.stem
+        statuses[stem] = {
+            "path": rel_str,
             "status": "NODECOMPILED",
-            "size":   size,
-        })
-    return stubs
+            "size": size,
+        }
 
-
-def count_src_functions() -> list[dict]:
-    """
-    Scan src/ for .cpp files.
-    Each function annotated with MATCHING or NONMATCHING is counted accordingly.
-    Supports symbol tagging: e.g., '// MATCHING sub_00280000'
-    """
-    funcs = []
     for cpp_file in sorted(SRC_DIR.rglob("*.cpp")):
-        rel = cpp_file.relative_to(ROOT)
         text = cpp_file.read_text(errors="ignore")
 
-        # Find markers: MATCHING sub_XXXX or NONMATCHING sub_XXXX
-        # e.g., "// MATCHING sub_00280000" or "// status: MATCHING"
-        matches = re.finditer(r"\b(MATCHING|NONMATCHING)\b(?:\s*[:\-(\s]\s*)?(sub_[0-9A-Fa-f]{8})?", text)
-        found_any = False
-
-        for match in matches:
-            found_any = True
+        for match in re.finditer(
+            r"\b(MATCHING|NONMATCHING)\b(?:\s*[:\-(\s]\s*)?(sub_[0-9A-Fa-f]{8})?",
+            text,
+        ):
             status = match.group(1)
             symbol = match.group(2)
-            
-            size = 100  # Default fallback size for C++ functions
+
+            size = 100
             if symbol and symbol in SYMBOL_SIZES:
                 size = SYMBOL_SIZES[symbol]
             elif not symbol:
-                # Try to search the whole file for any sub_XXXXXXXX symbol to associate the size
                 sub_match = re.search(r"\b(sub_[0-9A-Fa-f]{8})\b", text)
                 if sub_match and sub_match.group(1) in SYMBOL_SIZES:
                     size = SYMBOL_SIZES[sub_match.group(1)]
 
-            funcs.append({
-                "path":   f"{rel}:{symbol or 'unknown'}",
-                "status": status,
-                "size":   size,
+            key = symbol or cpp_file.stem
+            if key and key not in statuses:
+                statuses[key] = {
+                    "path": f"{cpp_file.relative_to(ROOT)}:{key}",
+                    "status": status,
+                    "size": size,
+                }
+
+    return statuses
+
+
+CHUNK_SIZE = 50
+
+
+def _func_label(path: str) -> str:
+    """Extract display name from an asm path.
+    e.g. asm/Item/Enemy/AIRankGroupMiddle/getGroupKind.s → Enemy/AIRankGroupMiddle/getGroupKind
+         asm/Item/sub_00470030.s                          → sub_00470030
+    """
+    stem = Path(path).stem
+    m = re.match(r"^asm/[^/]+/(.+)", path)
+    if m:
+        return Path(m.group(1)).with_suffix("").as_posix()
+    return stem
+
+
+def _is_root_func(path: str) -> bool:
+    """True if the .s file sits directly in the module root."""
+    return bool(re.match(r"^asm/[^/]+/sub_", path))
+
+
+def _chunk_list(lst: list, size: int):
+    """Yield successive chunks of `size` from lst."""
+    for i in range(0, len(lst), size):
+        yield lst[i : i + size]
+
+
+def group_funcs_into_units(
+    statuses: dict[str, dict],
+) -> list[dict]:
+    """
+    Group functions into Units.
+
+    - Functions in subdirectories → grouped by leaf directory
+      (e.g. Item/Enemy/AIRankGroupMiddle)
+    - Root-level unnamed functions → chunked into groups of CHUNK_SIZE
+      (e.g. Item/_unk_000, Item/_unk_001, …)
+    """
+    # Separate root vs subdirectory functions
+    subdir_funcs: dict[str, list[dict]] = defaultdict(list)
+    root_funcs: dict[str, list[dict]] = defaultdict(list)
+
+    for stem, info in statuses.items():
+        path = info["path"]
+        m = re.match(r"^asm/([^/]+)", path)
+        mod = m.group(1) if m else "_"
+
+        if _is_root_func(path):
+            root_funcs[mod].append(info)
+        else:
+            # Use leaf directory as unit name
+            m2 = re.match(r"^asm/(.+)/[^/]+$", path)
+            unit_name = m2.group(1) if m2 else stem
+            subdir_funcs[unit_name].append(info)
+
+    units = []
+
+    # ── Build subdirectory units ──────────────────────────────────────────
+    for unit_name, funcs in sorted(subdir_funcs.items()):
+        total_code = sum(f["size"] for f in funcs)
+        matched_code = sum(f["size"] for f in funcs if f["status"] == "MATCHING")
+        total_fns = len(funcs)
+        matched_fns = sum(1 for f in funcs if f["status"] == "MATCHING")
+        fuzzy_pct = (matched_code / total_code * 100.0) if total_code > 0 else 0.0
+        complete = matched_fns == total_fns
+
+        functions_list = [
+            {
+                "name": _func_label(f["path"]),
+                "size": f["size"],
+                "fuzzy_match_percent": 100.0 if f["status"] == "MATCHING" else 0.0,
+                "metadata": {"virtual_address": 0},
+            }
+            for f in funcs
+        ]
+
+        units.append({
+            "name": unit_name,
+            "metadata": {"progress_categories": [], "complete": complete},
+            "measures": {
+                "fuzzy_match_percent": fuzzy_pct,
+                "total_code": total_code,
+                "matched_code": matched_code,
+                "total_data": 0,
+                "matched_data": 0,
+                "total_functions": total_fns,
+                "matched_functions": matched_fns,
+            },
+            "functions": functions_list,
+        })
+
+    # ── Build root-level chunked units ────────────────────────────────────
+    for mod in sorted(root_funcs):
+        funcs = root_funcs[mod]
+        # Sort by the sub_ address so chunks are contiguous
+        funcs.sort(key=lambda f: f["path"])
+        for idx, chunk in enumerate(_chunk_list(funcs, CHUNK_SIZE)):
+            chunk_name = f"{mod}/_unk_{idx:03d}"
+            total_code = sum(f["size"] for f in chunk)
+            matched_code = sum(f["size"] for f in chunk if f["status"] == "MATCHING")
+            total_fns = len(chunk)
+            matched_fns = sum(1 for f in chunk if f["status"] == "MATCHING")
+            fuzzy_pct = (matched_code / total_code * 100.0) if total_code > 0 else 0.0
+            complete = matched_fns == total_fns
+
+            functions_list = [
+                {
+                    "name": _func_label(f["path"]),
+                    "size": f["size"],
+                    "fuzzy_match_percent": 100.0 if f["status"] == "MATCHING" else 0.0,
+                    "metadata": {"virtual_address": 0},
+                }
+                for f in chunk
+            ]
+
+            units.append({
+                "name": chunk_name,
+                "metadata": {"progress_categories": [], "complete": complete},
+                "measures": {
+                    "fuzzy_match_percent": fuzzy_pct,
+                    "total_code": total_code,
+                    "matched_code": matched_code,
+                    "total_data": 0,
+                    "matched_data": 0,
+                    "total_functions": total_fns,
+                    "matched_functions": matched_fns,
+                },
+                "functions": functions_list,
             })
 
-        # If the file has no markers, check if it contains sub_XXXX to guess size, count as 1 NONMATCHING unit
-        if not found_any:
-            size = 100
-            sub_match = re.search(r"\b(sub_[0-9A-Fa-f]{8})\b", text)
-            if sub_match and sub_match.group(1) in SYMBOL_SIZES:
-                size = SYMBOL_SIZES[sub_match.group(1)]
-            
-            funcs.append({
-                "path":   str(rel),
-                "status": "NONMATCHING",
-                "size":   size,
-            })
-
-    return funcs
+    return units
 
 
 def build_report() -> dict:
-    stubs    = count_asm_stubs()
-    src_fns  = count_src_functions()
+    statuses = get_func_statuses()
+    units = group_funcs_into_units(statuses)
 
-    # Calculate actual bytes instead of guessing proportionally
-    total_code = sum(entry["size"] for entry in stubs + src_fns)
-    matched_code = sum(entry["size"] for entry in src_fns if entry["status"] == "MATCHING")
+    total_code = sum(u["measures"]["total_code"] for u in units)
+    total_fns = sum(u["measures"]["total_functions"] for u in units)
+    matched_code = sum(u["measures"]["matched_code"] for u in units)
+    matched_fns = sum(u["measures"]["matched_functions"] for u in units)
 
-    # If functions.json wasn't loaded or total size is 0, fallback to known total code size
     if total_code == 0:
         total_code = TOTAL_CODE_SIZE
 
-    total_funcs = len(stubs) + len(src_fns)
-    matched_funcs = sum(1 for f in src_fns if f["status"] == "MATCHING")
-
     matched_pct = (matched_code / total_code * 100.0) if total_code > 0 else 0.0
-
-    # Build the units list in the objdiff report.json format
-    units = []
-    for entry in stubs + src_fns:
-        is_matched = entry["status"] == "MATCHING"
-        size = entry["size"]
-        units.append({
-            "name":     entry["path"],
-            "metadata": {
-                "progress_categories": [],
-                "complete": is_matched,
-            },
-            "measures": {
-                "fuzzy_match_percent":  100.0 if is_matched else 0.0,
-                "total_code":           size,
-                "matched_code":         size if is_matched else 0,
-                "total_data":           0,
-                "matched_data":         0,
-                "total_functions":      1,
-                "matched_functions":    1 if is_matched else 0,
-            },
-        })
 
     report = {
         "measures": {
-            "fuzzy_match_percent":  matched_pct,
-            "total_code":           total_code,
-            "matched_code":         matched_code,
-            "total_data":           0,
-            "matched_data":         0,
-            "total_functions":      total_funcs,
-            "matched_functions":    matched_funcs,
+            "fuzzy_match_percent": matched_pct,
+            "total_code": total_code,
+            "matched_code": matched_code,
+            "total_data": 0,
+            "matched_data": 0,
+            "total_functions": total_fns,
+            "matched_functions": matched_fns,
+            "total_units": len(units),
+            "complete_units": sum(1 for u in units if u["metadata"]["complete"]),
         },
         "units": units,
     }
@@ -173,9 +255,15 @@ def build_report() -> dict:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate decomp.dev-compatible report.json")
-    parser.add_argument("--output", "-o", default="build/report.json",
-                        help="Output path for the report JSON (default: build/report.json)")
+    parser = argparse.ArgumentParser(
+        description="Generate decomp.dev-compatible report.json"
+    )
+    parser.add_argument(
+        "--output",
+        "-o",
+        default="build/report.json",
+        help="Output path for the report JSON (default: build/report.json)",
+    )
     args = parser.parse_args()
 
     output = ROOT / args.output
@@ -187,11 +275,13 @@ def main():
         json.dump(report, f, indent=2)
 
     m = report["measures"]
-    total_fn  = m["total_functions"]
-    match_fn  = m["matched_functions"]
-    pct       = m["fuzzy_match_percent"]
+    total_fn = m["total_functions"]
+    match_fn = m["matched_functions"]
+    total_units = m["total_units"]
+    pct = m["fuzzy_match_percent"]
 
     print(f"[OK]  Report written to {output}")
+    print(f"      Units:     {total_units}")
     print(f"      Functions: {match_fn}/{total_fn} matched")
     print(f"      Progress:  {pct:.2f}%")
 
