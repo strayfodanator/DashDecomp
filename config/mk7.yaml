@@ -1,0 +1,58 @@
+# DashDecomp — Symbol Map Configuration
+# Mario Kart 7 (v1.0, USA) — Title ID: 0004000000030800
+#
+# This file is used by decomp-toolkit (dtk) to guide disassembly.
+# Known function names are sourced from community reverse engineering work
+# (CTGP-7, PabloMK7 symbol maps, MK7-Memory project).
+#
+# Format:
+#   address: FunctionName  [module]
+#
+# Addresses are based on the ARM11 memory map.
+# The code.bin is loaded at base address 0x00100000 in 3DS user memory.
+
+version: USA_V10
+base_address: 0x00100000
+
+# ── Known Symbols (from CTGP-7 / community RE work) ──────────────────────────
+# These will be populated as the community maps more functions.
+# Add entries as: { address: 0x001XXXXX, name: "Namespace::Class::Function" }
+
+symbols:
+  # ── System / Main ──────────────────────────────────────────────────────────
+  # - { address: 0x00100000, name: "main" }                    # Entry point
+
+  # ── sead (Nintendo engine library) ────────────────────────────────────────
+  # - { address: 0x00XXXXXX, name: "sead::Heap::alloc" }
+  # - { address: 0x00XXXXXX, name: "sead::FixedSizeJQ::run" }
+
+  # ── Race ──────────────────────────────────────────────────────────────────
+  # - { address: 0x00XXXXXX, name: "Race::RaceDirector::init" }
+  # - { address: 0x00XXXXXX, name: "Race::RaceDirector::calc" }
+
+  # ── Kart ──────────────────────────────────────────────────────────────────
+  # - { address: 0x00XXXXXX, name: "Kart::KartMove::calcSpeed" }
+  # - { address: 0x00XXXXXX, name: "Kart::KartPhysics::update" }
+  # - { address: 0x00XXXXXX, name: "Kart::KartCollide::calcCollision" }
+
+  # ── Item ──────────────────────────────────────────────────────────────────
+  # - { address: 0x00XXXXXX, name: "Item::ItemDirector::calcItem" }
+  # - { address: 0x00XXXXXX, name: "Item::ItemBox::onHit" }
+
+  # ── UI ────────────────────────────────────────────────────────────────────
+  # - { address: 0x00XXXXXX, name: "UI::CourseSelectMenu::init" }
+
+  # ── Net (Online) ──────────────────────────────────────────────────────────
+  # - { address: 0x00XXXXXX, name: "Net::RaceClient::sendKartState" }
+
+# ── Notes ─────────────────────────────────────────────────────────────────────
+# To populate this file:
+# 1. Load code.dec.bin into Ghidra with ARM Cortex-A9 processor
+# 2. Run the auto-analysis
+# 3. Cross-reference with CTGP-7 source and PabloMK7's symbol maps
+# 4. Add confirmed symbols here with their VA (virtual address)
+#
+# Resources:
+#   CTGP-7 open source: https://github.com/PabloMK7/CTGP-7_Open_Source
+#   MK7 RE repo:        https://github.com/PabloMK7
+#   3dbrew memory map:  https://www.3dbrew.org/wiki/Memory_layout

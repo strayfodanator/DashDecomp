@@ -1,0 +1,28 @@
+# ROM — NEVER commit the ROM
+baserom/
+build/
+
+# Python virtual environment
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.o
+*.a
+*.elf
+*.bin
+*.map
