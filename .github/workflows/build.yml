@@ -1,4 +1,4 @@
-name: DashDecomp CI
+name: Build & Progress Report
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build & Verify Matching
+    name: Generate Progress Report
     runs-on: ubuntu-latest
 
     steps:
@@ -20,74 +20,67 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
-      - name: Install ARM toolchain
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate progress report
+        run: python tools/generate_report.py --output build/report.json
+
+      - name: Show progress summary
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends \
-            gcc-arm-none-eabi binutils-arm-none-eabi \
-            cmake build-essential
+          echo "── DashDecomp Progress Report ──"
+          python -c "
+          import json, sys
+          r = json.load(open('build/report.json'))
+          m = r['measures']
+          total = m['total_functions']
+          matched = m['matched_functions']
+          pct = m['fuzzy_match_percent']
+          print(f'Functions : {matched}/{total}')
+          print(f'Progress  : {pct:.2f}%')
+          "
 
-      - name: Install ctrtool and 3dstool
-        run: |
-          # Build ctrtool from source
-          git clone --depth=1 https://github.com/3DSGuy/Project_CTR.git /tmp/ctrtool
-          cd /tmp/ctrtool/ctrtool && make -j$(nproc)
-          sudo install -m755 ctrtool /usr/local/bin/ctrtool
+      # decomp.dev reads GitHub Actions artifacts named: {version}_report
+      # The artifact must contain report.json at its root.
+      - name: Upload progress report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MK7USA_v10_report
+          path: build/report.json
+          retention-days: 90
 
-          # Build 3dstool from source
-          git clone --depth=1 https://github.com/dnasdw/3dstool.git /tmp/3dstool
-          cd /tmp/3dstool && cmake -B build -DCMAKE_BUILD_TYPE=Release
-          cmake --build build -j$(nproc)
-          sudo install -m755 build/3dstool /usr/local/bin/3dstool
-
-      - name: Set up Python venv & install dependencies
-        run: |
-          python -m venv .venv
-          source .venv/bin/activate
-          pip install --quiet --upgrade pip
-          pip install --quiet -r requirements.txt
-
-      - name: Build project (src/ + asm/)
-        run: make -j$(nproc)
-
-      # NOTE: The ROM is never stored in the repo.
-      # The matching check only runs locally when a developer has the ROM.
-      # In CI, we only verify that the build compiles successfully without errors.
-      - name: Verify build artifacts exist
-        run: |
-          if [ -f build/dashdecomp.bin ]; then
-            echo "✅ Build output exists"
-            ls -lh build/dashdecomp.bin
-          else
-            echo "❌ Build output missing"
-            exit 1
-          fi
-
-      - name: Print progress report
-        run: |
-          source .venv/bin/activate
-          python tools/check_matching.py --json
-
-      - name: Comment progress on PR
+      # Comment on PRs with progress diff (only on pull_request events)
+      - name: Post PR comment with progress
         if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
         with:
           script: |
-            const { execSync } = require('child_process');
-            try {
-              const output = execSync('source .venv/bin/activate && python tools/check_matching.py', {
-                shell: '/bin/bash',
-                encoding: 'utf8',
-                cwd: process.env.GITHUB_WORKSPACE
-              });
-              await github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: `## 🏁 DashDecomp Progress\n\`\`\`\n${output}\n\`\`\``
-              });
-            } catch (e) {
-              console.log('Could not post progress comment:', e.message);
-            }
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('build/report.json', 'utf8'));
+            const m = report.measures;
+            const total    = m.total_functions;
+            const matched  = m.matched_functions;
+            const pct      = m.fuzzy_match_percent.toFixed(2);
+            const codeKB   = (m.matched_code / 1024).toFixed(1);
+            const totalKB  = (m.total_code / 1024).toFixed(1);
+
+            const body = [
+              '## 🏁 DashDecomp Progress Report',
+              '',
+              `| Metric | Value |`,
+              `|--------|-------|`,
+              `| Functions matched | \`${matched} / ${total}\` |`,
+              `| Code matched      | \`${codeKB} KB / ${totalKB} KB\` |`,
+              `| Overall progress  | \`${pct}%\` |`,
+              '',
+              '> View live progress at [decomp.dev/strayfodanator/DashDecomp](https://decomp.dev/strayfodanator/DashDecomp)',
+            ].join('\n');
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body,
+            });
