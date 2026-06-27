@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sequence::SequenceResource::SequenceResource() [sub_0049D958]
- * Virtual Address: 0x0049D958
- * File Offset:     0x0039D958
+ * Function: Sequence::SequenceResource::~SequenceResource() [sub_0049D990]
+ * Virtual Address: 0x0049D990
+ * File Offset:     0x0039D990
  * Size (bytes):    24
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global quazal_crc32
-.type   quazal_crc32, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-quazal_crc32:  @ was sub_0049D958
+txv_validateTextureValidator:  @ was sub_0049D990
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 24 bytes at VA 0x0049D958 in build/code.dec.bin
+    @ Size: 24 bytes at VA 0x0049D990 in build/code.dec.bin
     bx lr

@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Field::ObjectDkAirship::getDTIClassStatic() [sub_003492BC]
- * Virtual Address: 0x003492BC
- * File Offset:     0x002492BC
+ * Function: Field::ObjectCmnCarGenerator::getDTIClassStatic() [sub_00378810]
+ * Virtual Address: 0x00378810
+ * File Offset:     0x00278810
  * Size (bytes):    308
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global getDTIClassStatic
-.type   getDTIClassStatic, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-getDTIClassStatic:  @ was sub_003492BC
+getDTIClassStatic:  @ was sub_00378810
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 308 bytes at VA 0x003492BC in build/code.dec.bin
+    @ Size: 308 bytes at VA 0x00378810 in build/code.dec.bin
     bx lr

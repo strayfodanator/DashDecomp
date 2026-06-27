@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nw::font::RectDrawer::DisableTextures() [sub_00254E8C]
- * Virtual Address: 0x00254E8C
- * File Offset:     0x00154E8C
+ * Function: nw::gfx::res::ResTexture::Setup(nw::os::IAllocator*) [sub_00254DE4]
+ * Virtual Address: 0x00254DE4
+ * File Offset:     0x00154DE4
  * Size (bytes):    164
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global quazal_crc32
-.type   quazal_crc32, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-DisableTextures:  @ was sub_00254E8C
+txv_validateTextureValidator:  @ was sub_00254DE4
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 164 bytes at VA 0x00254E8C in build/code.dec.bin
+    @ Size: 164 bytes at VA 0x00254DE4 in build/code.dec.bin
     bx lr

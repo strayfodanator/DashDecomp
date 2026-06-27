@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: sead::WFixedSafeString<(int)17>::WFixedSafeString() [sub_005BCCA8]
- * Virtual Address: 0x005BCCA8
- * File Offset:     0x004BCCA8
+ * Function: sead::WFixedSafeString<(int)32>::WFixedSafeString() [sub_005BCD34]
+ * Virtual Address: 0x005BCD34
+ * File Offset:     0x004BCD34
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global quazal_crc32
-.type   quazal_crc32, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-quazal_crc32:  @ was sub_005BCCA8
+txv_validateTextureValidator:  @ was sub_005BCD34
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x005BCCA8 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x005BCD34 in build/code.dec.bin
     bx lr

@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::UdsNode::UdsNode(nn::nex::UdsSetting*) [sub_001F34EC]
- * Virtual Address: 0x001F34EC
- * File Offset:     0x000F34EC
+ * Function: nw::gfx::RenderContext::RenderPrimitive(nw::gfx::res::ResPrimitive) [sub_0021A2E4]
+ * Virtual Address: 0x0021A2E4
+ * File Offset:     0x0011A2E4
  * Size (bytes):    236
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global UdsNode
-.type   UdsNode, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-UdsNode:  @ was sub_001F34EC
+RenderPrimitive:  @ was sub_0021A2E4
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 236 bytes at VA 0x001F34EC in build/code.dec.bin
+    @ Size: 236 bytes at VA 0x0021A2E4 in build/code.dec.bin
     bx lr

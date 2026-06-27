@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::UdsNodeBase::UnregisterGathering() [sub_00177424]
- * Virtual Address: 0x00177424
- * File Offset:     0x00077424
+ * Function: nn::nex::UdsNodeBase::UnregisterGathering() [sub_0019D9B8]
+ * Virtual Address: 0x0019D9B8
+ * File Offset:     0x0009D9B8
  * Size (bytes):    72
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global UnregisterGathering
-.type   UnregisterGathering, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-UnregisterGathering:  @ was sub_00177424
+txv_validateTextureValidator:  @ was sub_0019D9B8
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 72 bytes at VA 0x00177424 in build/code.dec.bin
+    @ Size: 72 bytes at VA 0x0019D9B8 in build/code.dec.bin
     bx lr

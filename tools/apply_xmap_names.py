@@ -134,9 +134,144 @@ def main():
         retail_addr, _ = retail_hash_to_addr[h]
         matched[retail_addr] = raw_name
 
-    print(f"[INFO] Matched {len(matched)} symbols")
+    print(f"[INFO] Matched {len(matched)} symbols (hash match)")
     print(f"[INFO]   No DLP hash entry: {no_dlp_hash}")
     print(f"[INFO]   No retail hash match: {no_retail_match}")
+
+    # ── Phase 2: Address-match exact ──────────────────────────────────────
+    # For xmap entries that didn't hash-match, check if the DLP address
+    # exists at the same address in retail_hashes.csv
+    print("[INFO] Phase 2: Exact address matching...")
+    retail_addr_to_hash = load_csv_by_addr(RETAIL_HASHES)
+    addr_matched: dict[int, str] = {}
+    for dlp_addr, raw_name in xmap.items():
+        if dlp_addr in matched.values():
+            continue
+        if dlp_addr in matched:
+            continue
+        if dlp_addr in retail_addr_to_hash:
+            h2, _ = retail_addr_to_hash[dlp_addr]
+            if h2 not in retail_hash_to_addr:
+                continue
+            raddr, _ = retail_hash_to_addr[h2]
+            if raddr == dlp_addr and raddr not in matched:
+                addr_matched[raddr] = raw_name
+
+    print(f"[INFO] Address-matched: {len(addr_matched)}")
+    matched.update(addr_matched)
+
+    # ── Phase 3: Segment-sequential matching ──────────────────────────────
+    # Use hash-matched functions as anchors; within each segment,
+    # match retail unmatched to DLP unmatched (with xmap names)
+    # sequentially by similar size.
+    print("[INFO] Phase 3: Segment-sequential matching...")
+
+    all_retail: list[tuple[int, str, int]] = []
+    with open(RETAIL_HASHES) as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("address"):
+                continue
+            parts = line.split(",")
+            if len(parts) >= 3:
+                all_retail.append(
+                    (int(parts[0], 16), parts[1].strip(), int(parts[2]))
+                )
+    all_retail.sort(key=lambda x: x[0])
+
+    all_dlp: list[tuple[int, str]] = []
+    with open(DLP_HASHES) as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("address"):
+                continue
+            parts = line.split(",")
+            if len(parts) >= 2:
+                all_dlp.append((int(parts[0], 16), parts[1].strip()))
+    all_dlp.sort(key=lambda x: x[0])
+
+    dlp_hash_to_retail = {h: a for a, (h, s) in retail_addr_to_hash.items()}
+
+    # Build anchor pairs from hash-matched functions: (retail_addr, dlp_addr)
+    # These are ground-truth correspondences between the two binaries
+    dlp_hash_to_addr = {h: a for a, h in all_dlp}
+    anchor_set: set[tuple[int, int]] = set()
+    for ra, rh, rs in all_retail:
+        if rh in dlp_hash_to_addr:
+            da = dlp_hash_to_addr[rh]
+            if da in xmap:
+                anchor_set.add((ra, da))
+    anchor_pairs = sorted(anchor_set, key=lambda x: x[0])
+    print(f"[INFO] Anchor pairs (hash ground truth): {len(anchor_pairs)}")
+
+    matched_addrs = set(matched.keys())
+
+    # Identify unmatched retail (FUN_*) and unmatched DLP (addrs in xmap)
+    retail_unmatched_list = [
+        (a, h, s) for a, h, s in all_retail
+        if a not in matched_addrs
+    ]
+    dlp_xmap_addrs = set(xmap.keys())
+    dlp_unmatched_list = [
+        (a, h) for a, h in all_dlp
+        if a in dlp_xmap_addrs and h not in dlp_hash_to_retail
+    ]
+
+    print(f"[INFO] Retail unmatched after hash+addr: {len(retail_unmatched_list)}")
+    print(f"[INFO] DLP unmatched with xmap name: {len(dlp_unmatched_list)}")
+
+    # DLP address → size mapping
+    dlp_addr_to_size: dict[int, int] = {}
+    with open(DLP_HASHES) as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("address"):
+                continue
+            parts = line.split(",")
+            if len(parts) >= 3:
+                dlp_addr_to_size[int(parts[0], 16)] = int(parts[2])
+
+    # Segment-sequential matching
+    seq_matched: dict[int, str] = {}
+
+    def match_segment(ra_start, ra_end, da_start, da_end):
+        r_seg = [(a, h, s) for a, h, s in retail_unmatched_list if ra_start < a < ra_end]
+        d_seg = [(a, h) for a, h in dlp_unmatched_list if da_start < a < da_end]
+        ri, di = 0, 0
+        seg_matches = 0
+        while ri < len(r_seg) and di < len(d_seg):
+            ra, rh, rs = r_seg[ri]
+            da, dh = d_seg[di]
+            ds = dlp_addr_to_size.get(da, 0)
+            if abs(rs - ds) / max(rs, ds, 1) <= 0.3:
+                name = xmap.get(da, "")
+                if name and ra not in matched and ra not in seq_matched:
+                    seq_matched[ra] = name
+                    seg_matches += 1
+                ri += 1
+                di += 1
+            elif rs < ds:
+                ri += 1
+            else:
+                di += 1
+        return seg_matches
+
+    total_seg = 0
+    for i in range(len(anchor_pairs) - 1):
+        total_seg += match_segment(
+            anchor_pairs[i][0], anchor_pairs[i + 1][0],
+            anchor_pairs[i][1], anchor_pairs[i + 1][1],
+        )
+    # Head and tail
+    if anchor_pairs:
+        total_seg += match_segment(0, anchor_pairs[0][0], 0, anchor_pairs[0][1])
+        total_seg += match_segment(anchor_pairs[-1][0], 0xFFFFFFFF, anchor_pairs[-1][1], 0xFFFFFFFF)
+
+    print(f"[INFO] Segment-sequential matches: {total_seg}")
+    matched.update(seq_matched)
+
+    total_matched = len(matched)
+    print(f"[INFO] Total matched (all phases): {total_matched}")
 
     # Load current stubs
     stubs: dict[str, int] = {}

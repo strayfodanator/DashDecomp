@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sequence::MenuMulti_SyncBase<Sequence::MenuSingle_Class>::onPageComplete() [sub_005C9068]
- * Virtual Address: 0x005C9068
- * File Offset:     0x004C9068
+ * Function: Sequence::MenuMulti_SyncBase<Sequence::MenuSingle_CupGP>::onPageComplete() [sub_005C94F4]
+ * Virtual Address: 0x005C94F4
+ * File Offset:     0x004C94F4
  * Size (bytes):    268
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global quazal_crc32
-.type   quazal_crc32, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-quazal_crc32:  @ was sub_005C9068
+txv_validateTextureValidator:  @ was sub_005C94F4
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 268 bytes at VA 0x005C9068 in build/code.dec.bin
+    @ Size: 268 bytes at VA 0x005C94F4 in build/code.dec.bin
     bx lr

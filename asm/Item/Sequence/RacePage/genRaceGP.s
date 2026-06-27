@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sequence::RacePage::genRaceGP() [sub_0048186C]
- * Virtual Address: 0x0048186C
- * File Offset:     0x0038186C
+ * Function: Sequence::RacePage::genRaceGP() [sub_004D9238]
+ * Virtual Address: 0x004D9238
+ * File Offset:     0x003D9238
  * Size (bytes):    176
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global genRaceGP
-.type   genRaceGP, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-genRaceGP:  @ was sub_0048186C
+txv_validateTextureValidator:  @ was sub_004D9238
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 176 bytes at VA 0x0048186C in build/code.dec.bin
+    @ Size: 176 bytes at VA 0x004D9238 in build/code.dec.bin
     bx lr

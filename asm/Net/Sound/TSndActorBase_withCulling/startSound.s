@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sound::TSndActorBase_withCulling<(int)2>::startSound(unsigned, Sound::SndHandle*) [sub_005C112C]
- * Virtual Address: 0x005C112C
- * File Offset:     0x004C112C
+ * Function: Sound::TSndActorBase_withCulling<(int)4>::startSound(unsigned, Sound::SndHandle*) [sub_005C1B2C]
+ * Virtual Address: 0x005C1B2C
+ * File Offset:     0x004C1B2C
  * Size (bytes):    392
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global quazal_crc32
-.type   quazal_crc32, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-quazal_crc32:  @ was sub_005C112C
+txv_validateTextureValidator:  @ was sub_005C1B2C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 392 bytes at VA 0x005C112C in build/code.dec.bin
+    @ Size: 392 bytes at VA 0x005C1B2C in build/code.dec.bin
     bx lr

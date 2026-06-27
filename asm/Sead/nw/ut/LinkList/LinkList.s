@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nw::ut::LinkList<nw::lyt::internal::Stopwatch, (long)0>::~LinkList() [sub_0023B06C]
- * Virtual Address: 0x0023B06C
- * File Offset:     0x0013B06C
+ * Function: nw::ut::LinkList<nw::snd::FxBase, (long)4>::~LinkList() [sub_0023B088]
+ * Virtual Address: 0x0023B088
+ * File Offset:     0x0013B088
  * Size (bytes):    28
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global quazal_crc32
-.type   quazal_crc32, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-quazal_crc32:  @ was sub_0023B06C
+txv_validateTextureValidator:  @ was sub_0023B088
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 28 bytes at VA 0x0023B06C in build/code.dec.bin
+    @ Size: 28 bytes at VA 0x0023B088 in build/code.dec.bin
     bx lr

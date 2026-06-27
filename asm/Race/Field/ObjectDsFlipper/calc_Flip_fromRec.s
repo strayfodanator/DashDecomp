@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Field::ObjectDsFlipper::calc_Flip_fromRec() [sub_0034AA98]
- * Virtual Address: 0x0034AA98
- * File Offset:     0x0024AA98
+ * Function: Field::ObjectDsFlipper::calc_Flip_fromRec() [sub_00379F18]
+ * Virtual Address: 0x00379F18
+ * File Offset:     0x00279F18
  * Size (bytes):    308
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global calc_Flip_fromRec
-.type   calc_Flip_fromRec, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-calc_Flip_fromRec:  @ was sub_0034AA98
+txv_validateTextureValidator:  @ was sub_00379F18
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 308 bytes at VA 0x0034AA98 in build/code.dec.bin
+    @ Size: 308 bytes at VA 0x00379F18 in build/code.dec.bin
     bx lr

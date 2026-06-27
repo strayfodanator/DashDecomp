@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: sead::BufferedSafeStringBase<char>::assureTerminationImpl_() const [sub_005CFFC8]
- * Virtual Address: 0x005CFFC8
- * File Offset:     0x004CFFC8
+ * Function: sead::BufferedSafeStringBase<wchar_t>::assureTerminationImpl_() const [sub_005CFFE0]
+ * Virtual Address: 0x005CFFE0
+ * File Offset:     0x004CFFE0
  * Size (bytes):    24
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global quazal_crc32
-.type   quazal_crc32, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-quazal_crc32:  @ was sub_005CFFC8
+txv_validateTextureValidator:  @ was sub_005CFFE0
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 24 bytes at VA 0x005CFFC8 in build/code.dec.bin
+    @ Size: 24 bytes at VA 0x005CFFE0 in build/code.dec.bin
     bx lr

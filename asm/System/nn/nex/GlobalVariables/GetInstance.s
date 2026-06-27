@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::GlobalVariables::GetInstance() [sub_00199494]
- * Virtual Address: 0x00199494
- * File Offset:     0x00099494
+ * Function: nn::nex::GlobalVariables::GetInstance() [sub_001BFFD4]
+ * Virtual Address: 0x001BFFD4
+ * File Offset:     0x000BFFD4
  * Size (bytes):    28
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global GetInstance
-.type   GetInstance, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-GetInstance:  @ was sub_00199494
+txv_validateTextureValidator:  @ was sub_001BFFD4
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 28 bytes at VA 0x00199494 in build/code.dec.bin
+    @ Size: 28 bytes at VA 0x001BFFD4 in build/code.dec.bin
     bx lr

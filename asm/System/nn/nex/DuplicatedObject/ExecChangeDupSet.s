@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::DuplicatedObject::ExecChangeDupSet(const nn::nex::ChangeDupSetOperation&) [sub_001A2B60]
- * Virtual Address: 0x001A2B60
- * File Offset:     0x000A2B60
+ * Function: nn::nex::DuplicationSpaceTable::CheckPeriodicMatch(int) [sub_001C9C10]
+ * Virtual Address: 0x001C9C10
+ * File Offset:     0x000C9C10
  * Size (bytes):    1428
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global ExecChangeDupSet
-.type   ExecChangeDupSet, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-ExecChangeDupSet:  @ was sub_001A2B60
+CheckPeriodicMatch:  @ was sub_001C9C10
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 1428 bytes at VA 0x001A2B60 in build/code.dec.bin
+    @ Size: 1428 bytes at VA 0x001C9C10 in build/code.dec.bin
     bx lr

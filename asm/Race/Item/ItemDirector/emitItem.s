@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Kart::Unit::resetMaterialColor() [sub_002BE990]
- * Virtual Address: 0x002BE990
- * File Offset:     0x001BE990
+ * Function: Item::ItemDirector::emitItem(Item::ItemReactProxy*, const sead::Vector3<float>&, const sead::Vector3<float>&, int) [sub_002BE9F0]
+ * Virtual Address: 0x002BE9F0
+ * File Offset:     0x001BE9F0
  * Size (bytes):    96
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global quazal_crc32
-.type   quazal_crc32, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-resetMaterialColor:  @ was sub_002BE990
+txv_validateTextureValidator:  @ was sub_002BE9F0
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 96 bytes at VA 0x002BE990 in build/code.dec.bin
+    @ Size: 96 bytes at VA 0x002BE9F0 in build/code.dec.bin
     bx lr

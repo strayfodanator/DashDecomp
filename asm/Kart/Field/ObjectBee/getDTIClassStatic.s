@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Field::ObjectBee::getDTIClassStatic() [sub_0038FDFC]
- * Virtual Address: 0x0038FDFC
- * File Offset:     0x0028FDFC
+ * Function: Field::ObjectBee::getDTIClassStatic() [sub_003BF2DC]
+ * Virtual Address: 0x003BF2DC
+ * File Offset:     0x002BF2DC
  * Size (bytes):    408
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global getDTIClassStatic
-.type   getDTIClassStatic, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-getDTIClassStatic:  @ was sub_0038FDFC
+txv_validateTextureValidator:  @ was sub_003BF2DC
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 408 bytes at VA 0x0038FDFC in build/code.dec.bin
+    @ Size: 408 bytes at VA 0x003BF2DC in build/code.dec.bin
     bx lr

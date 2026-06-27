@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Field::ObjectMpSpeaker::getDTIClassStatic() [sub_0034FEBC]
- * Virtual Address: 0x0034FEBC
- * File Offset:     0x0024FEBC
+ * Function: Field::ObjectSabotenCollision::checkCore(const sead::Vector3<float>&, const float&, int) [sub_0037F334]
+ * Virtual Address: 0x0037F334
+ * File Offset:     0x0027F334
  * Size (bytes):    408
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global getDTIClassStatic
-.type   getDTIClassStatic, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-getDTIClassStatic:  @ was sub_0034FEBC
+checkCore:  @ was sub_0037F334
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 408 bytes at VA 0x0034FEBC in build/code.dec.bin
+    @ Size: 408 bytes at VA 0x0037F334 in build/code.dec.bin
     bx lr

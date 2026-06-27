@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: sead::Matrix44CalcCtr<float>::copy(nn::math::MTX44&, const nn::math::MTX44&) [sub_001146B0]
- * Virtual Address: 0x001146B0
- * File Offset:     0x000146B0
+ * Function: sead::Matrix44CalcCtr<float>::copy(nn::math::MTX44&, const nn::math::MTX34&, const nn::math::VEC4&) [sub_001146C0]
+ * Virtual Address: 0x001146C0
+ * File Offset:     0x000146C0
  * Size (bytes):    16
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global quazal_crc32
-.type   quazal_crc32, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-quazal_crc32:  @ was sub_001146B0
+txv_validateTextureValidator:  @ was sub_001146C0
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 16 bytes at VA 0x001146B0 in build/code.dec.bin
+    @ Size: 16 bytes at VA 0x001146C0 in build/code.dec.bin
     bx lr

@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::ElectionTable::CleanupTable() [sub_00181764]
- * Virtual Address: 0x00181764
- * File Offset:     0x00081764
+ * Function: nn::nex::ElectionTable::CleanupTable() [sub_001A82AC]
+ * Virtual Address: 0x001A82AC
+ * File Offset:     0x000A82AC
  * Size (bytes):    336
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global CleanupTable
-.type   CleanupTable, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-CleanupTable:  @ was sub_00181764
+txv_validateTextureValidator:  @ was sub_001A82AC
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 336 bytes at VA 0x00181764 in build/code.dec.bin
+    @ Size: 336 bytes at VA 0x001A82AC in build/code.dec.bin
     bx lr

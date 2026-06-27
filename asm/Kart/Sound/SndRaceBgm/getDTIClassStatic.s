@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sound::SndRaceBgm::getDTIClassStatic() [sub_00397F98]
- * Virtual Address: 0x00397F98
- * File Offset:     0x00297F98
+ * Function: Sound::SndRaceBgm::getDTIClassStatic() [sub_003C751C]
+ * Virtual Address: 0x003C751C
+ * File Offset:     0x002C751C
  * Size (bytes):    308
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global getDTIClassStatic
-.type   getDTIClassStatic, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-getDTIClassStatic:  @ was sub_00397F98
+txv_validateTextureValidator:  @ was sub_003C751C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 308 bytes at VA 0x00397F98 in build/code.dec.bin
+    @ Size: 308 bytes at VA 0x003C751C in build/code.dec.bin
     bx lr

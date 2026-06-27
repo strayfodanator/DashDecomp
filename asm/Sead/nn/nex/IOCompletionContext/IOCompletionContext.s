@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::Router::~Router() [sub_001E9298]
- * Virtual Address: 0x001E9298
- * File Offset:     0x000E9298
+ * Function: nn::nex::IOCompletionContext::IOCompletionContext() [sub_001E926C]
+ * Virtual Address: 0x001E926C
+ * File Offset:     0x000E926C
  * Size (bytes):    44
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global quazal_crc32
-.type   quazal_crc32, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-Router:  @ was sub_001E9298
+txv_validateTextureValidator:  @ was sub_001E926C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 44 bytes at VA 0x001E9298 in build/code.dec.bin
+    @ Size: 44 bytes at VA 0x001E926C in build/code.dec.bin
     bx lr

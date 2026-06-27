@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nw::gfx::res::ResMaterialColor::SetConstant0(const nw::ut::FloatColor&) [sub_00256C68]
- * Virtual Address: 0x00256C68
- * File Offset:     0x00156C68
+ * Function: nw::gfx::res::ResMaterialColor::SetConstant0(float, float, float, float) [sub_00256D90]
+ * Virtual Address: 0x00256D90
+ * File Offset:     0x00156D90
  * Size (bytes):    280
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global quazal_crc32
-.type   quazal_crc32, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-quazal_crc32:  @ was sub_00256C68
+txv_validateTextureValidator:  @ was sub_00256D90
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 280 bytes at VA 0x00256C68 in build/code.dec.bin
+    @ Size: 280 bytes at VA 0x00256D90 in build/code.dec.bin
     bx lr

@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Field::FieldDirector::createCollision() [sub_00325CE0]
- * Virtual Address: 0x00325CE0
- * File Offset:     0x00225CE0
+ * Function: Field::ObjectTcBalloon::getObjectEnumIndex() [sub_003551F4]
+ * Virtual Address: 0x003551F4
+ * File Offset:     0x002551F4
  * Size (bytes):    232
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global createCollision
-.type   createCollision, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-createCollision:  @ was sub_00325CE0
+getObjectEnumIndex:  @ was sub_003551F4
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 232 bytes at VA 0x00325CE0 in build/code.dec.bin
+    @ Size: 232 bytes at VA 0x003551F4 in build/code.dec.bin
     bx lr

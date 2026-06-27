@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Field::ObjectFireWorks::creator(Field::ObjectCreateArgument&) [sub_0034C470]
- * Virtual Address: 0x0034C470
- * File Offset:     0x0024C470
+ * Function: Field::ObjectSimpleModelBase::updateQTClipContext() [sub_0037B900]
+ * Virtual Address: 0x0037B900
+ * File Offset:     0x0027B900
  * Size (bytes):    164
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global creator
-.type   creator, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-creator:  @ was sub_0034C470
+updateQTClipContext:  @ was sub_0037B900
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 164 bytes at VA 0x0034C470 in build/code.dec.bin
+    @ Size: 164 bytes at VA 0x0037B900 in build/code.dec.bin
     bx lr

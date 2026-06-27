@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Field::ObjectTempoKun::createObjectAnim(const Field::ObjectCreateArgument&) [sub_00345A2C]
- * Virtual Address: 0x00345A2C
- * File Offset:     0x00245A2C
+ * Function: Field::ObjectTempoKun::createObjectAnim(const Field::ObjectCreateArgument&) [sub_00375008]
+ * Virtual Address: 0x00375008
+ * File Offset:     0x00275008
  * Size (bytes):    408
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global createObjectAnim
-.type   createObjectAnim, %function
+.global txv_validateTextureValidator
+.type   txv_validateTextureValidator, %function
 
-createObjectAnim:  @ was sub_00345A2C
+txv_validateTextureValidator:  @ was sub_00375008
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 408 bytes at VA 0x00345A2C in build/code.dec.bin
+    @ Size: 408 bytes at VA 0x00375008 in build/code.dec.bin
     bx lr
