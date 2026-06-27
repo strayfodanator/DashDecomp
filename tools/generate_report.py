@@ -44,18 +44,13 @@ if FUNCTIONS_JSON.exists():
 
 
 def get_func_statuses() -> dict[str, dict]:
-    """
-    Scan asm/ and src/ and return a dict mapping function path stem → status info.
-      status: "MATCHING" | "NONMATCHING" | "NODECOMPILED"
-    """
     statuses = {}
 
     for s_file in sorted(ASM_DIR.rglob("*.s")):
         rel = s_file.relative_to(ROOT)
         rel_str = str(rel)
         size = STUB_SIZES.get(rel_str, 4)
-        stem = s_file.stem
-        statuses[stem] = {
+        statuses[rel_str] = {
             "path": rel_str,
             "status": "NODECOMPILED",
             "size": size,
@@ -79,7 +74,7 @@ def get_func_statuses() -> dict[str, dict]:
                 if sub_match and sub_match.group(1) in SYMBOL_SIZES:
                     size = SYMBOL_SIZES[sub_match.group(1)]
 
-            key = symbol or cpp_file.stem
+            key = symbol or str(cpp_file.relative_to(ROOT))
             if key and key not in statuses:
                 statuses[key] = {
                     "path": f"{cpp_file.relative_to(ROOT)}:{key}",
@@ -95,96 +90,45 @@ CHUNK_SIZE = 50
 
 def _func_label(path: str) -> str:
     """Extract display name from an asm path.
-    e.g. asm/Item/Enemy/AIRankGroupMiddle/getGroupKind.s → Enemy/AIRankGroupMiddle/getGroupKind
-         asm/Item/sub_00470030.s                          → sub_00470030
+    e.g. asm/System/nn/nex/OperationManager/InvokeCallbacks.s → nn/nex/OperationManager/InvokeCallbacks
+         asm/Item/sub_00470030.s                              → sub_00470030
     """
-    stem = Path(path).stem
     m = re.match(r"^asm/[^/]+/(.+)", path)
     if m:
         return Path(m.group(1)).with_suffix("").as_posix()
-    return stem
+    return Path(path).stem
 
 
-def _is_root_func(path: str) -> bool:
-    """True if the .s file sits directly in the module root."""
-    return bool(re.match(r"^asm/[^/]+/sub_", path))
+CHUNK_SIZE = 50
 
 
 def _chunk_list(lst: list, size: int):
-    """Yield successive chunks of `size` from lst."""
     for i in range(0, len(lst), size):
         yield lst[i : i + size]
+
+
+def _func_sort_key(info: dict) -> int:
+    path = info["path"]
+    m = re.search(r"([0-9A-Fa-f]{8})", path)
+    return int(m.group(1), 16) if m else 0
 
 
 def group_funcs_into_units(
     statuses: dict[str, dict],
 ) -> list[dict]:
-    """
-    Group functions into Units.
-
-    - Functions in subdirectories → grouped by leaf directory
-      (e.g. Item/Enemy/AIRankGroupMiddle)
-    - Root-level unnamed functions → chunked into groups of CHUNK_SIZE
-      (e.g. Item/part_00, Item/part_01, …)
-    """
-    # Separate root vs subdirectory functions
-    subdir_funcs: dict[str, list[dict]] = defaultdict(list)
-    root_funcs: dict[str, list[dict]] = defaultdict(list)
-
+    # Collect all functions by module
+    mod_funcs: dict[str, list[dict]] = defaultdict(list)
     for stem, info in statuses.items():
-        path = info["path"]
-        m = re.match(r"^asm/([^/]+)", path)
+        m = re.match(r"^asm/([^/]+)", info["path"])
         mod = m.group(1) if m else "_"
-
-        if _is_root_func(path):
-            root_funcs[mod].append(info)
-        else:
-            # Use leaf directory as unit name
-            m2 = re.match(r"^asm/(.+)/[^/]+$", path)
-            unit_name = m2.group(1) if m2 else stem
-            subdir_funcs[unit_name].append(info)
+        mod_funcs[mod].append(info)
 
     units = []
 
-    # ── Build subdirectory units ──────────────────────────────────────────
-    for unit_name, funcs in sorted(subdir_funcs.items()):
-        total_code = sum(f["size"] for f in funcs)
-        matched_code = sum(f["size"] for f in funcs if f["status"] == "MATCHING")
-        total_fns = len(funcs)
-        matched_fns = sum(1 for f in funcs if f["status"] == "MATCHING")
-        fuzzy_pct = (matched_code / total_code * 100.0) if total_code > 0 else 0.0
-        complete = matched_fns == total_fns
+    for mod in sorted(mod_funcs):
+        funcs = mod_funcs[mod]
+        funcs.sort(key=_func_sort_key)
 
-        functions_list = [
-            {
-                "name": _func_label(f["path"]),
-                "size": f["size"],
-                "fuzzy_match_percent": 100.0 if f["status"] == "MATCHING" else 0.0,
-                "metadata": {"virtual_address": 0},
-            }
-            for f in funcs
-        ]
-
-        units.append({
-            "name": unit_name,
-            "metadata": {"progress_categories": [], "complete": complete},
-            "measures": {
-                "fuzzy_match_percent": fuzzy_pct,
-                "total_code": total_code,
-                "matched_code": matched_code,
-                "total_data": 0,
-                "matched_data": 0,
-                "total_functions": total_fns,
-                "matched_functions": matched_fns,
-            },
-            "functions": functions_list,
-        })
-
-    # ── Build root-level chunked units ────────────────────────────────────
-    for mod in sorted(root_funcs):
-        funcs = root_funcs[mod]
-        # Sort by the sub_ address so chunks are contiguous
-        funcs.sort(key=lambda f: f["path"])
         for idx, chunk in enumerate(_chunk_list(funcs, CHUNK_SIZE)):
             chunk_name = f"{mod}/part_{idx:02d}"
             total_code = sum(f["size"] for f in chunk)
