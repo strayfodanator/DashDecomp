@@ -14,7 +14,6 @@ Usage:
 import argparse
 import json
 import re
-import bisect
 from pathlib import Path
 from collections import defaultdict
 
@@ -29,28 +28,6 @@ MATCHING_MARKER = "MATCHING"
 NONMATCHING_MARKER = "NONMATCHING"
 
 RETAIL_HASHES = BUILD_DIR / "retail_hashes.csv"
-XMAP_PATH = BUILD_DIR / "dlp_symbols/USA/CTRDash.xmap"
-
-# Load xmap for nearest-namespace resolution
-XMAP_ADDRS: list[int] = []
-XMAP_NS: list[str] = []
-if XMAP_PATH.exists():
-    try:
-        with open(XMAP_PATH) as f:
-            for line in f:
-                line = line.strip()
-                if not line or "\t" not in line:
-                    continue
-                addr_s, name = line.split("\t", 1)
-                addr = int(addr_s, 16)
-                XMAP_ADDRS.append(addr)
-                if "::" in name:
-                    ns = name.split("::")[0]
-                else:
-                    ns = "_global"
-                XMAP_NS.append(ns)
-    except Exception as e:
-        print(f"[WARN] Failed to load xmap: {e}")
 
 SYMBOL_SIZES = {}
 ADDR_TO_SIZE: dict[int, int] = {}
@@ -89,13 +66,6 @@ def _get_size(path: str, addr: int | None = None) -> int:
     return 4
 
 
-def _addr_from_path(path: str) -> int | None:
-    m = re.search(r"sub_([0-9A-Fa-f]{8})", path)
-    if m:
-        return int(m.group(1), 16)
-    return None
-
-
 def _addr_from_file(s_file: Path) -> int | None:
     """Extract virtual address from a .s file's metadata comment."""
     m = re.search(r"sub_([0-9A-Fa-f]{8})", s_file.name)
@@ -124,6 +94,7 @@ def get_func_statuses() -> dict[str, dict]:
             "path": rel_str,
             "status": "NODECOMPILED",
             "size": size,
+            "addr": addr or 0,
         }
 
     for cpp_file in sorted(SRC_DIR.rglob("*.cpp")):
@@ -155,9 +126,6 @@ def get_func_statuses() -> dict[str, dict]:
     return statuses
 
 
-CHUNK_SIZE = 50
-
-
 def _func_label(path: str) -> str:
     m = re.match(r"^asm/[^/]+/(.+)", path)
     if m:
@@ -165,18 +133,8 @@ def _func_label(path: str) -> str:
     return Path(path).stem
 
 
-def _name_to_ns(name: str) -> str:
-    if "::" in name:
-        return name.split("::")[0]
-    return "_global"
-
-
-def _unit_name_for_path(path: str, addr: int | None = None) -> str | None:
-    """Derive the unit name from a .s file path.
-    Named functions use first-level directory as the unit.
-    Root sub_ functions use nearest xmap namespace.
-    Named root-level files use their own stem as unit name.
-    """
+def _unit_name(path: str) -> str:
+    """Derive unit name from path using directory structure."""
     m = re.match(r"^asm/([^/]+)/", path)
     mod = m.group(1) if m else "_"
     rest = path[len(f"asm/{mod}/"):]
@@ -184,42 +142,14 @@ def _unit_name_for_path(path: str, addr: int | None = None) -> str | None:
     if len(parts) > 1:
         unit = f"{mod}/{parts[0]}"
         return unit.replace("<", "_").replace(">", "_")
-
     stem = Path(rest).stem
-
-    # Named function at module root — use its name as unit
-    if not stem.startswith("sub_"):
-        return f"{mod}/{stem}"
-
-    # Root-level sub_* — find nearest xmap namespace by address
-    if addr is not None and XMAP_ADDRS:
-        idx = bisect.bisect_left(XMAP_ADDRS, addr)
-        if idx == 0:
-            ns = XMAP_NS[0]
-        elif idx >= len(XMAP_ADDRS):
-            ns = XMAP_NS[-1]
-        else:
-            d_prev = addr - XMAP_ADDRS[idx - 1]
-            d_next = XMAP_ADDRS[idx] - addr
-            ns = XMAP_NS[idx - 1] if d_prev <= d_next else XMAP_NS[idx]
-        unit = f"{mod}/{ns}"
-        return unit.replace("<", "_").replace(">", "_")
-
-    return None
+    return f"{mod}/{stem}"
 
 
 def _func_sort_key(info: dict) -> int:
     path = info["path"]
     m = re.search(r"([0-9A-Fa-f]{8})", path)
     return int(m.group(1), 16) if m else 0
-
-
-CHUNK_SIZE = 50
-
-
-def _chunk_list(lst: list, size: int):
-    for i in range(0, len(lst), size):
-        yield lst[i : i + size]
 
 
 def _make_unit(name: str, funcs: list[dict]) -> dict:
@@ -247,44 +177,23 @@ def _make_unit(name: str, funcs: list[dict]) -> dict:
                 "name": _func_label(f["path"]),
                 "size": f["size"],
                 "fuzzy_match_percent": 100.0 if f["status"] == "MATCHING" else 0.0,
-                "metadata": {"virtual_address": 0},
+                "metadata": {"virtual_address": f.get("addr", 0)},
             }
             for f in funcs
         ],
     }
 
 
-def group_funcs_into_units(
-    statuses: dict[str, dict],
-) -> list[dict]:
-    # Separate named (subdirectory) vs root (sub_*) functions
-    named_groups: dict[str, list[dict]] = defaultdict(list)
-    root_funcs: dict[str, list[dict]] = defaultdict(list)
-
+def group_funcs_into_units(statuses: dict[str, dict]) -> list[dict]:
+    groups: dict[str, list[dict]] = defaultdict(list)
     for stem, info in statuses.items():
-        addr = _addr_from_path(info["path"])
-        unit = _unit_name_for_path(info["path"], addr)
-        if unit:
-            named_groups[unit].append(info)
-        else:
-            m = re.match(r"^asm/([^/]+)", info["path"])
-            mod = m.group(1) if m else "_"
-            root_funcs[mod].append(info)
+        unit = _unit_name(info["path"])
+        groups[unit].append(info)
 
     units = []
-
-    # Named groups → one unit per directory
-    for unit_name, funcs in sorted(named_groups.items()):
+    for unit_name, funcs in sorted(groups.items()):
         funcs.sort(key=_func_sort_key)
         units.append(_make_unit(unit_name, funcs))
-
-    # Root-level sub_* functions → chunked
-    for mod in sorted(root_funcs):
-        funcs = root_funcs[mod]
-        funcs.sort(key=_func_sort_key)
-        for idx, chunk in enumerate(_chunk_list(funcs, CHUNK_SIZE)):
-            units.append(_make_unit(f"{mod}/part_{idx:02d}", chunk))
-
     return units
 
 
