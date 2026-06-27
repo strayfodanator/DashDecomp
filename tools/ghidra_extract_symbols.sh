@@ -18,12 +18,14 @@
 
 set -e
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-ROOT="$SCRIPT_DIR/.."
+ROOT="$(realpath "$SCRIPT_DIR/..")"
 
-DLP_BIN="$ROOT/build/dlp_exefs/code.bin"
-RETAIL_BIN="$ROOT/build/code.dec.bin"
-GHIDRA_PROJECT="$ROOT/build/ghidra_project"
+DLP_BIN="$(realpath "$ROOT/build/dlp_exefs/code.bin")"
+RETAIL_BIN="$(realpath "$ROOT/build/code.dec.bin")"
+GHIDRA_PROJECT_DIR="$(realpath -m "$ROOT/build/ghidra")"
+GHIDRA_PROJECT_NAME="MK7_DLP"
 SCRIPT_PATH="$ROOT/tools/ghidra"
+
 
 if [[ ! -f "$DLP_BIN" ]]; then
     echo "[ERR] DLP binary not found: $DLP_BIN"
@@ -37,7 +39,7 @@ if [[ ! -f "$RETAIL_BIN" ]]; then
     exit 1
 fi
 
-mkdir -p "$GHIDRA_PROJECT"
+mkdir -p "$GHIDRA_PROJECT_DIR"
 
 echo ""
 echo "══════════════════════════════════════════════════════"
@@ -52,7 +54,7 @@ echo "      This will take ~5-15 minutes for full auto-analysis..."
 echo ""
 
 ghidra-analyzeHeadless \
-    "$GHIDRA_PROJECT" "MK7_DLP" \
+    "$GHIDRA_PROJECT_DIR" "$GHIDRA_PROJECT_NAME" \
     -import "$DLP_BIN" \
     -processor "ARM:LE:32:v8" \
     -cspec "default" \
@@ -69,7 +71,7 @@ echo ""
 echo "[2/3] Checking output files..."
 ls -lh "$ROOT/build/dlp_symbols.csv" "$ROOT/build/dlp_strings.txt" 2>/dev/null || {
     echo "[WARN] Symbol files not found in build/. Checking inside project dir..."
-    find "$GHIDRA_PROJECT" -name "dlp_symbols.csv" -o -name "dlp_strings.txt" 2>/dev/null | head -5
+    find "$GHIDRA_PROJECT_DIR" -name "dlp_symbols.csv" -o -name "dlp_strings.txt" 2>/dev/null | head -5
 }
 
 # ── Step 2: Import symbols into our stub system ────────────────────────────────

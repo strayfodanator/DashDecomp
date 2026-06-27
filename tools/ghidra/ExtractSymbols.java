@@ -24,7 +24,8 @@ public class ExtractSymbols extends GhidraScript {
         println("=== DashDecomp: ExtractSymbols ===");
 
         // ── Export all user-defined and analysis-found symbols ──────────────
-        File symbolsOut = new File(getProgramFile().getParent(), "dlp_symbols.csv");
+        File buildDir = new File(System.getProperty("user.dir"), "build");
+        File symbolsOut = new File(buildDir, "dlp_symbols.csv");
         PrintWriter symWriter = new PrintWriter(new FileWriter(symbolsOut));
         symWriter.println("address,name,type,namespace");
 
@@ -47,7 +48,7 @@ public class ExtractSymbols extends GhidraScript {
         println("Symbols written: " + count + " -> " + symbolsOut.getPath());
 
         // ── Export all strings found in .rodata / data sections ─────────────
-        File stringsOut = new File(getProgramFile().getParent(), "dlp_strings.txt");
+        File stringsOut = new File(buildDir, "dlp_strings.txt");
         PrintWriter strWriter = new PrintWriter(new FileWriter(stringsOut));
 
         DataIterator dataIter = currentProgram.getListing().getDefinedData(true);
