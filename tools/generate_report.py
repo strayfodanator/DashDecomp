@@ -27,14 +27,13 @@ TOTAL_CODE_SIZE = 5488 * 1024
 MATCHING_MARKER = "MATCHING"
 NONMATCHING_MARKER = "NONMATCHING"
 
-FUNCTIONS_JSON = ASM_DIR / "functions.json"
 RETAIL_HASHES = BUILD_DIR / "retail_hashes.csv"
 
 SYMBOL_SIZES = {}
-STUB_SIZES = {}
 ADDR_TO_SIZE: dict[int, int] = {}
+GHIDRA_TOTAL_CODE = 0
 
-# Load Ghidra retail function sizes (has 15110 entries with real sizes)
+# Load Ghidra retail function sizes (authoritative source)
 if RETAIL_HASHES.exists():
     try:
         with open(RETAIL_HASHES) as f:
@@ -47,33 +46,23 @@ if RETAIL_HASHES.exists():
                     addr = int(parts[0], 16)
                     size = int(parts[2])
                     ADDR_TO_SIZE[addr] = size
+                    GHIDRA_TOTAL_CODE += size
+                    name = parts[3] if len(parts) > 3 else ""
+                    if name:
+                        SYMBOL_SIZES[name] = size
     except Exception as e:
         print(f"[WARN] Failed to load retail_hashes.csv: {e}")
 
-# Load functions.json as fallback
-if FUNCTIONS_JSON.exists():
-    try:
-        manifest = json.loads(FUNCTIONS_JSON.read_text())
-        for rel_path, size in manifest.items():
-            STUB_SIZES[rel_path] = size
-            symbol_name = Path(rel_path).stem
-            SYMBOL_SIZES[symbol_name] = size
-    except Exception as e:
-        print(f"[WARN] Failed to load functions manifest: {e}")
 
-
-def _get_size(path: str) -> int:
-    """Look up function size: first by address from retail_hashes,
-    then by path from functions.json, default 4."""
-    # Try path from functions.json
-    if path in STUB_SIZES:
-        return STUB_SIZES[path]
-    # Try extracting address from path/filename and look up in retail_hashes
+def _get_size(path: str, addr: int | None = None) -> int:
+    """Look up function size from Ghidra retail_hashes by address."""
+    if addr is not None and addr in ADDR_TO_SIZE:
+        return ADDR_TO_SIZE[addr]
     m = re.search(r"([0-9A-Fa-f]{8})", path)
     if m:
-        addr = int(m.group(1), 16)
-        if addr in ADDR_TO_SIZE:
-            return ADDR_TO_SIZE[addr]
+        addr2 = int(m.group(1), 16)
+        if addr2 in ADDR_TO_SIZE:
+            return ADDR_TO_SIZE[addr2]
     return 4
 
 
@@ -103,9 +92,7 @@ def get_func_statuses() -> dict[str, dict]:
         rel = s_file.relative_to(ROOT)
         rel_str = str(rel)
         addr = _addr_from_file(s_file)
-        size = _get_size(rel_str)
-        if size == 4 and addr and addr in ADDR_TO_SIZE:
-            size = ADDR_TO_SIZE[addr]
+        size = _get_size(rel_str, addr)
         statuses[rel_str] = {
             "path": rel_str,
             "status": "NODECOMPILED",
@@ -151,20 +138,18 @@ def _func_label(path: str) -> str:
     return Path(path).stem
 
 
-def _unit_name_for_path(path: str) -> str:
+def _unit_name_for_path(path: str) -> str | None:
     """Derive the unit name from a .s file path.
-    Named functions use their leaf directory as the unit.
-    Root sub_ functions are grouped by module for later chunking.
+    Named functions use first-level namespace as the unit.
+    Root sub_ functions return None → will be chunked into part_NN.
     """
     m = re.match(r"^asm/([^/]+)/", path)
     mod = m.group(1) if m else "_"
-
-    # Has subdirectory beyond module root?
     rest = path[len(f"asm/{mod}/"):]
-    parent = Path(rest).parent.as_posix()
-    if parent != "." and parent != "":
-        return f"{mod}/{parent}"
-    return None  # root-level function → will be chunked
+    parts = Path(rest).parts
+    if len(parts) > 1:
+        return f"{mod}/{parts[0]}"
+    return None
 
 
 def _func_sort_key(info: dict) -> int:
