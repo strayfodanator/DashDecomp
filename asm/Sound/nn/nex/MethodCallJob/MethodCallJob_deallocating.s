@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::MethodCallJob<nn::nex::MatchOperation, int, nn::nex::Job>::~MethodCallJob__deallocating() [sub_005919A4]
- * Virtual Address: 0x005919A4
- * File Offset:     0x004919A4
+ * Function: nn::nex::MethodCallJob<nn::nex::CallContextRegister, int, nn::nex::PeriodicJob>::~MethodCallJob__deallocating() [sub_005919E0]
+ * Virtual Address: 0x005919E0
+ * File Offset:     0x004919E0
  * Size (bytes):    16
  *
  * Status: NODECOMPILED 🔴
@@ -15,7 +15,7 @@
 .global vldtr_validateAllState
 .type   vldtr_validateAllState, %function
 
-vldtr_validateAllState:  @ was sub_005919A4
+vldtr_validateAllState:  @ was sub_005919E0
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 16 bytes at VA 0x005919A4 in build/code.dec.bin
+    @ Size: 16 bytes at VA 0x005919E0 in build/code.dec.bin
     bx lr

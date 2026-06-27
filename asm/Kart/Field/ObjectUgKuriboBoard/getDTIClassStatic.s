@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Field::ObjectUgKuriboBoard::getDTIClassStatic() [sub_00394C14]
- * Virtual Address: 0x00394C14
- * File Offset:     0x00294C14
+ * Function: Field::ObjectUgKuriboBoard::getDTIClassStatic() [sub_003A563C]
+ * Virtual Address: 0x003A563C
+ * File Offset:     0x002A563C
  * Size (bytes):    408
  *
  * Status: NODECOMPILED 🔴
@@ -14,7 +14,7 @@
 .global vldtr_validateAllState
 .type   vldtr_validateAllState, %function
 
-vldtr_validateAllState:  @ was sub_00394C14
+vldtr_validateAllState:  @ was sub_003A563C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 408 bytes at VA 0x00394C14 in build/code.dec.bin
+    @ Size: 408 bytes at VA 0x003A563C in build/code.dec.bin
     bx lr

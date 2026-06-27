@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sequence::DummySectionClassInfo<Sequence::DummyPage>::constructSection(Sequence::SectionDirector*) [sub_005C9BE0]
- * Virtual Address: 0x005C9BE0
- * File Offset:     0x004C9BE0
+ * Function: Sequence::DummySectionClassInfo<Sequence::DummyTask>::constructSection(Sequence::SectionDirector*) [sub_005C9C40]
+ * Virtual Address: 0x005C9C40
+ * File Offset:     0x004C9C40
  * Size (bytes):    92
  *
  * Status: NODECOMPILED 🔴
@@ -15,7 +15,7 @@
 .global vldtr_validateAllState
 .type   vldtr_validateAllState, %function
 
-vldtr_validateAllState:  @ was sub_005C9BE0
+vldtr_validateAllState:  @ was sub_005C9C40
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 92 bytes at VA 0x005C9BE0 in build/code.dec.bin
+    @ Size: 92 bytes at VA 0x005C9C40 in build/code.dec.bin
     bx lr

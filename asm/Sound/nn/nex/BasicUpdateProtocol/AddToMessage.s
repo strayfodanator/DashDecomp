@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::BasicUpdateProtocol<nn::nex::StationInfo>::AddToMessage(nn::nex::DuplicatedObject*, void*, unsigned char, nn::nex::Time, nn::nex::Message*, bool) [sub_00593B50]
- * Virtual Address: 0x00593B50
- * File Offset:     0x00493B50
+ * Function: nn::nex::BasicUpdateProtocol<nn::nex::SessionState>::AddToMessage(nn::nex::DuplicatedObject*, void*, unsigned char, nn::nex::Time, nn::nex::Message*, bool) [sub_00593BBC]
+ * Virtual Address: 0x00593BBC
+ * File Offset:     0x00493BBC
  * Size (bytes):    48
  *
  * Status: NODECOMPILED 🔴
@@ -15,7 +15,7 @@
 .global vldtr_validateAllState
 .type   vldtr_validateAllState, %function
 
-vldtr_validateAllState:  @ was sub_00593B50
+vldtr_validateAllState:  @ was sub_00593BBC
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 48 bytes at VA 0x00593B50 in build/code.dec.bin
+    @ Size: 48 bytes at VA 0x00593BBC in build/code.dec.bin
     bx lr

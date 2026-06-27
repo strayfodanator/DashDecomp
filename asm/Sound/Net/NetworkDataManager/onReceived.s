@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Net::NetworkDataManager<Net::NetworkSelectMenuSendFormat>::onReceived(const Net::NetworkReceivedInfo&) [sub_0059B504]
- * Virtual Address: 0x0059B504
- * File Offset:     0x0049B504
+ * Function: Net::NetworkDataManager<Net::NetworkWbtMgr::Node>::onReceived(const Net::NetworkReceivedInfo&) [sub_0059B020]
+ * Virtual Address: 0x0059B020
+ * File Offset:     0x0049B020
  * Size (bytes):    80
  *
  * Status: NODECOMPILED 🔴
@@ -15,7 +15,7 @@
 .global vldtr_validateAllState
 .type   vldtr_validateAllState, %function
 
-vldtr_validateAllState:  @ was sub_0059B504
+vldtr_validateAllState:  @ was sub_0059B020
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 80 bytes at VA 0x0059B504 in build/code.dec.bin
+    @ Size: 80 bytes at VA 0x0059B020 in build/code.dec.bin
     bx lr

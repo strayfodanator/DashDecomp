@@ -160,11 +160,15 @@ def main():
     print(f"[INFO] Address-matched: {len(addr_matched)}")
     matched.update(addr_matched)
 
-    # ── Phase 3: Segment-sequential matching ──────────────────────────────
-    # Use hash-matched functions as anchors; within each segment,
-    # match retail unmatched to DLP unmatched (with xmap names)
-    # sequentially by similar size.
-    print("[INFO] Phase 3: Segment-sequential matching...")
+    # ── Phase 3: Multi-pass segment matching ─────────────────────────────
+    # Use hash-matched functions as anchors; within and across segments,
+    # match unmatched retail to unmatched DLP (with xmap names) using:
+    #   Pass A: Sequential greedy (size threshold 30%)
+    #   Pass B: Exhaustive exact-size within segments
+    #   Pass C: Closest-size within segments (50%)
+    #   Pass D: Cross-segment exact-size
+    #   Pass E: Cross-segment closest-size (50%)
+    print("[INFO] Phase 3: Multi-pass segment matching...")
 
     all_retail: list[tuple[int, str, int]] = []
     with open(RETAIL_HASHES) as f:
@@ -193,7 +197,6 @@ def main():
     dlp_hash_to_retail = {h: a for a, (h, s) in retail_addr_to_hash.items()}
 
     # Build anchor pairs from hash-matched functions: (retail_addr, dlp_addr)
-    # These are ground-truth correspondences between the two binaries
     dlp_hash_to_addr = {h: a for a, h in all_dlp}
     anchor_set: set[tuple[int, int]] = set()
     for ra, rh, rs in all_retail:
@@ -205,20 +208,14 @@ def main():
     print(f"[INFO] Anchor pairs (hash ground truth): {len(anchor_pairs)}")
 
     matched_addrs = set(matched.keys())
-
-    # Identify unmatched retail (FUN_*) and unmatched DLP (addrs in xmap)
-    retail_unmatched_list = [
-        (a, h, s) for a, h, s in all_retail
-        if a not in matched_addrs
-    ]
-    dlp_xmap_addrs = set(xmap.keys())
-    dlp_unmatched_list = [
-        (a, h) for a, h in all_dlp
-        if a in dlp_xmap_addrs and h not in dlp_hash_to_retail
-    ]
-
-    print(f"[INFO] Retail unmatched after hash+addr: {len(retail_unmatched_list)}")
-    print(f"[INFO] DLP unmatched with xmap name: {len(dlp_unmatched_list)}")
+    # Build reverse: DLP address → retail address from hash-matched pairs
+    dlp_to_retail: dict[int, int] = {}
+    for dlp_a, (h, _) in dlp_addr_to_hash.items():
+        if h in retail_hash_to_addr:
+            ra = retail_hash_to_addr[h][0]
+            if ra in matched_addrs:
+                dlp_to_retail[dlp_a] = ra
+    matched_dlp_addrs = set(dlp_to_retail.keys())
 
     # DLP address → size mapping
     dlp_addr_to_size: dict[int, int] = {}
@@ -231,44 +228,129 @@ def main():
             if len(parts) >= 3:
                 dlp_addr_to_size[int(parts[0], 16)] = int(parts[2])
 
-    # Segment-sequential matching
-    seq_matched: dict[int, str] = {}
+    # Build lists of unmatched, with sizes
+    r_unmatched = [(a, h, s) for a, h, s in all_retail if a not in matched_addrs]
+    d_unmatched = [(a, h) for a, h in all_dlp if a in xmap and a not in matched_dlp_addrs]
+    print(f"[INFO] Retail unmatched after hash+addr: {len(r_unmatched)}")
+    print(f"[INFO] DLP unmatched with xmap name: {len(d_unmatched)}")
 
-    def match_segment(ra_start, ra_end, da_start, da_end):
-        r_seg = [(a, h, s) for a, h, s in retail_unmatched_list if ra_start < a < ra_end]
-        d_seg = [(a, h) for a, h in dlp_unmatched_list if da_start < a < da_end]
+    pmid: dict[int, str] = {}
+    r_m = set()
+    d_m = set()
+
+    def get_segments(rl, dl):
+        segs = []
+        for i in range(len(anchor_pairs) - 1):
+            ra_s, da_s = anchor_pairs[i]; ra_e, da_e = anchor_pairs[i + 1]
+            segs.append((
+                [(a, h, s) for a, h, s in rl if ra_s < a < ra_e],
+                [(a, h) for a, h in dl if da_s < a < da_e],
+            ))
+        if anchor_pairs:
+            segs.insert(0, (
+                [(a, h, s) for a, h, s in rl if a < anchor_pairs[0][0]],
+                [(a, h) for a, h in dl if a < anchor_pairs[0][1]],
+            ))
+            segs.append((
+                [(a, h, s) for a, h, s in rl if a > anchor_pairs[-1][0]],
+                [(a, h) for a, h in dl if a > anchor_pairs[-1][1]],
+            ))
+        return segs
+
+    # ── Pass A: Sequential greedy ──
+    segs = get_segments(r_unmatched, d_unmatched)
+    for r_seg, d_seg in segs:
         ri, di = 0, 0
-        seg_matches = 0
         while ri < len(r_seg) and di < len(d_seg):
             ra, rh, rs = r_seg[ri]
             da, dh = d_seg[di]
             ds = dlp_addr_to_size.get(da, 0)
             if abs(rs - ds) / max(rs, ds, 1) <= 0.3:
                 name = xmap.get(da, "")
-                if name and ra not in matched and ra not in seq_matched:
-                    seq_matched[ra] = name
-                    seg_matches += 1
-                ri += 1
-                di += 1
-            elif rs < ds:
-                ri += 1
-            else:
-                di += 1
-        return seg_matches
+                if name and ra not in r_m:
+                    pmid[ra] = name; r_m.add(ra); d_m.add(da)
+                ri += 1; di += 1
+            elif rs < ds: ri += 1
+            else: di += 1
+    print(f"[INFO]   Pass A (sequential): {len(pmid)}")
 
-    total_seg = 0
-    for i in range(len(anchor_pairs) - 1):
-        total_seg += match_segment(
-            anchor_pairs[i][0], anchor_pairs[i + 1][0],
-            anchor_pairs[i][1], anchor_pairs[i + 1][1],
-        )
-    # Head and tail
-    if anchor_pairs:
-        total_seg += match_segment(0, anchor_pairs[0][0], 0, anchor_pairs[0][1])
-        total_seg += match_segment(anchor_pairs[-1][0], 0xFFFFFFFF, anchor_pairs[-1][1], 0xFFFFFFFF)
+    # ── Pass B: Exhaustive exact-size within segments ──
+    r2 = [(a, h, s) for a, h, s in r_unmatched if a not in r_m]
+    d2 = [(a, h) for a, h in d_unmatched if a not in d_m]
+    segs = get_segments(r2, d2)
+    b_count = 0
+    for r_seg, d_seg in segs:
+        from collections import defaultdict
+        r_bs = defaultdict(list)
+        for ra, rh, rs in r_seg: r_bs[rs].append(ra)
+        for da, dh in d_seg:
+            ds = dlp_addr_to_size.get(da, 0)
+            if ds in r_bs and r_bs[ds]:
+                ra = r_bs[ds].pop(0)
+                if da in xmap and ra not in r_m:
+                    name = xmap[da]
+                    pmid[ra] = name; r_m.add(ra); d_m.add(da); b_count += 1
+    print(f"[INFO]   Pass B (exact-size within seg): {b_count}")
 
-    print(f"[INFO] Segment-sequential matches: {total_seg}")
-    matched.update(seq_matched)
+    # ── Pass C: Closest-size within segments (50%) ──
+    r3 = [(a, h, s) for a, h, s in r_unmatched if a not in r_m]
+    d3 = [(a, h) for a, h in d_unmatched if a not in d_m]
+    segs = get_segments(r3, d3)
+    c_count = 0
+    for r_seg, d_seg in segs:
+        ra_list = list(r_seg)
+        for da, dh in d_seg:
+            ds = dlp_addr_to_size.get(da, 0)
+            best_ra = None; best_d = float('inf'); best_i = -1
+            for i, (ra, rh, rs) in enumerate(ra_list):
+                if rs == 0: continue
+                d = abs(rs - ds) / max(rs, ds)
+                if d < best_d and d <= 0.5:
+                    best_d = d; best_ra = ra; best_i = i
+            if best_ra is not None and da in xmap:
+                name = xmap[da]
+                pmid[best_ra] = name; r_m.add(best_ra); d_m.add(da)
+                ra_list.pop(best_i); c_count += 1
+    print(f"[INFO]   Pass C (closest-size within seg): {c_count}")
+
+    # ── Pass D: Cross-segment exact-size ──
+    r4 = [(a, h, s) for a, h, s in r_unmatched if a not in r_m]
+    d4 = [(a, h) for a, h in d_unmatched if a not in d_m]
+    from collections import defaultdict
+    r_bs_all = defaultdict(list)
+    for ra, rh, rs in r4: r_bs_all[rs].append(ra)
+    d_count = 0
+    for da, dh in d4:
+        ds = dlp_addr_to_size.get(da, 0)
+        if ds in r_bs_all and r_bs_all[ds]:
+            ra = r_bs_all[ds].pop(0)
+            if da in xmap and ra not in r_m:
+                name = xmap[da]
+                pmid[ra] = name; r_m.add(ra); d_m.add(da); d_count += 1
+    print(f"[INFO]   Pass D (cross-seg exact-size): {d_count}")
+
+    # ── Pass E: Cross-segment closest-size (50%) ──
+    r5 = [(a, h, s) for a, h, s in r_unmatched if a not in r_m]
+    d5 = [(a, h) for a, h in d_unmatched if a not in d_m]
+    ra_all = list(r5)
+    e_count = 0
+    for da, dh in d5:
+        ds = dlp_addr_to_size.get(da, 0)
+        best_ra = None; best_d = float('inf'); best_i = -1
+        for i, (ra, rh, rs) in enumerate(ra_all):
+            if rs == 0: continue
+            d = abs(rs - ds) / max(rs, ds)
+            if d < best_d and d <= 0.5:
+                best_d = d; best_ra = ra; best_i = i
+        if best_ra is not None and da in xmap:
+            name = xmap[da]
+            pmid[best_ra] = name; r_m.add(best_ra); d_m.add(da)
+            ra_all.pop(best_i); e_count += 1
+    print(f"[INFO]   Pass E (cross-seg closest-size): {e_count}")
+
+    total_new = len(pmid)
+    print(f"[INFO] Phase 3 total new matches: {total_new}")
+    matched.update(pmid)
 
     total_matched = len(matched)
     print(f"[INFO] Total matched (all phases): {total_matched}")

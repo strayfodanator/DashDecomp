@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: System::Flag::SetPrepared(RaceSys::ETireID) [sub_00450748]
- * Virtual Address: 0x00450748
- * File Offset:     0x00350748
+ * Function: System::Flag::SetPrepared(RaceSys::EWingID) [sub_0045078C]
+ * Virtual Address: 0x0045078C
+ * File Offset:     0x0035078C
  * Size (bytes):    64
  *
  * Status: NODECOMPILED 🔴
@@ -15,7 +15,7 @@
 .global vldtr_validateAllState
 .type   vldtr_validateAllState, %function
 
-vldtr_validateAllState:  @ was sub_00450748
+vldtr_validateAllState:  @ was sub_0045078C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 64 bytes at VA 0x00450748 in build/code.dec.bin
+    @ Size: 64 bytes at VA 0x0045078C in build/code.dec.bin
     bx lr

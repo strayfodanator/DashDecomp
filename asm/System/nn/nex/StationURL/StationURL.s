@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::StationURL::StationURL(const nn::nex::String&) [sub_001963C4]
- * Virtual Address: 0x001963C4
- * File Offset:     0x000963C4
+ * Function: nn::nex::StationURL::StationURL(const nn::nex::StationURL&) [sub_00196430]
+ * Virtual Address: 0x00196430
+ * File Offset:     0x00096430
  * Size (bytes):    104
  *
  * Status: NODECOMPILED 🔴
@@ -15,7 +15,7 @@
 .global vldtr_validateAllState
 .type   vldtr_validateAllState, %function
 
-vldtr_validateAllState:  @ was sub_001963C4
+vldtr_validateAllState:  @ was sub_00196430
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 104 bytes at VA 0x001963C4 in build/code.dec.bin
+    @ Size: 104 bytes at VA 0x00196430 in build/code.dec.bin
     bx lr

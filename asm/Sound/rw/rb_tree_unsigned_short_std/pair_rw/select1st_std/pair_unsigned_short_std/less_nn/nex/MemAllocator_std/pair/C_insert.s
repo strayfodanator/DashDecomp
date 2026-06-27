@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: __rw::__rb_tree<unsigned short, std::pair<const unsigned short, nn::nex::InetAddress>, __rw::__select1st<std::pair<const unsigned short, nn::nex::InetAddress>, unsigned short>, std::less<unsigned short>, nn::nex::MemAllocator<std::pair<const unsigned short, nn::nex::InetAddress>>>::_C_insert(__rw::__rw_rb_tree_node<nn::nex::MemAllocator<std::pair<const unsigned short, nn::nex::InetAddress>>, std::pair<const unsigned short, nn::nex::InetAddress>, unsigned short, __rw::__select1st<std::pair<const unsigned short, nn::nex::InetAddress>, unsigned short>>*, __rw::__rw_rb_tree_node<nn::nex::MemAllocator<std::pair<const unsigned short, nn::nex::InetAddress>>, std::pair<const unsigned short, nn::nex::InetAddress>, unsigned short, __rw::__select1st<std::pair<const unsigned short, nn::nex::InetAddress>, unsigned short>>*, const std::pair<const unsigned short, nn::nex::InetAddress>&) [sub_005B97A0]
- * Virtual Address: 0x005B97A0
- * File Offset:     0x004B97A0
+ * Function: __rw::__rb_tree<unsigned short, std::pair<const unsigned short, nn::nex::DOCallContext*>, __rw::__select1st<std::pair<const unsigned short, nn::nex::DOCallContext*>, unsigned short>, std::less<unsigned short>, nn::nex::MemAllocator<std::pair<const unsigned short, nn::nex::DOCallContext*>>>::_C_insert(__rw::__rw_rb_tree_node<nn::nex::MemAllocator<std::pair<const unsigned short, nn::nex::DOCallContext*>>, std::pair<const unsigned short, nn::nex::DOCallContext*>, unsigned short, __rw::__select1st<std::pair<const unsigned short, nn::nex::DOCallContext*>, unsigned short>>*, __rw::__rw_rb_tree_node<nn::nex::MemAllocator<std::pair<const unsigned short, nn::nex::DOCallContext*>>, std::pair<const unsigned short, nn::nex::DOCallContext*>, unsigned short, __rw::__select1st<std::pair<const unsigned short, nn::nex::DOCallContext*>, unsigned short>>*, const std::pair<const unsigned short, nn::nex::DOCallContext*>&) [sub_005BA1C4]
+ * Virtual Address: 0x005BA1C4
+ * File Offset:     0x004BA1C4
  * Size (bytes):    908
  *
  * Status: NODECOMPILED 🔴
@@ -14,7 +14,7 @@
 .global vldtr_validateAllState
 .type   vldtr_validateAllState, %function
 
-vldtr_validateAllState:  @ was sub_005B97A0
+vldtr_validateAllState:  @ was sub_005BA1C4
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 908 bytes at VA 0x005B97A0 in build/code.dec.bin
+    @ Size: 908 bytes at VA 0x005BA1C4 in build/code.dec.bin
     bx lr

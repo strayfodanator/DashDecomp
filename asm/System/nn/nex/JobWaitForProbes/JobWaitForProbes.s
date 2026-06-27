@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::JobWaitForProbes::JobWaitForProbes(unsigned, nn::nex::NATTraversalEngine*, nn::nex::StationProbeList*, unsigned) [sub_001A903C]
- * Virtual Address: 0x001A903C
- * File Offset:     0x000A903C
+ * Function: nn::nex::JobWaitForProbes::JobWaitForProbes(unsigned, nn::nex::NATTraversalEngine*, nn::nex::StationProbeList*, unsigned) [sub_0018A1E8]
+ * Virtual Address: 0x0018A1E8
+ * File Offset:     0x0008A1E8
  * Size (bytes):    72
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global JobWaitForProbes
-.type   JobWaitForProbes, %function
+.global vldtr_validateAllState
+.type   vldtr_validateAllState, %function
 
-JobWaitForProbes:  @ was sub_001A903C
+vldtr_validateAllState:  @ was sub_0018A1E8
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 72 bytes at VA 0x001A903C in build/code.dec.bin
+    @ Size: 72 bytes at VA 0x0018A1E8 in build/code.dec.bin
     bx lr

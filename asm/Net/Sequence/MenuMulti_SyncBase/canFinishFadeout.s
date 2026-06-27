@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sequence::MenuMulti_SyncBase<Sequence::MenuSingle_CupGP>::canFinishFadeout() [sub_005C9608]
- * Virtual Address: 0x005C9608
- * File Offset:     0x004C9608
+ * Function: Sequence::MenuMulti_SyncBase<Sequence::MenuSingle_Setting>::canFinishFadeout() [sub_005C9A88]
+ * Virtual Address: 0x005C9A88
+ * File Offset:     0x004C9A88
  * Size (bytes):    68
  *
  * Status: NODECOMPILED 🔴
@@ -15,7 +15,7 @@
 .global vldtr_validateAllState
 .type   vldtr_validateAllState, %function
 
-vldtr_validateAllState:  @ was sub_005C9608
+vldtr_validateAllState:  @ was sub_005C9A88
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 68 bytes at VA 0x005C9608 in build/code.dec.bin
+    @ Size: 68 bytes at VA 0x005C9A88 in build/code.dec.bin
     bx lr

@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::RefTemplate<nn::nex::Session>::operator ->() [sub_00590BF0]
- * Virtual Address: 0x00590BF0
- * File Offset:     0x00490BF0
+ * Function: nn::nex::RefTemplate<nn::nex::Station>::operator *() [sub_00590C78]
+ * Virtual Address: 0x00590C78
+ * File Offset:     0x00490C78
  * Size (bytes):    116
  *
  * Status: NODECOMPILED 🔴
@@ -15,7 +15,7 @@
 .global vldtr_validateAllState
 .type   vldtr_validateAllState, %function
 
-vldtr_validateAllState:  @ was sub_00590BF0
+vldtr_validateAllState:  @ was sub_00590C78
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 116 bytes at VA 0x00590BF0 in build/code.dec.bin
+    @ Size: 116 bytes at VA 0x00590C78 in build/code.dec.bin
     bx lr
