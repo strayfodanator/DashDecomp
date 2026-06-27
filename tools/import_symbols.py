@@ -38,17 +38,35 @@ MATCH_WINDOW = 32   # bytes to read from function start for fingerprint
 MIN_MATCH    = 20   # minimum matching bytes to consider a match
 
 
-def load_symbols_csv(path: Path) -> list[dict]:
-    """Load Ghidra-exported symbol CSV."""
+def load_symbols(path: Path) -> list[dict]:
+    """Load symbols from either CSV or XMAP format."""
     symbols = []
     if not path.exists():
-        print(f"[WARN] Symbols CSV not found: {path}")
+        print(f"[WARN] Symbols file not found: {path}")
         return symbols
-    with open(path, newline="") as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            symbols.append(row)
-    print(f"[INFO] Loaded {len(symbols)} symbols from {path.name}")
+    if path.suffix == ".xmap":
+        with open(path) as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                parts = line.split(None, 1)
+                if len(parts) == 2:
+                    addr_str = "0x" + parts[0]
+                    name = parts[1]
+                    symbols.append({
+                        "address": addr_str,
+                        "name": name,
+                        "type": "Function",
+                        "namespace": ""
+                    })
+        print(f"[INFO] Loaded {len(symbols)} symbols from XMAP: {path.name}")
+    else:
+        with open(path, newline="") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                symbols.append(row)
+        print(f"[INFO] Loaded {len(symbols)} symbols from CSV: {path.name}")
     return symbols
 
 
@@ -180,49 +198,52 @@ def rename_stub(old_va: int, new_name: str, module: str, dry_run: bool = False) 
 
 def main():
     parser = argparse.ArgumentParser(description="Import DLP symbols into DashDecomp stubs")
-    parser.add_argument("--symbols", default="build/dlp_symbols.csv")
-    parser.add_argument("--strings", default="build/dlp_strings.txt")
+    parser.add_argument("--symbols", default="build/dlp_symbols/USA/CTRDash.xmap")
     parser.add_argument("--retail",  default="build/code.dec.bin")
     parser.add_argument("--dlp",     default="build/dlp_exefs/code.bin")
     parser.add_argument("--dry-run", action="store_true")
-    parser.add_argument("--min-match", type=int, default=MIN_MATCH)
+    parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
 
     symbols_path = ROOT / args.symbols
-    strings_path = ROOT / args.strings
-    retail_path  = ROOT / args.retail
-    dlp_path     = ROOT / args.dlp
 
-    # ── Load data ──────────────────────────────────────────────────────────────
-    symbols = load_symbols_csv(symbols_path)
-    strings = load_strings_txt(strings_path)
+    # ── Load symbols ───────────────────────────────────────────────────────────
+    symbols = load_symbols(symbols_path)
 
-    if not retail_path.exists():
-        print(f"[ERR] Retail binary not found: {retail_path}")
-        return
-
-    if not dlp_path.exists():
-        print(f"[ERR] DLP binary not found: {dlp_path}")
-        return
-
-    retail_data = retail_path.read_bytes()
-    dlp_data    = dlp_path.read_bytes()
-
-    print(f"[INFO] Retail: {len(retail_data):,} bytes")
-    print(f"[INFO] DLP:    {len(dlp_data):,} bytes")
+    print(f"[INFO] Strategy: direct address mapping (DLP USA == retail USA v1.0 addresses)")
     print()
 
-    matched  = 0
-    renamed  = 0
-    skipped  = 0
-    total    = len(symbols)
+    # ── Build a quick lookup of all existing stub VAs ──────────────────────────
+    existing_stubs: dict[int, Path] = {}
+    for stub in ASM_DIR.rglob("*.s"):
+        stem = stub.stem
+        if stem.startswith("sub_"):
+            try:
+                va = int(stem[4:], 16)
+                existing_stubs[va] = stub
+            except ValueError:
+                continue
 
-    # ── Match each DLP symbol to retail binary ─────────────────────────────────
+    print(f"[INFO] Stubs in asm/: {len(existing_stubs)}")
+    print()
+
+    matched   = 0
+    renamed   = 0
+    no_stub   = 0
+    skipped   = 0
+    total     = len(symbols)
+
     for sym in symbols:
-        name = sym.get("name", "").strip()
+        name     = sym.get("name", "").strip()
         addr_str = sym.get("address", "").strip()
 
-        if not name or not addr_str or name.startswith("FUN_"):
+        # Skip unnamed or auto-named entries
+        if not name or not addr_str:
+            skipped += 1
+            continue
+
+        # Skip Ghidra auto-generated names
+        if re.match(r'^(FUN_|DAT_|LAB_|switchD|caseD_|default|switchdata)', name):
             skipped += 1
             continue
 
@@ -232,47 +253,36 @@ def main():
             skipped += 1
             continue
 
-        dlp_offset = dlp_va - DLP_BASE
-        if dlp_offset < 0 or dlp_offset >= len(dlp_data):
-            skipped += 1
+        # The retail v1.0 USA shares the same load address (0x00100000) and
+        # the DLP binary is compiled from the same source → addresses match.
+        retail_va = dlp_va
+
+        if retail_va not in existing_stubs:
+            no_stub += 1
+            if args.verbose:
+                print(f"  [MISS]  0x{retail_va:08X}  {name}")
             continue
 
-        # Get fingerprint from DLP binary at this function's address
-        fp = fingerprint(dlp_data, dlp_offset)
-        if len(fp) < args.min_match:
-            skipped += 1
-            continue
-
-        # Search for same bytes in retail binary
-        retail_offset = find_in_retail(fp, retail_data)
-        if retail_offset == -1:
-            skipped += 1
-            continue
-
-        retail_va = BASE_ADDR + retail_offset
-        matched  += 1
-
-        # Attempt to demangle if it's a mangled name
+        matched += 1
         real_name = demangle_simple(name)
 
-        # Figure out which module this belongs to (from namespace)
-        ns = sym.get("namespace", "")
+        # Determine module from namespace/name
         module = "System"
         for mod in ["Race", "Kart", "Item", "UI", "Sound", "Net", "Sead"]:
-            if mod.lower() in ns.lower() or mod.lower() in real_name.lower():
+            if mod.lower() in real_name.lower():
                 module = mod
                 break
 
         if rename_stub(retail_va, real_name, module, dry_run=args.dry_run):
             renamed += 1
-            if renamed <= 20 or renamed % 100 == 0:
-                print(f"  [OK]  0x{retail_va:08X}  {name}  ->  {sanitize_filename(real_name)}")
+            print(f"  [{'DRY' if args.dry_run else 'OK '}]  0x{retail_va:08X}  {name}")
 
     print()
-    print(f"[RESULT] Total symbols:  {total}")
-    print(f"         Matched:        {matched}")
-    print(f"         Renamed stubs:  {renamed}")
-    print(f"         Skipped:        {skipped}")
+    print(f"[RESULT] Total symbols:      {total}")
+    print(f"         Stub matches:       {matched}")
+    print(f"         Renamed stubs:      {renamed}")
+    print(f"         No stub (ARM32/missing): {no_stub}")
+    print(f"         Skipped (auto-names):    {skipped}")
 
     if renamed > 0 and not args.dry_run:
         print()
