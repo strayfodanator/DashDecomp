@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: sead::Vector3<float>::setRotate(const sead::Quat<float>&, const sead::Vector3<float>&) [sub_00560A84]
- * Virtual Address: 0x00560A84
- * File Offset:     0x00460A84
+ * Function: sead::Vector3<float>::setRotate(const sead::Quat<float>&, const sead::Vector3<float>&)::sub__1 [sub_00560AC4]
+ * Virtual Address: 0x00560AC4
+ * File Offset:     0x00460AC4
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global setRotate
-.type   setRotate, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-setRotate:  @ was sub_00560A84
+AscendingPingSort:  @ was sub_00560AC4
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x00560A84 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x00560AC4 in build/code.dec.bin
     bx lr

@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: UI::ResultBarWiFi::onCreate(const UI::Control::CreateArg*) [sub_00156244]
- * Virtual Address: 0x00156244
- * File Offset:     0x00056244
+ * Function: UI::ResultBarWiFi::onCreate(const UI::Control::CreateArg*) [sub_00101C00]
+ * Virtual Address: 0x00101C00
+ * File Offset:     0x00001C00
  * Size (bytes):    264
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_00156244
+AscendingPingSort:  @ was sub_00101C00
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 264 bytes at VA 0x00156244 in build/code.dec.bin
+    @ Size: 264 bytes at VA 0x00101C00 in build/code.dec.bin
     bx lr

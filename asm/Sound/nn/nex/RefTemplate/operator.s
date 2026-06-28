@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::RefTemplate<nn::nex::Station>::operator *() [sub_00590C78]
- * Virtual Address: 0x00590C78
- * File Offset:     0x00490C78
+ * Function: nn::nex::RefTemplate<nn::nex::Station>::operator ->() [sub_00590CFC]
+ * Virtual Address: 0x00590CFC
+ * File Offset:     0x00490CFC
  * Size (bytes):    116
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_00590C78
+AscendingPingSort:  @ was sub_00590CFC
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 116 bytes at VA 0x00590C78 in build/code.dec.bin
+    @ Size: 116 bytes at VA 0x00590CFC in build/code.dec.bin
     bx lr

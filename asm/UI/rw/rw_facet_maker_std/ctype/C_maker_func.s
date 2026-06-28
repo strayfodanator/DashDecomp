@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: __rw::__rw_facet_maker<std::ctype<char>>::_C_maker_func(int, const char*, unsigned) [sub_005440A8]
- * Virtual Address: 0x005440A8
- * File Offset:     0x004440A8
+ * Function: __rw::__rw_facet_maker<std::ctype<char>>::_C_maker_func(int, const char*, unsigned)::sub__1 [sub_005440E8]
+ * Virtual Address: 0x005440E8
+ * File Offset:     0x004440E8
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global C_maker_func
-.type   C_maker_func, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-C_maker_func:  @ was sub_005440A8
+AscendingPingSort:  @ was sub_005440E8
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x005440A8 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x005440E8 in build/code.dec.bin
     bx lr

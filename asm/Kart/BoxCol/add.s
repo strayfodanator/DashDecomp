@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: BoxCol::add(const sead::Vector3<float>&, float, Kart::VehicleReact*) [sub_003D99C8]
- * Virtual Address: 0x003D99C8
- * File Offset:     0x002D99C8
+ * Function: BoxCol::add(const sead::Vector3<float>&, float, Enemy::AI*) [sub_003D9A2C]
+ * Virtual Address: 0x003D9A2C
+ * File Offset:     0x002D9A2C
  * Size (bytes):    92
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_003D99C8
+AscendingPingSort:  @ was sub_003D9A2C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 92 bytes at VA 0x003D99C8 in build/code.dec.bin
+    @ Size: 92 bytes at VA 0x003D9A2C in build/code.dec.bin
     bx lr

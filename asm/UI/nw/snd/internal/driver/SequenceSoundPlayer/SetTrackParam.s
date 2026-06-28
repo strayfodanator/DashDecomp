@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nw::snd::internal::driver::SequenceSoundPlayer::SetTrackParam<float>(unsigned, void(nw::snd::internal::driver::SequenceTrack::*)(T1), T1) [sub_0053B528]
- * Virtual Address: 0x0053B528
- * File Offset:     0x0043B528
+ * Function: nw::snd::internal::driver::SequenceSoundPlayer::SetTrackParam<float>(unsigned, void(nw::snd::internal::driver::SequenceTrack::*)(T1), T1) [sub_0053B568]
+ * Virtual Address: 0x0053B568
+ * File Offset:     0x0043B568
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global SetTrackParam
-.type   SetTrackParam, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-SetTrackParam:  @ was sub_0053B528
+AscendingPingSort:  @ was sub_0053B568
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x0053B528 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x0053B568 in build/code.dec.bin
     bx lr

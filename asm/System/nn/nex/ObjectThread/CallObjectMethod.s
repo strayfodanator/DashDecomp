@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::ObjectThread<nn::nex::TransportBufferThread, void*>::CallObjectMethod() [sub_0014752C]
- * Virtual Address: 0x0014752C
- * File Offset:     0x0004752C
+ * Function: nn::nex::ObjectThread<nn::nex::WorkerThreads, int>::CallObjectMethod() [sub_00128C70]
+ * Virtual Address: 0x00128C70
+ * File Offset:     0x00028C70
  * Size (bytes):    52
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_0014752C
+AscendingPingSort:  @ was sub_00128C70
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 52 bytes at VA 0x0014752C in build/code.dec.bin
+    @ Size: 52 bytes at VA 0x00128C70 in build/code.dec.bin
     bx lr

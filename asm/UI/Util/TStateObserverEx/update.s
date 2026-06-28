@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Util::TStateObserverEx<Field::ObjectWiiEscalator>::update() [sub_00543678]
- * Virtual Address: 0x00543678
- * File Offset:     0x00443678
+ * Function: Util::TStateObserverEx<Field::ObjectHanachan>::update()::sub__1 [sub_0054307C]
+ * Virtual Address: 0x0054307C
+ * File Offset:     0x0044307C
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global update
-.type   update, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-update:  @ was sub_00543678
+AscendingPingSort:  @ was sub_0054307C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x00543678 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x0054307C in build/code.dec.bin
     bx lr

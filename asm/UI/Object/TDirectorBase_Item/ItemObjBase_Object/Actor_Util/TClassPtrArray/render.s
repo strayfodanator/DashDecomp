@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Object::TDirectorBase<Item::ItemObjBase, Object::Actor, Util::TClassPtrArray<Item::ItemObjBase>>::render() [sub_00566178]
- * Virtual Address: 0x00566178
- * File Offset:     0x00466178
+ * Function: Object::TDirectorBase<Item::ItemObjBase, Object::Actor, Util::TClassPtrArray<Item::ItemObjBase>>::render()::sub__1 [sub_005661B8]
+ * Virtual Address: 0x005661B8
+ * File Offset:     0x004661B8
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global render
-.type   render, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-render:  @ was sub_00566178
+AscendingPingSort:  @ was sub_005661B8
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x00566178 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x005661B8 in build/code.dec.bin
     bx lr

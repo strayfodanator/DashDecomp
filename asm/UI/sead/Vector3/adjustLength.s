@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: sead::Vector3<float>::adjustLength(float) [sub_00560A04]
- * Virtual Address: 0x00560A04
- * File Offset:     0x00460A04
+ * Function: sead::Vector3<float>::adjustLength(float)::sub__1 [sub_00560A44]
+ * Virtual Address: 0x00560A44
+ * File Offset:     0x00460A44
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global adjustLength
-.type   adjustLength, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-adjustLength:  @ was sub_00560A04
+AscendingPingSort:  @ was sub_00560A44
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x00560A04 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x00560A44 in build/code.dec.bin
     bx lr

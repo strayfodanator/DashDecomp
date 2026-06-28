@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sequence::BasePage::setupMenuControl<UI::RaceCloseButton>(const sead::SafeStringBase<char>&, const sead::SafeStringBase<char>&, unsigned) [sub_005CD348]
- * Virtual Address: 0x005CD348
- * File Offset:     0x004CD348
+ * Function: Sequence::BasePage::setupMenuControl<UI::RaceDialogButton>(const sead::SafeStringBase<char>&, const sead::SafeStringBase<char>&, unsigned) [sub_005CD484]
+ * Virtual Address: 0x005CD484
+ * File Offset:     0x004CD484
  * Size (bytes):    308
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_005CD348
+AscendingPingSort:  @ was sub_005CD484
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 308 bytes at VA 0x005CD348 in build/code.dec.bin
+    @ Size: 308 bytes at VA 0x005CD484 in build/code.dec.bin
     bx lr

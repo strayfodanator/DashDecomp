@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nw::gfx::res::ResLookupTable::Cleanup() [sub_0022B530]
- * Virtual Address: 0x0022B530
- * File Offset:     0x0012B530
+ * Function: nw::gfx::res::ResLookupTable::Cleanup() [sub_0022B56C]
+ * Virtual Address: 0x0022B56C
+ * File Offset:     0x0012B56C
  * Size (bytes):    52
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global Cleanup
-.type   Cleanup, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-Cleanup:  @ was sub_0022B530
+AscendingPingSort:  @ was sub_0022B56C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 52 bytes at VA 0x0022B530 in build/code.dec.bin
+    @ Size: 52 bytes at VA 0x0022B56C in build/code.dec.bin
     bx lr

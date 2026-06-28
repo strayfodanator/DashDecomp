@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: sead::SafeStringBase<char>::comparen(const sead::SafeStringBase<char>&, int) const [sub_005712A4]
- * Virtual Address: 0x005712A4
- * File Offset:     0x004712A4
+ * Function: sead::SafeStringBase<char>::comparen(const sead::SafeStringBase<char>&, int) const [sub_005712E4]
+ * Virtual Address: 0x005712E4
+ * File Offset:     0x004712E4
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global comparen
-.type   comparen, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-comparen:  @ was sub_005712A4
+AscendingPingSort:  @ was sub_005712E4
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x005712A4 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x005712E4 in build/code.dec.bin
     bx lr

@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: System::Flag::SetPrepared(RaceSys::EWingID) [sub_0045078C]
- * Virtual Address: 0x0045078C
- * File Offset:     0x0035078C
+ * Function: System::Flag::SetPrepared(RaceSys::EDriverID) [sub_004507D0]
+ * Virtual Address: 0x004507D0
+ * File Offset:     0x003507D0
  * Size (bytes):    64
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_0045078C
+AscendingPingSort:  @ was sub_004507D0
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 64 bytes at VA 0x0045078C in build/code.dec.bin
+    @ Size: 64 bytes at VA 0x004507D0 in build/code.dec.bin
     bx lr

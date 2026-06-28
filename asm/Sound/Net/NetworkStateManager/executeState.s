@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Net::NetworkStateManager<Net::NetworkSystemInfoManager::Sync>::executeState() [sub_0059BC40]
- * Virtual Address: 0x0059BC40
- * File Offset:     0x0049BC40
+ * Function: Net::NetworkStateManager<Net::NetworkSystemInfoManager>::executeState() [sub_0059BFD4]
+ * Virtual Address: 0x0059BFD4
+ * File Offset:     0x0049BFD4
  * Size (bytes):    456
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_0059BC40
+AscendingPingSort:  @ was sub_0059BFD4
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 456 bytes at VA 0x0059BC40 in build/code.dec.bin
+    @ Size: 456 bytes at VA 0x0059BFD4 in build/code.dec.bin
     bx lr

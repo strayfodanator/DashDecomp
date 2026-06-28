@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: sead::ObjList<Net::Community>::Node::Node(const sead::ObjList<Net::Community>::Node&) [sub_005608C4]
- * Virtual Address: 0x005608C4
- * File Offset:     0x004608C4
+ * Function: sead::ObjList<Net::Community>::Node::Node(const sead::ObjList<Net::Community>::Node&)::sub__1 [sub_00560904]
+ * Virtual Address: 0x00560904
+ * File Offset:     0x00460904
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global Node
-.type   Node, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-Node:  @ was sub_005608C4
+AscendingPingSort:  @ was sub_00560904
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x005608C4 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x00560904 in build/code.dec.bin
     bx lr

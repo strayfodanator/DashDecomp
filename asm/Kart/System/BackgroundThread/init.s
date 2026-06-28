@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: System::BackgroundThread::init() [sub_0043CE1C]
- * Virtual Address: 0x0043CE1C
- * File Offset:     0x0033CE1C
+ * Function: System::BackgroundThread::init() [sub_0044BF6C]
+ * Virtual Address: 0x0044BF6C
+ * File Offset:     0x0034BF6C
  * Size (bytes):    48
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_0043CE1C
+AscendingPingSort:  @ was sub_0044BF6C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 48 bytes at VA 0x0043CE1C in build/code.dec.bin
+    @ Size: 48 bytes at VA 0x0044BF6C in build/code.dec.bin
     bx lr

@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::DOClassTemplate<nn::nex::_DO_DefaultCell, nn::nex::_DOC_RootDO>::SpecificRefresh(nn::nex::DuplicatedObject*, nn::nex::DataSet*, const nn::nex::Time&) [sub_00593624]
- * Virtual Address: 0x00593624
- * File Offset:     0x00493624
+ * Function: nn::nex::DOClassTemplate<nn::nex::_DO_IDGenerator, nn::nex::_DOC_RootDO>::SpecificRefresh(nn::nex::DuplicatedObject*, nn::nex::DataSet*, const nn::nex::Time&) [sub_005937E0]
+ * Virtual Address: 0x005937E0
+ * File Offset:     0x004937E0
  * Size (bytes):    76
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_00593624
+AscendingPingSort:  @ was sub_005937E0
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 76 bytes at VA 0x00593624 in build/code.dec.bin
+    @ Size: 76 bytes at VA 0x005937E0 in build/code.dec.bin
     bx lr

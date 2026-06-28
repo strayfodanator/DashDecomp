@@ -73,8 +73,11 @@ def _addr_from_file(s_file: Path) -> int | None:
         return int(m.group(1), 16)
     try:
         with open(s_file, "rb") as fh:
-            head = fh.read(400)
+            head = fh.read(4096)
         m = re.search(rb"Virtual Address:\s*0x([0-9A-Fa-f]{8})", head)
+        if m:
+            return int(m.group(1), 16)
+        m = re.search(rb"sub_([0-9A-Fa-f]{8})", head)
         if m:
             return int(m.group(1), 16)
     except Exception:

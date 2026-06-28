@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Object::TDirectorBase<Object::Actor, Object::ActorEngine, Util::TIndLinkList<Object::Actor>>::renderMainL() [sub_00568258]
- * Virtual Address: 0x00568258
- * File Offset:     0x00468258
+ * Function: Object::TDirectorBase<Object::Actor, Object::ActorEngine, Util::TIndLinkList<Object::Actor>>::renderMainL()::sub__1 [sub_00568298]
+ * Virtual Address: 0x00568298
+ * File Offset:     0x00468298
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global renderMainL
-.type   renderMainL, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-renderMainL:  @ was sub_00568258
+AscendingPingSort:  @ was sub_00568298
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x00568258 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x00568298 in build/code.dec.bin
     bx lr

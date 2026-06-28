@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Object::TDirectorBase<Item::ItemObjBase, Object::Actor, Util::TClassPtrArray<Item::ItemObjBase>>::create(const Object::ArgumentObj*) [sub_005660B8]
- * Virtual Address: 0x005660B8
- * File Offset:     0x004660B8
+ * Function: Object::TDirectorBase<Item::ItemObjBase, Object::Actor, Util::TClassPtrArray<Item::ItemObjBase>>::create(const Object::ArgumentObj*)::sub__1 [sub_005660F8]
+ * Virtual Address: 0x005660F8
+ * File Offset:     0x004660F8
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global create
-.type   create, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-create:  @ was sub_005660B8
+AscendingPingSort:  @ was sub_005660F8
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x005660B8 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x005660F8 in build/code.dec.bin
     bx lr

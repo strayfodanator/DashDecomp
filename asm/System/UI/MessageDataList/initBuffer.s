@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: UI::MiiBar::setCharaTex(RaceSys::EDriverID, int) [sub_0015B96C]
- * Virtual Address: 0x0015B96C
- * File Offset:     0x0005B96C
+ * Function: UI::MessageDataList::initBuffer(int) [sub_00183590]
+ * Virtual Address: 0x00183590
+ * File Offset:     0x00083590
  * Size (bytes):    24
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-setCharaTex:  @ was sub_0015B96C
+AscendingPingSort:  @ was sub_00183590
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 24 bytes at VA 0x0015B96C in build/code.dec.bin
+    @ Size: 24 bytes at VA 0x00183590 in build/code.dec.bin
     bx lr

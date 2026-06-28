@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Object::TDirectorBase<Sound::SndBase, Sound::TSndBaseLink<Sound::SndBase>, Util::TClassPtrArray<Sound::SndBase>>::create(const Object::ArgumentObj*) [sub_00566838]
- * Virtual Address: 0x00566838
- * File Offset:     0x00466838
+ * Function: Object::TDirectorBase<Sound::SndBase, Sound::TSndBaseLink<Sound::SndBase>, Util::TClassPtrArray<Sound::SndBase>>::create(const Object::ArgumentObj*)::sub__1 [sub_00566878]
+ * Virtual Address: 0x00566878
+ * File Offset:     0x00466878
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global create
-.type   create, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-create:  @ was sub_00566838
+AscendingPingSort:  @ was sub_00566878
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x00566838 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x00566878 in build/code.dec.bin
     bx lr

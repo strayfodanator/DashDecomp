@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sequence::MenuMulti_SyncBase<Sequence::MenuSingle_Class>::onPageEnter() [sub_0056B1A4]
- * Virtual Address: 0x0056B1A4
- * File Offset:     0x0046B1A4
+ * Function: Sequence::MenuMulti_SyncBase<Sequence::MenuSingle_Class>::onPageEnter()::sub__1 [sub_0056B1E4]
+ * Virtual Address: 0x0056B1E4
+ * File Offset:     0x0046B1E4
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global onPageEnter
-.type   onPageEnter, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-onPageEnter:  @ was sub_0056B1A4
+AscendingPingSort:  @ was sub_0056B1E4
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x0056B1A4 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x0056B1E4 in build/code.dec.bin
     bx lr

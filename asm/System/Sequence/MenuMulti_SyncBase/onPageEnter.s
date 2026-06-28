@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: UI::BgRaceMapItemControl::onCalc() [sub_00151BD0]
- * Virtual Address: 0x00151BD0
- * File Offset:     0x00051BD0
+ * Function: Sequence::MenuMulti_SyncBase<Sequence::MenuSingle_Mode>::onPageEnter() [sub_001287D0]
+ * Virtual Address: 0x001287D0
+ * File Offset:     0x000287D0
  * Size (bytes):    260
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-onCalc:  @ was sub_00151BD0
+AscendingPingSort:  @ was sub_001287D0
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 260 bytes at VA 0x00151BD0 in build/code.dec.bin
+    @ Size: 260 bytes at VA 0x001287D0 in build/code.dec.bin
     bx lr

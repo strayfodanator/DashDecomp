@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::ThreadVariable<nn::nex::ObjectThreadRoot*>::ClearValue() [sub_0043A704]
- * Virtual Address: 0x0043A704
- * File Offset:     0x0033A704
+ * Function: nn::nex::ThreadVariable<unsigned>::ClearValue() [sub_0043AF74]
+ * Virtual Address: 0x0043AF74
+ * File Offset:     0x0033AF74
  * Size (bytes):    156
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_0043A704
+AscendingPingSort:  @ was sub_0043AF74
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 156 bytes at VA 0x0043A704 in build/code.dec.bin
+    @ Size: 156 bytes at VA 0x0043AF74 in build/code.dec.bin
     bx lr

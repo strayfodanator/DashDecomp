@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Util::TStateObserver<RaceSys::ModeManagerBase>::executeState() [sub_00541C68]
- * Virtual Address: 0x00541C68
- * File Offset:     0x00441C68
+ * Function: Util::TStateObserver<Net::NetworkSelectMenuProcess>::executeState()::sub__1 [sub_00540D60]
+ * Virtual Address: 0x00540D60
+ * File Offset:     0x00440D60
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global executeState
-.type   executeState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-executeState:  @ was sub_00541C68
+AscendingPingSort:  @ was sub_00540D60
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x00541C68 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x00540D60 in build/code.dec.bin
     bx lr

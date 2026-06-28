@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Field::ObjectIceBoundHeart::creator(Field::ObjectCreateArgument&) [sub_0039B618]
- * Virtual Address: 0x0039B618
- * File Offset:     0x0029B618
+ * Function: Field::ObjectIceBoundHeart::creator(Field::ObjectCreateArgument&) [sub_003A51B4]
+ * Virtual Address: 0x003A51B4
+ * File Offset:     0x002A51B4
  * Size (bytes):    164
  *
  * Status: NODECOMPILED 🔴
@@ -11,10 +11,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_0039B618
+AscendingPingSort:  @ was sub_003A51B4
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 164 bytes at VA 0x0039B618 in build/code.dec.bin
+    @ Size: 164 bytes at VA 0x003A51B4 in build/code.dec.bin
     bx lr

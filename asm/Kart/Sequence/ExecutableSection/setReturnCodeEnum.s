@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sequence::ExecutableSection::setReturnCodeEnum(int) [sub_004508DC]
- * Virtual Address: 0x004508DC
- * File Offset:     0x003508DC
+ * Function: Sequence::ExecutableSection::setReturnCodeEnum(int) [sub_00450940]
+ * Virtual Address: 0x00450940
+ * File Offset:     0x00350940
  * Size (bytes):    96
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global setReturnCodeEnum
-.type   setReturnCodeEnum, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-setReturnCodeEnum:  @ was sub_004508DC
+AscendingPingSort:  @ was sub_00450940
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 96 bytes at VA 0x004508DC in build/code.dec.bin
+    @ Size: 96 bytes at VA 0x00450940 in build/code.dec.bin
     bx lr

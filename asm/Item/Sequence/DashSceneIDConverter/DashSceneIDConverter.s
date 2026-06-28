@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sequence::DashSceneIDConverter::DashSceneIDConverter() [sub_004AFBA4]
- * Virtual Address: 0x004AFBA4
- * File Offset:     0x003AFBA4
+ * Function: Sequence::DashSceneIDConverter::DashSceneIDConverter() [sub_004B8664]
+ * Virtual Address: 0x004B8664
+ * File Offset:     0x003B8664
  * Size (bytes):    20
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_004AFBA4
+AscendingPingSort:  @ was sub_004B8664
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 20 bytes at VA 0x004AFBA4 in build/code.dec.bin
+    @ Size: 20 bytes at VA 0x004B8664 in build/code.dec.bin
     bx lr

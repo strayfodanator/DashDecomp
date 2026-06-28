@@ -352,22 +352,80 @@ def main():
     print(f"[INFO] Phase 3 total new matches: {total_new}")
     matched.update(pmid)
 
+    # ── Phase 4: Forced address match ───────────────────────────────────────
+    # For each unmatched sub_*, check if its retail address has an xmap entry
+    # (same address in DLP binary). This is like Phase 2 but without the
+    # hash-collision constraint.
+    print("[INFO] Phase 4: Forced address matching...")
+    unmatched_retail_addrs = {
+        a for a, h, s in all_retail if a not in matched
+    }
+    f_addr_count = 0
+    for ra in sorted(unmatched_retail_addrs):
+        if ra in xmap:
+            name = xmap[ra]
+            if ra not in matched:
+                matched[ra] = name
+                f_addr_count += 1
+    print(f"[INFO]   Pass F (forced address): {f_addr_count}")
+
+    # ── Phase 5: Containing DLP function match ──────────────────────────────
+    # For each remaining sub_* that lies INSIDE a DLP function body (whose
+    # start address has an xmap name), assign the containing function's name
+    # with a _subN suffix.
+    print("[INFO] Phase 5: Containing DLP function matching...")
+
+    # Build DLP function ranges: addr → (size, name)
+    dlp_range: dict[int, tuple[int, str]] = {}
+    for da, (dh, ds) in load_csv_by_addr(DLP_HASHES).items():
+        if da in xmap:
+            dlp_range[da] = (ds, xmap[da])
+
+    dlp_starts = sorted(dlp_range.keys())
+
+    from bisect import bisect_left
+
+    # For each unmatched retail addr, find containing DLP function
+    # and group by DLP function
+    from collections import defaultdict
+    contained_in_dlp: dict[int, list[int]] = defaultdict(list)
+    for ra in sorted(unmatched_retail_addrs):
+        idx = bisect_left(dlp_starts, ra)
+        if idx > 0:
+            prev_da = dlp_starts[idx - 1]
+            prev_ds, prev_name = dlp_range[prev_da]
+            if ra < prev_da + prev_ds:
+                contained_in_dlp[prev_da].append(ra)
+
+    g_count = 0
+    for dlp_a, ra_list in sorted(contained_in_dlp.items()):
+        _, name = dlp_range[dlp_a]
+        demangled_name = demangle(name)
+        parts = name_to_path_parts(demangled_name)
+        if not parts:
+            continue
+        for i, ra in enumerate(ra_list):
+            if ra in matched:
+                continue
+            if len(ra_list) == 1:
+                suffix_name = name
+            else:
+                suffix_name = f"{name}::sub__{i+1}"
+            matched[ra] = suffix_name
+            g_count += 1
+
+    print(f"[INFO]   Pass G (containing DLP func): {g_count}")
+
     total_matched = len(matched)
     print(f"[INFO] Total matched (all phases): {total_matched}")
 
-    # Load current stubs
+    # Load current stubs — only match by FILENAME (not content)
+    # so we don't re-rename files already matched in previous runs.
     stubs: dict[str, int] = {}
     for s_file in sorted(ASM_DIR.rglob("*.s")):
-        rel = str(s_file.relative_to(ROOT))
         m = re.search(r"sub_([0-9A-Fa-f]{8})", s_file.name)
-        if not m:
-            try:
-                with open(s_file, "rb") as fh:
-                    head = fh.read(200)
-                m = re.search(rb"sub_([0-9A-Fa-f]{8})", head)
-            except Exception:
-                pass
         if m:
+            rel = str(s_file.relative_to(ROOT))
             addr = int(m.group(1), 16)
             stubs[rel] = addr
 

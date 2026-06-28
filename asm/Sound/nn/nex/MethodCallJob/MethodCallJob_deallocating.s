@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::MethodCallJob<nn::nex::CallContextRegister, int, nn::nex::PeriodicJob>::~MethodCallJob__deallocating() [sub_005919E0]
- * Virtual Address: 0x005919E0
- * File Offset:     0x004919E0
+ * Function: nn::nex::MethodCallJob<nn::nex::DuplicationSpaceTable, int, nn::nex::PeriodicJob>::~MethodCallJob__deallocating() [sub_00591A1C]
+ * Virtual Address: 0x00591A1C
+ * File Offset:     0x00491A1C
  * Size (bytes):    16
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_005919E0
+AscendingPingSort:  @ was sub_00591A1C
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 16 bytes at VA 0x005919E0 in build/code.dec.bin
+    @ Size: 16 bytes at VA 0x00591A1C in build/code.dec.bin
     bx lr

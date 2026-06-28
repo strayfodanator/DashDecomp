@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Object::TDirectorBase<Object::Actor, Object::TLinkSocket<Object::Actor, Object::Actor>, Util::TIndLinkList<Object::Actor>>::init() [sub_00568CB8]
- * Virtual Address: 0x00568CB8
- * File Offset:     0x00468CB8
+ * Function: Object::TDirectorBase<Object::Actor, Object::TLinkSocket<Object::Actor, Object::Actor>, Util::TIndLinkList<Object::Actor>>::init()::sub__1 [sub_00568CF8]
+ * Virtual Address: 0x00568CF8
+ * File Offset:     0x00468CF8
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global init
-.type   init, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-init:  @ was sub_00568CB8
+AscendingPingSort:  @ was sub_00568CF8
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x00568CB8 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x00568CF8 in build/code.dec.bin
     bx lr

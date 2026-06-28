@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: operator new[] (unsigned, int) [sub_00526E80]
- * Virtual Address: 0x00526E80
- * File Offset:     0x00426E80
+ * Function: operator new(unsigned) [sub_00526EC0]
+ * Virtual Address: 0x00526EC0
+ * File Offset:     0x00426EC0
  * Size (bytes):    60
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_00526E80
+AscendingPingSort:  @ was sub_00526EC0
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 60 bytes at VA 0x00526E80 in build/code.dec.bin
+    @ Size: 60 bytes at VA 0x00526EC0 in build/code.dec.bin
     bx lr

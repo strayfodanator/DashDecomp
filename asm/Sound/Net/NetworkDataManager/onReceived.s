@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Net::NetworkDataManager<Net::NetworkWbtMgr::Node>::onReceived(const Net::NetworkReceivedInfo&) [sub_0059B020]
- * Virtual Address: 0x0059B020
- * File Offset:     0x0049B020
+ * Function: Net::NetworkDataManager<Net::NetworkItemSlotMgr::Node>::onReceived(const Net::NetworkReceivedInfo&) [sub_0059B0C8]
+ * Virtual Address: 0x0059B0C8
+ * File Offset:     0x0049B0C8
  * Size (bytes):    80
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_0059B020
+AscendingPingSort:  @ was sub_0059B0C8
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 80 bytes at VA 0x0059B020 in build/code.dec.bin
+    @ Size: 80 bytes at VA 0x0059B0C8 in build/code.dec.bin
     bx lr

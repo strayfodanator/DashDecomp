@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nw::ut::LinkList<nw::snd::internal::BasicSound, (long)228>::~LinkList() [sub_0023B0A4]
- * Virtual Address: 0x0023B0A4
- * File Offset:     0x0013B0A4
+ * Function: nw::ut::LinkList<nw::snd::internal::StreamSound, (long)212>::~LinkList() [sub_0023B0C0]
+ * Virtual Address: 0x0023B0C0
+ * File Offset:     0x0013B0C0
  * Size (bytes):    28
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_0023B0A4
+AscendingPingSort:  @ was sub_0023B0C0
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 28 bytes at VA 0x0023B0A4 in build/code.dec.bin
+    @ Size: 28 bytes at VA 0x0023B0C0 in build/code.dec.bin
     bx lr

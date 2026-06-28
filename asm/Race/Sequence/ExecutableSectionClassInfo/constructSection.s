@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Enemy::AIObjectManager::init() [sub_00309470]
- * Virtual Address: 0x00309470
- * File Offset:     0x00209470
+ * Function: Sequence::ExecutableSectionClassInfo<Sequence::MenuNetworkApplyTask>::constructSection(Sequence::SectionDirector*) [sub_00309A90]
+ * Virtual Address: 0x00309A90
+ * File Offset:     0x00209A90
  * Size (bytes):    92
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-init:  @ was sub_00309470
+AscendingPingSort:  @ was sub_00309A90
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 92 bytes at VA 0x00309470 in build/code.dec.bin
+    @ Size: 92 bytes at VA 0x00309A90 in build/code.dec.bin
     bx lr

@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: sead::FixedPtrArray<UI::BaseFastControl, (int)15>::FixedPtrArray() [sub_005BC6C8]
- * Virtual Address: 0x005BC6C8
- * File Offset:     0x004BC6C8
+ * Function: sead::FixedPtrArray<nw::lyt::Pane, (int)20>::FixedPtrArray() [sub_005BC6F8]
+ * Virtual Address: 0x005BC6F8
+ * File Offset:     0x004BC6F8
  * Size (bytes):    48
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_005BC6C8
+AscendingPingSort:  @ was sub_005BC6F8
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 48 bytes at VA 0x005BC6C8 in build/code.dec.bin
+    @ Size: 48 bytes at VA 0x005BC6F8 in build/code.dec.bin
     bx lr

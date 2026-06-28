@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::ObjectThread<nn::nex::WorkerThreads, int>::~ObjectThread__deallocating() [sub_0059185C]
- * Virtual Address: 0x0059185C
- * File Offset:     0x0049185C
+ * Function: nn::nex::ObjectThread<nn::nex::SocketTransport, void*>::~ObjectThread__deallocating() [sub_005918A0]
+ * Virtual Address: 0x005918A0
+ * File Offset:     0x004918A0
  * Size (bytes):    16
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_0059185C
+AscendingPingSort:  @ was sub_005918A0
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 16 bytes at VA 0x0059185C in build/code.dec.bin
+    @ Size: 16 bytes at VA 0x005918A0 in build/code.dec.bin
     bx lr

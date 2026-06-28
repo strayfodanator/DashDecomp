@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: __rw::__rb_tree<nn::nex::String, std::pair<const nn::nex::String, unsigned>, __rw::__select1st<std::pair<const nn::nex::String, unsigned>, nn::nex::String>, std::less<nn::nex::String>, nn::nex::MemAllocator<std::pair<const nn::nex::String, unsigned>>>::_C_erase(__rw::__rw_rb_tree_node<nn::nex::MemAllocator<std::pair<const nn::nex::String, unsigned>>, std::pair<const nn::nex::String, unsigned>, nn::nex::String, __rw::__select1st<std::pair<const nn::nex::String, unsigned>, nn::nex::String>>*) [sub_005A7FD4]
- * Virtual Address: 0x005A7FD4
- * File Offset:     0x004A7FD4
+ * Function: __rw::__rb_tree<nn::nex::String, std::pair<const nn::nex::String, unsigned short>, __rw::__select1st<std::pair<const nn::nex::String, unsigned short>, nn::nex::String>, std::less<nn::nex::String>, nn::nex::MemAllocator<std::pair<const nn::nex::String, unsigned short>>>::_C_erase(__rw::__rw_rb_tree_node<nn::nex::MemAllocator<std::pair<const nn::nex::String, unsigned short>>, std::pair<const nn::nex::String, unsigned short>, nn::nex::String, __rw::__select1st<std::pair<const nn::nex::String, unsigned short>, nn::nex::String>>*) [sub_005A8B30]
+ * Virtual Address: 0x005A8B30
+ * File Offset:     0x004A8B30
  * Size (bytes):    72
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_005A7FD4
+AscendingPingSort:  @ was sub_005A8B30
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 72 bytes at VA 0x005A7FD4 in build/code.dec.bin
+    @ Size: 72 bytes at VA 0x005A8B30 in build/code.dec.bin
     bx lr

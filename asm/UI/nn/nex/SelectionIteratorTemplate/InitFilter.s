@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nn::nex::SelectionIteratorTemplate<nn::nex::Station>::InitFilter() [sub_005395E4]
- * Virtual Address: 0x005395E4
- * File Offset:     0x004395E4
+ * Function: nn::nex::SelectionIteratorTemplate<nn::nex::Station>::InitFilter()::sub__1 [sub_00539624]
+ * Virtual Address: 0x00539624
+ * File Offset:     0x00439624
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global InitFilter
-.type   InitFilter, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-InitFilter:  @ was sub_005395E4
+AscendingPingSort:  @ was sub_00539624
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x005395E4 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x00539624 in build/code.dec.bin
     bx lr

@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Field::ObjectScaleCrash::calcCrash(sead::Matrix34<float>&) [sub_0035A418]
- * Virtual Address: 0x0035A418
- * File Offset:     0x0025A418
+ * Function: Field::ObjectScaleCrash::calcCrash(sead::Matrix34<float>&) [sub_0035A450]
+ * Virtual Address: 0x0035A450
+ * File Offset:     0x0025A450
  * Size (bytes):    48
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global calcCrash
-.type   calcCrash, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-calcCrash:  @ was sub_0035A418
+AscendingPingSort:  @ was sub_0035A450
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 48 bytes at VA 0x0035A418 in build/code.dec.bin
+    @ Size: 48 bytes at VA 0x0035A450 in build/code.dec.bin
     bx lr

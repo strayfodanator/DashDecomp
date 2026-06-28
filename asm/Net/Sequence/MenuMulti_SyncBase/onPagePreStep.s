@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: Sequence::MenuMulti_SyncBase<Sequence::MenuSingle_CupGP>::onPagePreStep() [sub_005C92D8]
- * Virtual Address: 0x005C92D8
- * File Offset:     0x004C92D8
+ * Function: Sequence::MenuMulti_SyncBase<Sequence::MenuSingle_Setting>::onPagePreStep() [sub_005C9758]
+ * Virtual Address: 0x005C9758
+ * File Offset:     0x004C9758
  * Size (bytes):    532
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_005C92D8
+AscendingPingSort:  @ was sub_005C9758
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 532 bytes at VA 0x005C92D8 in build/code.dec.bin
+    @ Size: 532 bytes at VA 0x005C9758 in build/code.dec.bin
     bx lr

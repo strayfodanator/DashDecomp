@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: UI::RaceTimeupControl::animOut() [sub_00165FF8]
- * Virtual Address: 0x00165FF8
- * File Offset:     0x00065FF8
+ * Function: UI::RaceTimeupControl::animOut() [sub_00182DEC]
+ * Virtual Address: 0x00182DEC
+ * File Offset:     0x00082DEC
  * Size (bytes):    36
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global vldtr_validateAllState
-.type   vldtr_validateAllState, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-vldtr_validateAllState:  @ was sub_00165FF8
+AscendingPingSort:  @ was sub_00182DEC
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 36 bytes at VA 0x00165FF8 in build/code.dec.bin
+    @ Size: 36 bytes at VA 0x00182DEC in build/code.dec.bin
     bx lr

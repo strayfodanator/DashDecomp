@@ -1,7 +1,7 @@
 /* DashDecomp — NODECOMPILED stub
- * Function: nw::gfx::res::ResGraphicsFile::ForeachIndexStream<void(const nw::gfx::res::ResIndexStream&)>(T1*) [sub_0053A954]
- * Virtual Address: 0x0053A954
- * File Offset:     0x0043A954
+ * Function: nw::gfx::res::ResGraphicsFile::ForeachIndexStream<void(const nw::gfx::res::ResIndexStream&)>(T1*)::sub__1 [sub_0053A994]
+ * Virtual Address: 0x0053A994
+ * File Offset:     0x0043A994
  * Size (bytes):    56
  *
  * Status: NODECOMPILED 🔴
@@ -12,10 +12,10 @@
  */
 
 .section .text
-.global ForeachIndexStream
-.type   ForeachIndexStream, %function
+.global AscendingPingSort
+.type   AscendingPingSort, %function
 
-ForeachIndexStream:  @ was sub_0053A954
+AscendingPingSort:  @ was sub_0053A994
     @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: 56 bytes at VA 0x0053A954 in build/code.dec.bin
+    @ Size: 56 bytes at VA 0x0053A994 in build/code.dec.bin
     bx lr
