@@ -66,6 +66,19 @@ def _get_size(path: str, addr: int | None = None) -> int:
     return 4
 
 
+def _size_from_file(s_file: Path) -> int | None:
+    """Extract size from the .s file header 'Size (bytes):' comment."""
+    try:
+        with open(s_file, "rb") as fh:
+            head = fh.read(4096)
+        m = re.search(rb"Size \(bytes\):\s*(\d+)", head)
+        if m:
+            return int(m.group(1))
+    except Exception:
+        pass
+    return None
+
+
 def _addr_from_file(s_file: Path) -> int | None:
     """Extract virtual address from a .s file's metadata comment."""
     m = re.search(r"sub_([0-9A-Fa-f]{8})", s_file.name)
@@ -92,7 +105,9 @@ def get_func_statuses() -> dict[str, dict]:
         rel = s_file.relative_to(ROOT)
         rel_str = str(rel)
         addr = _addr_from_file(s_file)
-        size = _get_size(rel_str, addr)
+        size = _size_from_file(s_file)
+        if size is None:
+            size = _get_size(rel_str, addr)
         statuses[rel_str] = {
             "path": rel_str,
             "status": "NODECOMPILED",
