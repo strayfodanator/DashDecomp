@@ -1,4 +1,0 @@
-// MATCHING rt_locale_001001AC
-extern "C" __attribute__((naked)) void rt_locale_001001AC() {
-    asm(".byte 0x00, 0x00, 0x9F, 0xE5, 0x0E, 0xF0, 0xA0, 0xE1");
-}

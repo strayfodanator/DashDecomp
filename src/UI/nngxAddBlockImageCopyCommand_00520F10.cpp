@@ -1,4 +1,0 @@
-// MATCHING nngxAddBlockImageCopyCommand_00520F10
-extern "C" __attribute__((naked)) void nngxAddBlockImageCopyCommand_00520F10() {
-    asm(".byte 0x10, 0x40, 0x2D, 0xE9, 0x57, 0xBE, 0xF8, 0xEB, 0x10, 0x80, 0xBD, 0xE8");
-}

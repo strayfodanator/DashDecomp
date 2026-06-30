@@ -1,4 +1,0 @@
-// MATCHING sub_0026B4AC
-extern "C" __attribute__((naked)) void sub_0026B4AC() {
-    asm(".byte 0x04, 0x00, 0x80, 0xE2, 0x00, 0x00, 0xA0, 0xE1");
-}
