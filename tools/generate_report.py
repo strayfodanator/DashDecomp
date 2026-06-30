@@ -203,23 +203,23 @@ def get_func_statuses() -> dict[str, dict]:
 
 
 def _func_label(path: str) -> str:
-    m = re.match(r"^asm/[^/]+/(.+)", path)
-    if m:
-        return Path(m.group(1)).with_suffix("").as_posix()
-    return Path(path).stem
+    stem = Path(path).stem
+    m = re.match(r"^(.+?)_([0-9A-Fa-f]{8})$", stem)
+    if m and m.group(1) != "sub":
+        return m.group(1)
+    return stem
 
 
 def _unit_name(path: str) -> str:
-    """Derive unit name from path using directory structure."""
     m = re.match(r"^asm/([^/]+)/", path)
     mod = m.group(1) if m else "_"
     rest = path[len(f"asm/{mod}/"):]
     parts = Path(rest).parts
     if len(parts) > 1:
         unit = f"{mod}/{parts[0]}"
-        return unit.replace("<", "_").replace(">", "_")
-    stem = Path(rest).stem
-    return f"{mod}/{stem}"
+    else:
+        unit = mod
+    return unit.replace("<", "_").replace(">", "_")
 
 
 def _func_sort_key(info: dict) -> int:
