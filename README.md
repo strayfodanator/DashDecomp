@@ -22,21 +22,38 @@ This project is for **research, preservation, and educational purposes only.**
 
 ## Project Status
 
-| Module       | Status         | Progress |
-|--------------|----------------|----------|
-| System       | 🔴 nodecompiled | 0%      |
-| Sead (Engine)| 🔴 nodecompiled | 0%      |
-| Race         | 🔴 nodecompiled | 0%      |
-| Kart         | 🔴 nodecompiled | 0%      |
-| Item         | 🔴 nodecompiled | 0%      |
-| UI           | 🔴 nodecompiled | 0%      |
-| Sound        | 🔴 nodecompiled | 0%      |
-| Net          | 🔴 nodecompiled | 0%      |
+| Module       | Status    | Functions          | Bytes                  | Progress |
+|--------------|-----------|--------------------|------------------------|----------|
+| System       | 🟢 partial | 404 / 3,233       | 8,872 / 674,228       | 1.3%    |
+| Sead         | 🟢 partial | 285 / 2,576       | 5,392 / 539,576       | 1.0%    |
+| Race         | 🟢 partial | 187 / 2,888       | 4,296 / 805,000       | 0.5%    |
+| Kart         | 🟢 partial | 133 / 2,415       | 2,404 / 735,196       | 0.3%    |
+| Item         | 🟢 partial | 188 / 1,741       | 3,624 / 427,388       | 0.8%    |
+| UI           | 🟢 partial | 306 / 1,003       | 3,928 / 111,040       | 3.5%    |
+| Sound        | 🟢 partial | 19 / 434          | 324 / 224,820         | 0.1%    |
+| Net          | 🟢 partial | 11 / 366          | 172 / 68,328          | 0.3%    |
+
+### Sub-units
+
+| Sub-unit              | Status | Functions     | Bytes             | Progress |
+|-----------------------|--------|---------------|-------------------|----------|
+| `Sead/nn`             | 🟢     | 13 / 13       | 2,284 / 2,284     | 100.0%   |
+| `UI/nw`               | 🟡     | 1 / 3         | 12 / 124          | 9.7%     |
+| `Kart/Menu3D`         | 🟡     | 1 / 5         | 16 / 280          | 5.7%     |
+| `System/nn`           | 🟡     | 22 / 100      | 496 / 15,920      | 3.1%     |
+| `Item/Field`          | 🟡     | 1 / 2         | 16 / 716          | 2.2%     |
+| `System/UI`           | 🟡     | 3 / 18        | 56 / 3,132        | 1.8%     |
+| `System/sead`         | 🟡     | 1 / 6         | 16 / 896          | 1.8%     |
+| `Sead/nw`             | 🟡     | 1 / 14        | 8 / 2,528         | 0.3%     |
+| `Item/nw`             | 🟡     | 1 / 5         | 4 / 7,200         | 0.1%     |
+| `Race/Field`          | 🟡     | 1 / 34        | 8 / 9,508         | 0.1%     |
 
 **Function States:**
 - 🔴 `nodecompiled` — Function exists only as raw assembly in `asm/`
 - 🟡 `nonmatching` — C++ written but doesn't compile to identical bytes yet
 - 🟢 `matching` — C++ compiles byte-for-byte identically to the original
+
+**Overall: 1,579 / 14,966 functions matched (10.6%) — 31,944 / 3,657,812 bytes (0.87%)**
 
 ---
 
