@@ -1,21 +1,21 @@
 {
   "measures": {
-    "fuzzyMatchPercent": 0.8118514565538087,
+    "fuzzyMatchPercent": 0.8733089617509047,
     "totalCode": 3657812,
-    "matchedCode": 29696,
-    "matchedCodePercent": 0.8118514565538087,
+    "matchedCode": 31944,
+    "matchedCodePercent": 0.8733089617509047,
     "totalData": 0,
     "matchedData": 0,
     "matchedDataPercent": 0.0,
     "totalFunctions": 14966,
-    "matchedFunctions": 1569,
-    "matchedFunctionsPercent": 10.483763196578911,
+    "matchedFunctions": 1579,
+    "matchedFunctionsPercent": 10.550581317653347,
     "completeCode": 0,
     "completeCodePercent": 0.0,
     "completeData": 0,
     "completeDataPercent": 0.0,
     "totalUnits": 49,
-    "completeUnits": 0
+    "completeUnits": 1
   },
   "units": [
     {
@@ -82031,73 +82031,73 @@
       "name": "Sead/nn",
       "metadata": {
         "progress_categories": [],
-        "complete": false
+        "complete": true
       },
       "measures": {
-        "fuzzyMatchPercent": 1.5761821366024518,
+        "fuzzyMatchPercent": 100.0,
         "totalCode": 2284,
-        "matchedCode": 36,
-        "matchedCodePercent": 1.5761821366024518,
+        "matchedCode": 2284,
+        "matchedCodePercent": 100.0,
         "totalData": 0,
         "matchedData": 0,
         "matchedDataPercent": 0.0,
         "totalFunctions": 13,
-        "matchedFunctions": 3,
-        "matchedFunctionsPercent": 23.076923076923077,
-        "completeCode": 0,
-        "completeCodePercent": 0.0,
+        "matchedFunctions": 13,
+        "matchedFunctionsPercent": 100.0,
+        "completeCode": 2284,
+        "completeCodePercent": 100.0,
         "completeData": 0,
         "completeDataPercent": 0.0,
         "totalUnits": 1,
-        "completeUnits": 0
+        "completeUnits": 1
       },
       "functions": [
         {
           "name": "SessionClockExtDDLDeclarations",
           "size": 164,
-          "fuzzyMatchPercent": 0.0,
+          "fuzzyMatchPercent": 100.0,
           "metadata": {
-            "virtualAddress": 1973172
+            "virtualAddress": 0
           }
         },
         {
           "name": "Key_deallocating",
           "size": 152,
-          "fuzzyMatchPercent": 0.0,
+          "fuzzyMatchPercent": 100.0,
           "metadata": {
-            "virtualAddress": 1987348
+            "virtualAddress": 0
           }
         },
         {
           "name": "HasRoute",
           "size": 56,
-          "fuzzyMatchPercent": 0.0,
+          "fuzzyMatchPercent": 100.0,
           "metadata": {
-            "virtualAddress": 2002780
+            "virtualAddress": 0
           }
         },
         {
           "name": "String",
           "size": 200,
-          "fuzzyMatchPercent": 0.0,
+          "fuzzyMatchPercent": 100.0,
           "metadata": {
-            "virtualAddress": 2006528
+            "virtualAddress": 0
           }
         },
         {
           "name": "SetAtEOS",
           "size": 248,
-          "fuzzyMatchPercent": 0.0,
+          "fuzzyMatchPercent": 100.0,
           "metadata": {
-            "virtualAddress": 2040184
+            "virtualAddress": 0
           }
         },
         {
           "name": "EndPoint_sub_object",
           "size": 248,
-          "fuzzyMatchPercent": 0.0,
+          "fuzzyMatchPercent": 100.0,
           "metadata": {
-            "virtualAddress": 2048988
+            "virtualAddress": 0
           }
         },
         {
@@ -82111,17 +82111,17 @@
         {
           "name": "StartSoundThread",
           "size": 168,
-          "fuzzyMatchPercent": 0.0,
+          "fuzzyMatchPercent": 100.0,
           "metadata": {
-            "virtualAddress": 2088892
+            "virtualAddress": 0
           }
         },
         {
           "name": "CreateEndpoint",
           "size": 48,
-          "fuzzyMatchPercent": 0.0,
+          "fuzzyMatchPercent": 100.0,
           "metadata": {
-            "virtualAddress": 2106844
+            "virtualAddress": 0
           }
         },
         {
@@ -82135,17 +82135,17 @@
         {
           "name": "DisableSleep",
           "size": 692,
-          "fuzzyMatchPercent": 0.0,
+          "fuzzyMatchPercent": 100.0,
           "metadata": {
-            "virtualAddress": 2122696
+            "virtualAddress": 0
           }
         },
         {
           "name": "PrepareToStartSystemApplet",
           "size": 272,
-          "fuzzyMatchPercent": 0.0,
+          "fuzzyMatchPercent": 100.0,
           "metadata": {
-            "virtualAddress": 2129832
+            "virtualAddress": 0
           }
         },
         {

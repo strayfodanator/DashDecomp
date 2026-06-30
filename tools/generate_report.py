@@ -166,6 +166,12 @@ def get_func_statuses() -> dict[str, dict]:
             symbol = match.group(2)
 
             size = 4
+            if not symbol:
+                fallback = re.search(
+                    r"\b([A-Za-z_][A-Za-z0-9_]*_[0-9A-Fa-f]{8})\b", text
+                )
+                if fallback:
+                    symbol = fallback.group(1)
             sym_va_match = re.search(r"_([0-9A-Fa-f]{8})$", (symbol or ""))
             if sym_va_match:
                 va = int(sym_va_match.group(1), 16)
