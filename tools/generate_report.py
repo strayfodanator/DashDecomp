@@ -155,29 +155,11 @@ def _addr_from_file(s_file: Path) -> int | None:
 def get_func_statuses() -> dict[str, dict]:
     statuses = {}
 
-    for s_file in sorted(ASM_DIR.rglob("*.s")):
-        rel = s_file.relative_to(ROOT)
-        rel_str = str(rel)
-        if "/data/" in rel_str or s_file.stem.startswith("DAT_"):
-            continue
-        if _is_data_like(s_file):
-            continue
-        addr = _addr_from_file(s_file)
-        size = _size_from_file(s_file)
-        if size is None:
-            size = _get_size(rel_str, addr)
-        statuses[rel_str] = {
-            "path": rel_str,
-            "status": "NODECOMPILED",
-            "size": size,
-            "addr": addr or 0,
-        }
-
     for cpp_file in sorted(SRC_DIR.rglob("*.cpp")):
         text = cpp_file.read_text(errors="ignore")
 
         for match in re.finditer(
-            r"\b(MATCHING|NONMATCHING)\b(?:\s*[:\-(\s]\s*)?(sub_[0-9A-Fa-f]{8})?",
+            r"\b(MATCHING|NONMATCHING)\b(?:\s*[:\-(\s]\s*)?([A-Za-z_][A-Za-z0-9_]*_[0-9A-Fa-f]{8})?",
             text,
         ):
             status = match.group(1)
@@ -187,7 +169,7 @@ def get_func_statuses() -> dict[str, dict]:
             if symbol and symbol in SYMBOL_SIZES:
                 size = SYMBOL_SIZES[symbol]
             elif not symbol:
-                sub_match = re.search(r"\b(sub_[0-9A-Fa-f]{8})\b", text)
+                sub_match = re.search(r"\b([A-Za-z_][A-Za-z0-9_]*_[0-9A-Fa-f]{8})\b", text)
                 if sub_match and sub_match.group(1) in SYMBOL_SIZES:
                     size = SYMBOL_SIZES[sub_match.group(1)]
 
@@ -199,10 +181,31 @@ def get_func_statuses() -> dict[str, dict]:
                     "size": size,
                 }
 
+    for s_file in sorted(ASM_DIR.rglob("*.s")):
+        rel = s_file.relative_to(ROOT)
+        rel_str = str(rel)
+        if "/data/" in rel_str or s_file.stem.startswith("DAT_"):
+            continue
+        if _is_data_like(s_file):
+            continue
+        addr = _addr_from_file(s_file)
+        size = _size_from_file(s_file)
+        if size is None:
+            size = _get_size(rel_str, addr)
+        key = s_file.stem
+        if key not in statuses:
+            statuses[key] = {
+                "path": rel_str,
+                "status": "NODECOMPILED",
+                "size": size,
+                "addr": addr or 0,
+            }
+
     return statuses
 
 
 def _func_label(path: str) -> str:
+    path = path.split(":")[0]
     stem = Path(path).stem
     m = re.match(r"^(.+?)_([0-9A-Fa-f]{8})$", stem)
     if m and m.group(1) != "sub":
@@ -211,9 +214,11 @@ def _func_label(path: str) -> str:
 
 
 def _unit_name(path: str) -> str:
-    m = re.match(r"^asm/([^/]+)/", path)
+    path = path.split(":")[0]
+    m = re.match(r"^(?:asm|src)/([^/]+)/", path)
     mod = m.group(1) if m else "_"
-    rest = path[len(f"asm/{mod}/"):]
+    prefix = f"asm/{mod}/" if path.startswith("asm/") else f"src/{mod}/"
+    rest = path[len(prefix):]
     parts = Path(rest).parts
     if len(parts) > 1:
         unit = f"{mod}/{parts[0]}"
