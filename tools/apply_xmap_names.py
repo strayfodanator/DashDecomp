@@ -397,9 +397,13 @@ def main():
             if ra < prev_da + prev_ds:
                 contained_in_dlp[prev_da].append(ra)
 
+    # Map retail addr → size for quick lookup
+    retail_size = {a: s for a, h, s in all_retail}
+
     g_count = 0
+    g_skipped_small = 0
     for dlp_a, ra_list in sorted(contained_in_dlp.items()):
-        _, name = dlp_range[dlp_a]
+        dlp_sz, name = dlp_range[dlp_a]
         demangled_name = demangle(name)
         parts = name_to_path_parts(demangled_name)
         if not parts:
@@ -407,12 +411,21 @@ def main():
         for i, ra in enumerate(ra_list):
             if ra in matched:
                 continue
+            # Skip if retail function is much smaller than containing DLP function
+            # (heuristic: likely a different function that happens to share address range)
+            ra_sz = retail_size.get(ra, 0)
+            if dlp_sz > 0 and ra_sz / dlp_sz < 0.3:
+                g_skipped_small += 1
+                continue
             if len(ra_list) == 1:
                 suffix_name = name
             else:
                 suffix_name = f"{name}::sub__{i+1}"
             matched[ra] = suffix_name
             g_count += 1
+
+    if g_skipped_small > 0:
+        print(f"[INFO]   Pass G skipped (size <30%): {g_skipped_small}")
 
     print(f"[INFO]   Pass G (containing DLP func): {g_count}")
 

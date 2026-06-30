@@ -34,6 +34,7 @@ BASE_ADDR = 0x00100000
 
 RETAIL_HASHES = BUILD / "retail_hashes.csv"
 DLP_XMAP      = BUILD / "dlp_symbols/USA/CTRDash.xmap"
+GHIDRA_EXPORT = BUILD / "all_functions_asm.txt"
 
 # Module address ranges
 MODULES = [
@@ -121,10 +122,104 @@ STUB_TEMPLATE = """\
 .type   {label}, %function
 
 {label}:
-    @ NODECOMPILED — assembly stub, not yet decompiled
-    @ Size: {size} bytes at VA 0x{va:08X} in build/code.dec.bin
-    bx lr
-"""
+{asm_body}"""
+
+
+def load_ghidra_asm(path: Path) -> dict[int, list[str]]:
+    """Load assembly from Ghidra export file.
+    Returns dict of {va: [asm_lines]}"""
+    result: dict[int, list[str]] = {}
+    if not path.exists():
+        print(f"[WARN] Ghidra export not found: {path}")
+        return result
+
+    with open(path) as f:
+        content = f.read()
+
+    for block in content.strip().split("\n\n"):
+        lines = block.strip().split("\n")
+        if not lines or not lines[0].startswith("FUNC:"):
+            continue
+        header = lines[0]
+        parts = header.split(":", 3)
+        if len(parts) < 4:
+            continue
+        addr = int(parts[1], 16)
+        size = int(parts[2])
+
+        if size < 4:
+            continue
+
+        asm_lines = []
+        in_asm = False
+        for line in lines[1:]:
+            if line.startswith("ASM:"):
+                asm_text = line[4:]
+                if asm_text.strip():
+                    asm_lines = [asm_text.strip()]
+                in_asm = True
+            elif in_asm:
+                asm_lines.append(line)
+
+        if asm_lines:
+            result[addr] = asm_lines
+
+    print(f"[INFO] Loaded {len(result)} function ASM bodies from Ghidra export")
+    return result
+
+
+def load_ghidra_bytes(path: Path) -> dict[int, str]:
+    """Load raw bytes from Ghidra export file.
+    Returns dict of {va: hex_string_of_bytes}"""
+    result: dict[int, str] = {}
+    if not path.exists():
+        return result
+
+    with open(path) as f:
+        content = f.read()
+
+    for block in content.strip().split("\n\n"):
+        lines = block.strip().split("\n")
+        if not lines or not lines[0].startswith("FUNC:"):
+            continue
+        header = lines[0]
+        parts = header.split(":", 3)
+        if len(parts) < 4:
+            continue
+        addr = int(parts[1], 16)
+        size = int(parts[2])
+
+        if size < 4:
+            continue
+
+        bytes_hex = ""
+        for line in lines[1:]:
+            if line.startswith("BYTES:"):
+                bytes_hex = line[6:].strip()
+                break
+
+        if bytes_hex:
+            result[addr] = bytes_hex
+
+    return result
+
+
+def format_raw_bytes(bytes_hex: str) -> str:
+    """Format raw hex bytes as .byte directives for GNU assembler."""
+    if not bytes_hex or len(bytes_hex) == 0:
+        return "    bx lr\n"
+
+    # Ensure even length
+    if len(bytes_hex) % 2 != 0:
+        bytes_hex = bytes_hex[:-1]
+
+    result = ""
+    for i in range(0, len(bytes_hex), 32):
+        chunk = bytes_hex[i:i+32]
+        byte_pairs = [f"0x{chunk[j:j+2]}" for j in range(0, len(chunk), 2)]
+        result += f"    .byte {', '.join(byte_pairs)}\n"
+
+    return result
 
 
 def load_xmap(path: Path) -> dict[int, str]:
@@ -168,6 +263,9 @@ def main():
     print("[INFO] Loading Ghidra retail function list...")
     retail_funcs = load_retail_functions(RETAIL_HASHES)
     print(f"[INFO] Retail functions: {len(retail_funcs):,}")
+
+    print("[INFO] Loading Ghidra bytes export...")
+    ghidra_bytes = load_ghidra_bytes(GHIDRA_EXPORT)
     print()
 
     created = named = skipped = 0
@@ -203,7 +301,7 @@ def main():
             for part in ns_parts:
                 subdir = subdir / part
 
-            label        = f"{method}_{va:08X}" if not method else method
+            label        = f"{method}_{va:08X}"
             stem         = label
             display_name = xmap_name
             source       = "DLP xmap (direct VA match)"
@@ -240,6 +338,7 @@ def main():
             display_name=display_name,
             va=va, offset=offset, size=size,
             label=label, source=source,
+            asm_body=format_raw_bytes(ghidra_bytes.get(va, "")),
         ))
         created += 1
 

@@ -66,6 +66,60 @@ def _get_size(path: str, addr: int | None = None) -> int:
     return 4
 
 
+def _is_data_like(s_file: Path) -> bool:
+    """Detect if a .s file is data (jump table, constant pool, vtable) masquerading as code.
+    Checks if the last 4 bytes don't form a valid return instruction and no return exists
+    in the last 10 instructions."""
+    try:
+        lines = s_file.read_text().splitlines()
+    except Exception:
+        return False
+    byte_re = re.compile(r'\.byte\s+(.*)')
+    data = bytearray()
+    for line in lines:
+        m = byte_re.search(line)
+        if m:
+            parts = [p.strip() for p in m.group(1).split(',')]
+            try:
+                data.extend(bytes(int(p, 16) & 0xFF for p in parts))
+            except ValueError:
+                pass
+    if len(data) < 4:
+        return False
+    inst = data[-4:]
+    v = int.from_bytes(inst, 'little')
+    # Check if last instruction is a valid return
+    if (v & 0x0FFFFFF0) == 0x012FFF10: return False       # bx rN (any condition)
+    if (v & 0x0FFFFFF0) == 0x012FFF30: return False       # blx rN (any condition)
+    if (v & 0x0E000000) == 0x0A000000: return False       # B/BL/BLX imm (any condition)
+    if (v & 0x0FFFF000) == 0x01A0F000: return False       # mov pc, rN (any condition)
+    if (v & 0x0FFFF000) == 0x01B0F000: return False       # movs pc, rN (any condition)
+    if (v & 0x0FF00000) == 0x08B00000 and (v & (1 << 15)): return False  # pop {..pc}
+    if (v & 0x0FF00000) == 0x08F00000 and (v & (1 << 15)): return False  # pop {..pc}^ (S=1)
+    if v == 0xE1A00000: return False                       # nop (uncond)
+    # ldr pc, [sp], #imm / [sp, #imm] (any W flag)
+    if ((v >> 12) & 0xF) == 15 and ((v >> 16) & 0xF) == 13:
+        if (v & 0x0F900000) == 0x04900000: return False   # post-indexed W=0
+        if (v & 0x0F900000) == 0x04D00000: return False   # post-indexed W=1
+        if (v & 0x0F900000) == 0x05900000: return False   # pre-indexed W=0
+        if (v & 0x0F900000) == 0x05D00000: return False   # pre-indexed W=1
+    if v == 0xE25EF004: return False                       # subs pc, lr, #4
+    if (v & 0xFF000000) == 0xEF000000: return False        # swi
+    # Check backwards for return (literal pool after code)
+    for off in range(4, min(40, len(data)), 4):
+        chunk = data[-off-4:-off] if off+4 <= len(data) else data[:4]
+        if len(chunk) != 4: continue
+        cv = int.from_bytes(chunk, 'little')
+        if (cv & 0x0FFFFFF0) == 0x012FFF10: return False
+        if (cv & 0x0E000000) == 0x0A000000: return False
+        if (cv & 0x0FFFF000) == 0x01A0F000: return False
+    # Last resort: top byte outside typical ARM instruction range
+    b3 = inst[3]
+    if b3 >= 0x70 or b3 <= 0x02:
+        return True
+    return True
+
+
 def _size_from_file(s_file: Path) -> int | None:
     """Extract size from the .s file header 'Size (bytes):' comment."""
     try:
@@ -104,6 +158,10 @@ def get_func_statuses() -> dict[str, dict]:
     for s_file in sorted(ASM_DIR.rglob("*.s")):
         rel = s_file.relative_to(ROOT)
         rel_str = str(rel)
+        if "/data/" in rel_str or s_file.stem.startswith("DAT_"):
+            continue
+        if _is_data_like(s_file):
+            continue
         addr = _addr_from_file(s_file)
         size = _size_from_file(s_file)
         if size is None:
