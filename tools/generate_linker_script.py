@@ -86,9 +86,21 @@ def main():
         print(f"[ERROR] {ORIG_CODE} not found"); sys.exit(1)
     code = ORIG_CODE.read_bytes()
 
-    # ── Scan function stubs (skip auto-generated data stubs) ────────────────
+    # ── Load function sizes ─────────────────────────────────────────────────
+    fjson = ASM_DIR / "functions.json"
+    fun_sizes: dict[str, int] = json.loads(fjson.read_text()) if fjson.exists() else {}
+    va_sizes: dict[int, int] = {}
+    for path, size in fun_sizes.items():
+        va = va_from_stem(path)
+        if va is not None:
+            va_sizes[va] = size
+
+    def stub_size(va: int) -> int:
+        return va_sizes.get(va, 0)
+
+    # ── Scan function stubs (asm) ──────────────────────────────────────────
     print("[INFO] Scanning asm/ for function stubs...")
-    stubs: dict[int, Path] = {}  # va → build/asm/...o path
+    stubs: dict[int, Path] = {}  # va → build/...o path
     for sfile in sorted(ASM_DIR.rglob("*.s")):
         if sfile.parent.name == "data" and sfile.stem.startswith("DAT_"):
             continue  # skip auto-generated data stubs
@@ -97,18 +109,29 @@ def main():
             continue
         stubs[va] = BUILD_DIR / "asm" / sfile.relative_to(ASM_DIR).with_suffix('.o')
 
-    print(f"       {len(stubs)} stubs with VA")
+    print(f"       {len(stubs)} asm stubs with VA")
 
-    # ── Load function sizes ─────────────────────────────────────────────────
-    fjson = ASM_DIR / "functions.json"
-    fun_sizes: dict[str, int] = json.loads(fjson.read_text()) if fjson.exists() else {}
+    # ── C++ source overrides ───────────────────────────────────────────────
+    SRC_DIR = ROOT / "src"
+    print(f"[INFO] Scanning {SRC_DIR} for C++ replacements...")
+    src_overrides = 0
+    for cppfile in sorted(SRC_DIR.rglob("*.cpp")):
+        va = va_from_stem(cppfile.stem)
+        if va is None:
+            continue
+        src_o = BUILD_DIR / "src" / cppfile.relative_to(SRC_DIR).with_suffix('.o')
+        if va in stubs:
+            print(f"       Override: asm -> src for VA 0x{va:08X} ({cppfile.stem})")
+        else:
+            print(f"       Add: src for VA 0x{va:08X} ({cppfile.stem})")
+        stubs[va] = src_o
+        src_overrides += 1
+
+    print(f"       {src_overrides} C++ overrides")
+    print(f"       {len(stubs)} total stubs with VA")
 
     # ── Build non-overlapping function list ─────────────────────────────────
     print("[INFO] Filtering to non-overlapping functions...")
-
-    def stub_size(va: int) -> int:
-        rel = f"asm/{stubs[va].relative_to(BUILD_DIR / 'asm').with_suffix('.s')}"
-        return fun_sizes.get(rel, 0)
 
     sorted_all = sorted(stubs)
     non_overlap: list[int] = []
