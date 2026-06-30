@@ -13,12 +13,13 @@ Target: `arm-none-eabi-g++ -march=armv6k -mfloat-abi=hard -mfpu=vfpv2 -mthumb-in
 | Metric | Value |
 |---|---|
 | Total stubs in `asm/` (excl. `asm/data/`) | 15.109 |
-| MATCHING C++ | 1 |
+| MATCHING C++ | 1.569 |
 | Non-overlap linker entries | 15.109 |
 | Data stubs (`asm/data/DAT_*`) | ~10.144 (auto-generated, not in report) |
 | Functions in decomp.dev report | 13.264 (after filtering ~1.846 data pseudo-functions) |
 | Bad boundaries (< 1%) | 0 (all aligned) |
 | `make check` | **PASS** |
+| `.text` matched bytes | **29.696 / 3.657.812 (0,81%)** |
 
 ## Linking Model (IMPORTANT — removed `. = VA;` lines)
 - Linker script has **no** `. = address;` lines

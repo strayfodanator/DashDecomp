@@ -165,13 +165,16 @@ def get_func_statuses() -> dict[str, dict]:
             status = match.group(1)
             symbol = match.group(2)
 
-            size = 100
-            if symbol and symbol in SYMBOL_SIZES:
-                size = SYMBOL_SIZES[symbol]
+            size = 4
+            sym_va_match = re.search(r"_([0-9A-Fa-f]{8})$", (symbol or ""))
+            if sym_va_match:
+                va = int(sym_va_match.group(1), 16)
+                size = ADDR_TO_SIZE.get(va, 4)
             elif not symbol:
-                sub_match = re.search(r"\b([A-Za-z_][A-Za-z0-9_]*_[0-9A-Fa-f]{8})\b", text)
-                if sub_match and sub_match.group(1) in SYMBOL_SIZES:
-                    size = SYMBOL_SIZES[sub_match.group(1)]
+                sub_match = re.search(r"_([0-9A-Fa-f]{8})\b", text)
+                if sub_match:
+                    va = int(sub_match.group(1), 16)
+                    size = ADDR_TO_SIZE.get(va, 4)
 
             key = symbol or str(cpp_file.relative_to(ROOT))
             if key and key not in statuses:

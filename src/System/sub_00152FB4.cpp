@@ -1,0 +1,4 @@
+// MATCHING sub_00152FB4
+extern "C" __attribute__((naked)) void sub_00152FB4() {
+    asm(".byte 0x7C, 0x20, 0x90, 0xE5, 0x00, 0x00, 0xA0, 0xE1");
+}
