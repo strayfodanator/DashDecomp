@@ -248,20 +248,29 @@ def _make_unit(name: str, funcs: list[dict]) -> dict:
         "name": name,
         "metadata": {"progress_categories": [], "complete": complete},
         "measures": {
-            "fuzzy_match_percent": fuzzy_pct,
-            "total_code": total_code,
-            "matched_code": matched_code,
-            "total_data": 0,
-            "matched_data": 0,
-            "total_functions": total_fns,
-            "matched_functions": matched_fns,
+            "fuzzyMatchPercent": fuzzy_pct,
+            "totalCode": total_code,
+            "matchedCode": matched_code,
+            "matchedCodePercent": fuzzy_pct,
+            "totalData": 0,
+            "matchedData": 0,
+            "matchedDataPercent": 0.0,
+            "totalFunctions": total_fns,
+            "matchedFunctions": matched_fns,
+            "matchedFunctionsPercent": (matched_fns / total_fns * 100.0) if total_fns > 0 else 0.0,
+            "completeCode": matched_code if complete else 0,
+            "completeCodePercent": fuzzy_pct if complete else 0.0,
+            "completeData": 0,
+            "completeDataPercent": 0.0,
+            "totalUnits": 1,
+            "completeUnits": 1 if complete else 0,
         },
         "functions": [
             {
                 "name": _func_label(f["path"]),
                 "size": f["size"],
-                "fuzzy_match_percent": 100.0 if f["status"] == "MATCHING" else 0.0,
-                "metadata": {"virtual_address": f.get("addr", 0)},
+                "fuzzyMatchPercent": 100.0 if f["status"] == "MATCHING" else 0.0,
+                "metadata": {"virtualAddress": f.get("addr", 0)},
             }
             for f in funcs
         ],
@@ -285,29 +294,40 @@ def build_report() -> dict:
     statuses = get_func_statuses()
     units = group_funcs_into_units(statuses)
 
-    total_code = sum(u["measures"]["total_code"] for u in units)
-    total_fns = sum(u["measures"]["total_functions"] for u in units)
-    matched_code = sum(u["measures"]["matched_code"] for u in units)
-    matched_fns = sum(u["measures"]["matched_functions"] for u in units)
+    total_code = sum(u["measures"]["totalCode"] for u in units)
+    total_fns = sum(u["measures"]["totalFunctions"] for u in units)
+    matched_code = sum(u["measures"]["matchedCode"] for u in units)
+    matched_fns = sum(u["measures"]["matchedFunctions"] for u in units)
 
     if total_code == 0:
         total_code = TOTAL_CODE_SIZE
 
+    complete_units = sum(1 for u in units if u["metadata"]["complete"])
     matched_pct = (matched_code / total_code * 100.0) if total_code > 0 else 0.0
+    matched_fn_pct = (matched_fns / total_fns * 100.0) if total_fns > 0 else 0.0
 
     report = {
         "measures": {
-            "fuzzy_match_percent": matched_pct,
-            "total_code": total_code,
-            "matched_code": matched_code,
-            "total_data": 0,
-            "matched_data": 0,
-            "total_functions": total_fns,
-            "matched_functions": matched_fns,
-            "total_units": len(units),
-            "complete_units": sum(1 for u in units if u["metadata"]["complete"]),
+            "fuzzyMatchPercent": matched_pct,
+            "totalCode": total_code,
+            "matchedCode": matched_code,
+            "matchedCodePercent": matched_pct,
+            "totalData": 0,
+            "matchedData": 0,
+            "matchedDataPercent": 0.0,
+            "totalFunctions": total_fns,
+            "matchedFunctions": matched_fns,
+            "matchedFunctionsPercent": matched_fn_pct,
+            "completeCode": matched_code if complete_units == len(units) else 0,
+            "completeCodePercent": 100.0 if complete_units == len(units) else 0.0,
+            "completeData": 0,
+            "completeDataPercent": 0.0,
+            "totalUnits": len(units),
+            "completeUnits": complete_units,
         },
         "units": units,
+        "version": 1,
+        "categories": [],
     }
 
     return report
@@ -334,10 +354,10 @@ def main():
         json.dump(report, f, indent=2)
 
     m = report["measures"]
-    total_fn = m["total_functions"]
-    match_fn = m["matched_functions"]
-    total_units = m["total_units"]
-    pct = m["fuzzy_match_percent"]
+    total_fn = m["totalFunctions"]
+    match_fn = m["matchedFunctions"]
+    total_units = m["totalUnits"]
+    pct = m["fuzzyMatchPercent"]
 
     print(f"[OK]  Report written to {output}")
     print(f"      Units:     {total_units}")
