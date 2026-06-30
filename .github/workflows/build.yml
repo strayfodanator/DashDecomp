@@ -35,9 +35,9 @@ jobs:
           import json, sys
           r = json.load(open('build/report.json'))
           m = r['measures']
-          total = m['total_functions']
-          matched = m['matched_functions']
-          pct = m['fuzzy_match_percent']
+          total = m['totalFunctions']
+          matched = m['matchedFunctions']
+          pct = m['fuzzyMatchPercent']
           print(f'Functions : {matched}/{total}')
           print(f'Progress  : {pct:.2f}%')
           "
@@ -60,11 +60,11 @@ jobs:
             const fs = require('fs');
             const report = JSON.parse(fs.readFileSync('build/report.json', 'utf8'));
             const m = report.measures;
-            const total    = m.total_functions;
-            const matched  = m.matched_functions;
-            const pct      = m.fuzzy_match_percent.toFixed(2);
-            const codeKB   = (m.matched_code / 1024).toFixed(1);
-            const totalKB  = (m.total_code / 1024).toFixed(1);
+            const total    = m.totalFunctions;
+            const matched  = m.matchedFunctions;
+            const pct      = m.fuzzyMatchPercent.toFixed(2);
+            const codeKB   = (m.matchedCode / 1024).toFixed(1);
+            const totalKB  = (m.totalCode / 1024).toFixed(1);
 
             const body = [
               '## 🏁 DashDecomp Progress Report',
